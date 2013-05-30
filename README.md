@@ -1,4 +1,4 @@
-Ventas
+Sales App
 ======
 
-Proyecto de Ventas para Unimed
+Web application for sales management.
