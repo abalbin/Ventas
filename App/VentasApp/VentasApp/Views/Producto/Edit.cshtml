@@ -1,0 +1,53 @@
+﻿@model VentasApp.Models.Producto
+
+@{
+    ViewBag.Title = "Editar Producto";
+    string linea = new VentasApp.Models.VentasAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+}
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="row-fluid">
+        <div class="span6">
+            <fieldset>
+                <legend>Editar Producto</legend>
+
+                <div class="input">
+                    @Html.LabelFor(model => model.Nombre)
+                </div>
+                <div class="input">
+                    @Html.EditorFor(model => model.Nombre)
+                    @Html.ValidationMessageFor(model => model.Nombre)
+                </div>
+
+                <div class="input">
+                    @Html.LabelFor(model => model.IdLinea, linea)
+                </div>
+                <div class="input">
+                    @Html.ListBox("IdLinea", new SelectList(new VentasApp.Models.VentasAppBDEntities().Linea, "Id", "Nombre"), new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" }, 
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlLinea"},
+                                                           { "multiple", "true"}
+                                                       })
+                    @Html.ValidationMessageFor(model => model.IdLinea)
+                </div>
+
+                <p>
+                    <input type="submit" value="Guardar" class="btn" />
+                </p>
+            </fieldset>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Regresar a la Lista de Productos", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
