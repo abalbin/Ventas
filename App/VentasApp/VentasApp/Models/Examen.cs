@@ -22,6 +22,7 @@ namespace VentasApp.Models
         }
     
         public int Id { get; set; }
+        public Nullable<int> IdProducto { get; set; }
         public string Titulo { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public Nullable<System.DateTime> FechaEjecucion { get; set; }
@@ -29,12 +30,11 @@ namespace VentasApp.Models
         public int IdEstado { get; set; }
         public Nullable<int> PuntajeMaximo { get; set; }
         public Nullable<System.TimeSpan> TiempoTranscurrido { get; set; }
-        public Nullable<int> IdProducto { get; set; }
         public Nullable<int> IdTipo { get; set; }
     
         public virtual Estado Estado { get; set; }
-        public virtual TipoExamen TipoExamen { get; set; }
         public virtual Producto Producto { get; set; }
+        public virtual TipoExamen TipoExamen { get; set; }
         public virtual ICollection<ExamenUsuario> ExamenUsuario { get; set; }
         public virtual ICollection<Pregunta> Pregunta { get; set; }
         public virtual ICollection<PuntajeAsesoria> PuntajeAsesoria { get; set; }

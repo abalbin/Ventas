@@ -11,6 +11,7 @@ namespace VentasApp.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class webpages_Roles
     {
@@ -18,10 +19,11 @@ namespace VentasApp.Models
         {
             this.UserProfile = new HashSet<UserProfile>();
         }
-    
+
+        [Key]
         public int RoleId { get; set; }
         public string RoleName { get; set; }
-    
+
         public virtual ICollection<UserProfile> UserProfile { get; set; }
     }
 }

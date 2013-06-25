@@ -1,7 +1,7 @@
 ﻿@model VentasApp.Models.Linea
 
 @{
-    string linea = new VentasApp.Models.VentasAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+    string linea = new VentasApp.Models.Entities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
     ViewBag.Title = "Editar";
 }
 

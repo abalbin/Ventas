@@ -190,67 +190,70 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Documento.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Estado.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Examen.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ExamenUsuario.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Linea.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelTestsApp.Context.cs">
+    <Compile Include="Models\ModelVentas.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelTestsApp.Context.tt</DependentUpon>
+      <DependentUpon>ModelVentas.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelTestsApp.cs">
+    <Compile Include="Models\ModelVentas.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelTestsApp.Designer.cs">
+    <Compile Include="Models\ModelVentas.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelTestsApp.edmx</DependentUpon>
+      <DependentUpon>ModelVentas.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\NombreTabla.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pregunta.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PreguntaUsuario.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Producto.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PuntajeAsesoria.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Respuesta.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RespuestaUsuario.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TipoExamen.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TipoPregunta.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserMigration.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserProfile.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\ChartViewModel.cs" />
     <Compile Include="Models\ViewModels\CreatePreguntaViewModel.cs" />
@@ -261,7 +264,7 @@
     <Compile Include="Models\ViewModels\HighChartsSeries.cs" />
     <Compile Include="Models\ViewModels\HighChartTitle.cs" />
     <Compile Include="Models\webpages_Roles.cs">
-      <DependentUpon>ModelTestsApp.tt</DependentUpon>
+      <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -556,6 +559,23 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Examen\GivePreguntaPartial.cshtml" />
     <Content Include="Views\Examen\ElegirTipoExamenPopUpPartial.cshtml" />
+    <EntityDeploy Include="Models\ModelVentas.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelVentas.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelVentas.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelVentas.edmx</DependentUpon>
+      <LastGenOutput>ModelVentas.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModelVentas.edmx.diagram">
+      <DependentUpon>ModelVentas.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\ModelVentas.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelVentas.edmx</DependentUpon>
+      <LastGenOutput>ModelVentas.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\learning-unimed - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\learning-unimed - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
@@ -618,27 +638,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Estado\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Models\ModelTestsApp.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelTestsApp.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\ModelTestsApp.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelTestsApp.edmx</DependentUpon>
-      <LastGenOutput>ModelTestsApp.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ModelTestsApp.edmx.diagram">
-      <DependentUpon>ModelTestsApp.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\ModelTestsApp.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelTestsApp.edmx</DependentUpon>
-      <LastGenOutput>ModelTestsApp.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\TipoPregunta\Index.cshtml" />

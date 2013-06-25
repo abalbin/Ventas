@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Editar Producto";
-    string linea = new VentasApp.Models.VentasAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+    string linea = new VentasApp.Models.Entities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
 }
 
 @using (Html.BeginForm()) {
@@ -26,7 +26,7 @@
                     @Html.LabelFor(model => model.IdLinea, linea)
                 </div>
                 <div class="input">
-                    @Html.ListBox("IdLinea", new SelectList(new VentasApp.Models.VentasAppBDEntities().Linea, "Id", "Nombre"), new Dictionary<string, object>
+                    @Html.ListBox("IdLinea", new SelectList(new VentasApp.Models.Entities().Linea, "Id", "Nombre"), new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select" },

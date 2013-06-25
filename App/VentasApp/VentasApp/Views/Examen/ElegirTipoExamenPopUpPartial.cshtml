@@ -6,7 +6,7 @@
 <div class="modal-body">
     <div class="row-fluid">
         <div class="span12">
-            @Html.DropDownList("IdTipo", new SelectList(new VentasApp.Models.VentasAppBDEntities().TipoExamen, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+            @Html.DropDownList("IdTipo", new SelectList(new VentasApp.Models.Entities().TipoExamen, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select span3" },

@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<VentasApp.Models.ExamenUsuario>
-@{List<VentasApp.Models.UserProfile> listaUsuarios = new VentasApp.Models.VentasAppBDEntities().UserProfile.ToList();}
+@{List<VentasApp.Models.UserProfile> listaUsuarios = new VentasApp.Models.Entities().UserProfile.ToList();}
 <input type="hidden" id="hdnIdExamen" />
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

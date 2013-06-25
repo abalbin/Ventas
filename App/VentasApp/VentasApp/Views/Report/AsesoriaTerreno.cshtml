@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Reporte";
     //Layout = "~/Views/Shared/_LayoutPrueba.cshtml";
-    string aster = new VentasApp.Models.VentasAppBDEntities().NombreTabla.First(r => r.Tabla == "Aster").NombreMostrar;
+    string aster = new VentasApp.Models.Entities().NombreTabla.First(r => r.Tabla == "Aster").NombreMostrar;
 }
 
 
@@ -51,7 +51,7 @@
         <div class="row-fluid">
             <div class="span4">
                 Elegir Asesoría:
-            @Html.DropDownList("IdExamen", new SelectList(new VentasApp.Models.VentasAppBDEntities().Examen.Where(r => r.IdTipo == 2), "Id", "Titulo"), string.Empty, new Dictionary<string, object>
+            @Html.DropDownList("IdExamen", new SelectList(new VentasApp.Models.Entities().Examen.Where(r => r.IdTipo == 2), "Id", "Titulo"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select" },

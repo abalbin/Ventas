@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Give";
-    string linea = new VentasApp.Models.VentasAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+    string linea = new VentasApp.Models.Entities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
 }
 
 @Scripts.Render("~/bundles/countdown")
@@ -22,9 +22,9 @@
         <div class="padded">
             @if (Model.IdTipo == 2)
             {
-                //List<VentasApp.Models.UserProfile> listaAster = new VentasApp.Models.VentasAppBDEntities().UserProfile.Where(r => r.webpages_Roles.Any(m => m.RoleId == 2)).ToList();
+                //List<VentasApp.Models.UserProfile> listaAster = new VentasApp.Models.Entities().UserProfile.Where(r => r.webpages_Roles.Any(m => m.RoleId == 2)).ToList();
                 List<VentasApp.Models.UserProfile> listaAster = new List<VentasApp.Models.UserProfile>();
-                List<VentasApp.Models.Linea> listaLineas = new VentasApp.Models.VentasAppBDEntities().Linea.ToList();
+                List<VentasApp.Models.Linea> listaLineas = new VentasApp.Models.Entities().Linea.ToList();
                 <div class="row-fluid">
                     <div class="span12">
                         <div class="input full-width">
@@ -117,7 +117,7 @@
                 @using (Html.BeginForm("Give", "Examen", FormMethod.Post, new { name = "frmPreguntas", id = "frmPreguntas" }))
                 {
                     int idExUsua = Convert.ToInt32(Session["sIdExamenUsuario"]);
-                    VentasApp.Models.ExamenUsuario exUsua = new VentasApp.Models.VentasAppBDEntities().ExamenUsuario.Find(idExUsua);
+                    VentasApp.Models.ExamenUsuario exUsua = new VentasApp.Models.Entities().ExamenUsuario.Find(idExUsua);
                     int idPregActual = exUsua == null ? 0 : exUsua.IdPreguntaActual.Value;
                     
                     @Html.HiddenFor(m => m.TiempoTranscurrido, new { id = "hdn-TiempoTranscurrido" })

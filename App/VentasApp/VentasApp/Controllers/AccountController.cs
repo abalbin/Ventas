@@ -17,7 +17,7 @@ namespace VentasApp.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        private VentasAppBDEntities db = new VentasAppBDEntities();
+        private Entities db = new Entities();
 
         [AllowAnonymous]
         public ActionResult Index()
@@ -80,7 +80,7 @@ namespace VentasApp.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            UserProfile user = new VentasAppBDEntities().UserProfile.Find(id);
+            UserProfile user = new Entities().UserProfile.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -95,12 +95,12 @@ namespace VentasApp.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             //Para borrar toda la data o guardar historial
-            //using (var context = new VentasAppBDEntities())
+            //using (var context = new Entities())
             //{
             //    UserProfile user = context.UserProfile.Find(id);
             //    context.ExamenUsuario.
             //}
-            UserProfile user = new VentasAppBDEntities().UserProfile.Find(id);
+            UserProfile user = new Entities().UserProfile.Find(id);
             string[] roles = Roles.GetRolesForUser(user.UserName);
             if (roles.Count() > 0)
                 Roles.RemoveUserFromRoles(user.UserName, roles);
@@ -115,7 +115,7 @@ namespace VentasApp.Controllers
         public ActionResult Register()
         {
 
-            ViewBag.IdRol = new SelectList(new VentasAppBDEntities().webpages_Roles, "RoleId", "RoleName");
+            ViewBag.IdRol = new SelectList(new Entities().webpages_Roles, "RoleId", "RoleName");
             return View();
         }
 
@@ -184,7 +184,7 @@ namespace VentasApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserProfile model, string[] IdRol)
         {
-            UserProfile usOriginal = new VentasAppBDEntities().UserProfile.Find(model.UserId);
+            UserProfile usOriginal = new Entities().UserProfile.Find(model.UserId);
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
@@ -248,7 +248,7 @@ namespace VentasApp.Controllers
         {
             WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
             List<string> roleNames = new List<string>();
-            using (var context = new VentasAppBDEntities())
+            using (var context = new Entities())
             {
                 var newUser = context.UserProfile.FirstOrDefault(r => r.UserName.Equals(model.UserName));
                 if (newUser != null)
@@ -302,7 +302,7 @@ namespace VentasApp.Controllers
         [Authorize]
         public ActionResult ManageUsers()
         {
-            var users = new VentasAppBDEntities().UserProfile.ToList();
+            var users = new Entities().UserProfile.ToList();
             return View(users);
         }
 

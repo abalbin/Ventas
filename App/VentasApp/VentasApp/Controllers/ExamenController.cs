@@ -21,7 +21,7 @@ namespace VentasApp.Controllers
     [InitializeSimpleMembership]
     public class ExamenController : Controller
     {
-        private VentasAppBDEntities db = new VentasAppBDEntities();
+        private Entities db = new Entities();
 
         //
         // GET: /Examen/
@@ -664,7 +664,7 @@ namespace VentasApp.Controllers
         {
             //(ViewBag.ListaPreguntas as List<Pregunta>).Add(pregunta);
             //return View(pregunta);
-            //var tipoPreguntaTemp = new VentasAppBDEntities().TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);
+            //var tipoPreguntaTemp = new Entities().TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);
             //TipoPregunta nuevoTipoPregunta = new TipoPregunta() { Id = tipoPreguntaTemp.Id, Nombre = tipoPreguntaTemp.Nombre, NombreControl = tipoPreguntaTemp.NombreControl };
             ////preg.TipoPregunta = nuevoTipoPregunta;
             //preg.TipoPregunta = db.TipoPregunta.FirstOrDefault(r => r.Id == preg.IdTipoPregunta);

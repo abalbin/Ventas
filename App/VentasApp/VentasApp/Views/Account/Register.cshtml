@@ -37,7 +37,7 @@
             </li>
             <li>
                 @Html.LabelFor(m => m.IdRol)
-                @Html.DropDownList("IdRol", new SelectList(new VentasApp.Models.VentasAppBDEntities().webpages_Roles, "RoleId", "RoleName"), String.Empty, new Dictionary<string, object>
+                @Html.DropDownList("IdRol", new SelectList(new VentasApp.Models.Entities().webpages_Roles, "RoleId", "RoleName"), String.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select" },

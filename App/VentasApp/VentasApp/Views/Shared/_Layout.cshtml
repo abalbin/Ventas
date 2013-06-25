@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - Elearning</title>
+    <title>@ViewBag.Title - Ventas</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
@@ -23,7 +23,7 @@
     }
     <nav id="primary" class="main-nav collapsible-nav">
         <!-- Brand -->
-        <a id="sidebar-brand" href="../pages/dashboard.html">Exámenes
+        <a id="sidebar-brand" href="../pages/dashboard.html">Ventas
         </a>
         <button type="button" class="btn btn-navbar btn-inverse" data-toggle="collapse" data-target=".nav-collapse">
             <i class="icon-reorder"></i>
@@ -54,7 +54,7 @@
             </li>
             @if (Roles.IsUserInRole("Administrador"))
             {
-                string linea = new VentasApp.Models.VentasAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+                string linea = new VentasApp.Models.Entities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
                 <!-- Administración -->
                 <li class="">
                     <a href="#seguridad-list" class="accordion-toggle" data-toggle="collapse">
@@ -144,7 +144,7 @@
     </nav>
 
     <div class="top-bar">
-        <a id="topbar-brand" class="brand" href="../dashboard.html">Elearning
+        <a id="topbar-brand" class="brand" href="../dashboard.html">Ventas
         </a>
 
 

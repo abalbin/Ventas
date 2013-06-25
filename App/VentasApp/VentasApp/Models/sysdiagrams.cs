@@ -12,17 +12,12 @@ namespace VentasApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RespuestaUsuario
+    public partial class sysdiagrams
     {
-        public int Id { get; set; }
-        public Nullable<int> IdRespuesta { get; set; }
-        public Nullable<int> IdUsuario { get; set; }
-        public Nullable<int> IdExamenUsuario { get; set; }
-        public string Texto { get; set; }
-        public bool Marcada { get; set; }
-    
-        public virtual ExamenUsuario ExamenUsuario { get; set; }
-        public virtual Respuesta Respuesta { get; set; }
-        public virtual UserProfile UserProfile { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

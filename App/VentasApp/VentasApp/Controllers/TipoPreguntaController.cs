@@ -11,7 +11,7 @@ namespace VentasApp.Controllers
 {
     public class TipoPreguntaController : Controller
     {
-        private VentasAppBDEntities db = new VentasAppBDEntities();
+        private Entities db = new Entities();
 
         //
         // GET: /TipoPregunta/

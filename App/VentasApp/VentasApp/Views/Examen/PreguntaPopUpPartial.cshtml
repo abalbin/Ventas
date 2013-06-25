@@ -16,7 +16,7 @@
             { 
                 @*<div class="input full-width">
                     @Html.LabelFor(model => model.pregunta.TipoPregunta, "Tipo de Pregunta")
-                    @Html.DropDownListFor(m => m.pregunta.IdTipoPregunta, new SelectList(new VentasApp.Models.VentasAppBDEntities().TipoPregunta, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                    @Html.DropDownListFor(m => m.pregunta.IdTipoPregunta, new SelectList(new VentasApp.Models.Entities().TipoPregunta, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select" },

@@ -11,6 +11,7 @@ namespace VentasApp.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class UserProfile
     {
@@ -23,15 +24,19 @@ namespace VentasApp.Models
             this.ExamenUsuario2 = new HashSet<ExamenUsuario>();
             this.PreguntaUsuario = new HashSet<PreguntaUsuario>();
         }
-    
+
+        [Key]
         public int UserId { get; set; }
+        [Display(Name = "Usuario")]
         public string UserName { get; set; }
+        [Display(Name = "Nombres")]
         public string FirstName { get; set; }
+        [Display(Name = "Apellidos")]
         public string LastName { get; set; }
         public string UrlImagen { get; set; }
         public string Mail { get; set; }
         public Nullable<int> IdLinea { get; set; }
-    
+
         public virtual ICollection<RespuestaUsuario> RespuestaUsuario { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
         public virtual Linea Linea { get; set; }

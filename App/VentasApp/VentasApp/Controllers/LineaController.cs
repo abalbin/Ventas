@@ -13,7 +13,7 @@ namespace VentasApp.Controllers
     [InitializeSimpleMembership]
     public class LineaController : Controller
     {
-        private VentasAppBDEntities db = new VentasAppBDEntities();
+        private Entities db = new Entities();
 
         //
         // GET: /Linea/

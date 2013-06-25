@@ -30,7 +30,7 @@
 
     @foreach (var item in Model)
     {
-        var lineas = new VentasApp.Models.VentasAppBDEntities().Documento.First(d=>d.Id == item.Id).Linea.ToList();
+        var lineas = new VentasApp.Models.Entities().Documento.First(d=>d.Id == item.Id).Linea.ToList();
         string s = string.Empty;
         foreach (VentasApp.Models.Linea l in lineas)
         {

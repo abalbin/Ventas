@@ -1,5 +1,5 @@
 ﻿@model VentasApp.Models.ExamenUsuario
-@{VentasApp.Models.Examen examen = new VentasApp.Models.VentasAppBDEntities().Examen.First(r => r.Id == Model.IdExamen);}
+@{VentasApp.Models.Examen examen = new VentasApp.Models.Entities().Examen.First(r => r.Id == Model.IdExamen);}
 
 @{
     ViewBag.Title = "Resultados";

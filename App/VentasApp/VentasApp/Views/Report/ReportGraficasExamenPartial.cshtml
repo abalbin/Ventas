@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<VentasApp.Models.ExamenUsuario>
 @{
-    string aster = new VentasApp.Models.VentasAppBDEntities().NombreTabla.First(r => r.Tabla == "Aster").NombreMostrar;
+    string aster = new VentasApp.Models.Entities().NombreTabla.First(r => r.Tabla == "Aster").NombreMostrar;
 }
 
 @if (Model.Count() > 0)

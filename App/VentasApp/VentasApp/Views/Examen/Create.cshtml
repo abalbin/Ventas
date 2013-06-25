@@ -1,9 +1,9 @@
 ﻿@model VentasApp.Models.Examen
 
 @{
-    string linea = new VentasApp.Models.VentasAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+    string linea = new VentasApp.Models.Entities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
     ViewBag.Title = "Create";
-    VentasApp.Models.PuntajeAsesoria puntaje = new VentasApp.Models.VentasAppBDEntities().PuntajeAsesoria.FirstOrDefault(r => r.IdExamen == Model.Id);
+    VentasApp.Models.PuntajeAsesoria puntaje = new VentasApp.Models.Entities().PuntajeAsesoria.FirstOrDefault(r => r.IdExamen == Model.Id);
     if (puntaje == null)
     {
         puntaje = new VentasApp.Models.PuntajeAsesoria() { D = 60, A = 70, B = 85, S = 100 };
@@ -56,7 +56,7 @@
                             </div>
                             <div class="span6">
                                 <label data-type="editable" data-for="#ddlLinea">@linea</label>
-                                @Html.DropDownList("IdLinea", new SelectList(new VentasApp.Models.VentasAppBDEntities().Linea, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                                @Html.DropDownList("IdLinea", new SelectList(new VentasApp.Models.Entities().Linea, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select span3" },
@@ -64,7 +64,7 @@
                                                        })
                                 <label data-type="editable" data-for="#ddlProducto">Producto</label>
                                 @Html.ValidationMessageFor(model => model.IdProducto)
-                                @Html.DropDownListFor(m => m.IdProducto, new SelectList(new VentasApp.Models.VentasAppBDEntities().Producto, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
+                                @Html.DropDownListFor(m => m.IdProducto, new SelectList(new VentasApp.Models.Entities().Producto, "Id", "Nombre"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select span3" },

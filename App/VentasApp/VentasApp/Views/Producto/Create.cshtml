@@ -25,7 +25,7 @@
                     @Html.LabelFor(model => model.IdLinea, "Linea")
                 </div>
                 <div class="input">
-                    @Html.ListBox("IdLinea", new SelectList(new VentasApp.Models.VentasAppBDEntities().Linea, "Id", "Nombre"), new Dictionary<string, object>
+                    @Html.ListBox("IdLinea", new SelectList(new VentasApp.Models.Entities().Linea, "Id", "Nombre"), new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select" },

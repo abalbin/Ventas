@@ -17,7 +17,7 @@ namespace VentasApp.Controllers
     [InitializeSimpleMembership]
     public class ReportController : Controller
     {
-        private VentasAppBDEntities db = new VentasAppBDEntities();
+        private Entities db = new Entities();
         //
         // GET: /Report/
 
@@ -351,7 +351,7 @@ namespace VentasApp.Controllers
 
         public FileResult ExportReportExamen(int id = 0)
         {
-            string linea = new VentasApp.Models.VentasAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+            string linea = new VentasApp.Models.Entities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
             Examen examen = db.Examen.Find(id);
             if (examen != null)
             {
@@ -480,7 +480,7 @@ namespace VentasApp.Controllers
 
         public FileResult ExportReportGraficaExamen(int id = 0)
         {
-            string linea = new VentasApp.Models.VentasAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+            string linea = new VentasApp.Models.Entities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
             Examen examen = db.Examen.Find(id);
             if (examen != null)
             {
@@ -544,7 +544,7 @@ namespace VentasApp.Controllers
 
         public FileResult ExportReportAsesoriaEvolutivo(int id = 0)
         {
-            string linea = new VentasApp.Models.VentasAppBDEntities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
+            string linea = new VentasApp.Models.Entities().NombreTabla.First(r => r.Tabla == "Linea").NombreMostrar;
             ExamenUsuario examen = db.ExamenUsuario.Find(id);
             if (examen != null)
             {

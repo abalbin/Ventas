@@ -27,7 +27,7 @@
             @Html.TextBoxFor(m => m.LastName)
         </li>
         <li>Roles:
-            @Html.ListBox("IdRol", new SelectList(new VentasApp.Models.VentasAppBDEntities().webpages_Roles, "RoleId", "RoleName"), new Dictionary<string, object>
+            @Html.ListBox("IdRol", new SelectList(new VentasApp.Models.Entities().webpages_Roles, "RoleId", "RoleName"), new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select" },

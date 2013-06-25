@@ -6,7 +6,7 @@
 }
 else
 {
-    string nombreControl = new VentasApp.Models.VentasAppBDEntities().TipoPregunta.First(r => r.Id == Model.IdTipoPregunta).NombreControl;
+    string nombreControl = new VentasApp.Models.Entities().TipoPregunta.First(r => r.Id == Model.IdTipoPregunta).NombreControl;
     disableSave = (nombreControl.Equals("Textarea")) && Model.Respuesta.Count() == 1;
     int i = 1;
     <ul>

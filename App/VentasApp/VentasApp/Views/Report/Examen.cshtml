@@ -43,7 +43,7 @@
         <div class="row-fluid">
             <div class="span4">
                 Exámen:
-            @Html.DropDownList("IdExamen", new SelectList(new VentasApp.Models.VentasAppBDEntities().Examen.Where(r => r.IdTipo == 1), "Id", "Titulo"), string.Empty, new Dictionary<string, object>
+            @Html.DropDownList("IdExamen", new SelectList(new VentasApp.Models.Entities().Examen.Where(r => r.IdTipo == 1), "Id", "Titulo"), string.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" }, 
                                                            { "class", "chzn-select" },

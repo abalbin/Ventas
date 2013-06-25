@@ -13,7 +13,7 @@ namespace VentasApp.Controllers
     [InitializeSimpleMembership]
     public class RolController : Controller
     {
-        private VentasAppBDEntities db = new VentasAppBDEntities();
+        private Entities db = new Entities();
 
         //
         // GET: /Rol/

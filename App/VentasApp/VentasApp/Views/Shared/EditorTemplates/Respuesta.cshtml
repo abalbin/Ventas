@@ -1,11 +1,11 @@
 ﻿@model VentasApp.Models.Respuesta
 @Html.HiddenFor(m => m.Id)
-@{VentasApp.Models.UserProfile user = new VentasApp.Models.VentasAppBDEntities().UserProfile.First(r => r.UserName == User.Identity.Name);
+@{VentasApp.Models.UserProfile user = new VentasApp.Models.Entities().UserProfile.First(r => r.UserName == User.Identity.Name);
   int idExamenUsuario = Convert.ToInt32(Session["sIdExamenUsuario"]);
-  VentasApp.Models.ExamenUsuario exUsuario = new VentasApp.Models.VentasAppBDEntities().ExamenUsuario.FirstOrDefault(r => r.Id == idExamenUsuario);
+  VentasApp.Models.ExamenUsuario exUsuario = new VentasApp.Models.Entities().ExamenUsuario.FirstOrDefault(r => r.Id == idExamenUsuario);
   //VentasApp.Models.ExamenUsuario exUsuario = Model.Pregunta.Examen.IdTipo == 2 ?
-  //    new VentasApp.Models.VentasAppBDEntities().ExamenUsuario.FirstOrDefault(r => r.Id == fAsesoriaExUsua) : 
-  //    new VentasApp.Models.VentasAppBDEntities().ExamenUsuario.FirstOrDefault(r => r.IdExamen == Model.Pregunta.IdExamen && r.IdUsuario == user.UserId);
+  //    new VentasApp.Models.Entities().ExamenUsuario.FirstOrDefault(r => r.Id == fAsesoriaExUsua) : 
+  //    new VentasApp.Models.Entities().ExamenUsuario.FirstOrDefault(r => r.IdExamen == Model.Pregunta.IdExamen && r.IdUsuario == user.UserId);
   }
 @if (exUsuario.Estado < 2)
 {
