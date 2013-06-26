@@ -4,14 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="VentasAppBDModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="VentasAppBDModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="VentasAppBDModelStoreContainer">
           <EntitySet Name="Documento" EntityType="VentasAppBDModel.Store.Documento" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DocumentoLinea" EntityType="VentasAppBDModel.Store.DocumentoLinea" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Estado" EntityType="VentasAppBDModel.Store.Estado" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Examen" EntityType="VentasAppBDModel.Store.Examen" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ExamenUsuario" EntityType="VentasAppBDModel.Store.ExamenUsuario" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Farmacia" EntityType="VentasAppBDModel.Store.Farmacia" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Linea" EntityType="VentasAppBDModel.Store.Linea" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Llamada_Farmacia" EntityType="VentasAppBDModel.Store.Llamada_Farmacia" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="NombreTabla" EntityType="VentasAppBDModel.Store.NombreTabla" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Pregunta" EntityType="VentasAppBDModel.Store.Pregunta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PreguntaUsuario" EntityType="VentasAppBDModel.Store.PreguntaUsuario" store:Type="Tables" Schema="dbo" />
@@ -20,7 +22,6 @@
           <EntitySet Name="PuntajeAsesoria" EntityType="VentasAppBDModel.Store.PuntajeAsesoria" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Respuesta" EntityType="VentasAppBDModel.Store.Respuesta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="RespuestaUsuario" EntityType="VentasAppBDModel.Store.RespuestaUsuario" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="sysdiagrams" EntityType="VentasAppBDModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TipoExamen" EntityType="VentasAppBDModel.Store.TipoExamen" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TipoPregunta" EntityType="VentasAppBDModel.Store.TipoPregunta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserMigration" EntityType="VentasAppBDModel.Store.UserMigration" store:Type="Tables" Schema="dbo" />
@@ -61,6 +62,14 @@
           <AssociationSet Name="FK_ExamenUsuario_UserProfile2" Association="VentasAppBDModel.Store.FK_ExamenUsuario_UserProfile2">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="ExamenUsuario" EntitySet="ExamenUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Llamada_Farmacia_Farmacia" Association="VentasAppBDModel.Store.FK_Llamada_Farmacia_Farmacia">
+            <End Role="Farmacia" EntitySet="Farmacia" />
+            <End Role="Llamada_Farmacia" EntitySet="Llamada_Farmacia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Llamada_Farmacia_Llamada_Farmacia" Association="VentasAppBDModel.Store.FK_Llamada_Farmacia_Llamada_Farmacia">
+            <End Role="Llamada_Farmacia" EntitySet="Llamada_Farmacia" />
+            <End Role="Llamada_Farmacia1" EntitySet="Llamada_Farmacia" />
           </AssociationSet>
           <AssociationSet Name="FK_Pregunta_Examen" Association="VentasAppBDModel.Store.FK_Pregunta_Examen">
             <End Role="Examen" EntitySet="Examen" />
@@ -170,12 +179,38 @@
           <Property Name="Estado" Type="int" />
           <Property Name="IdPreguntaActual" Type="int" />
         </EntityType>
+        <EntityType Name="Farmacia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Ruc" Type="varchar" MaxLength="12" />
+          <Property Name="Nombre" Type="varchar" MaxLength="500" />
+          <Property Name="Localidad" Type="varchar" MaxLength="100" />
+          <Property Name="Ciudad" Type="varchar" MaxLength="100" />
+          <Property Name="Direccion" Type="varchar" MaxLength="500" />
+          <Property Name="Telefono" Type="varchar" MaxLength="15" />
+          <Property Name="Propietario" Type="varchar" MaxLength="300" />
+          <Property Name="EncargadoCompra" Type="varchar" MaxLength="300" />
+        </EntityType>
         <EntityType Name="Linea">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Llamada_Farmacia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdFarmacia" Type="int" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="500" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Orden" Type="int" />
+          <Property Name="IdLlamadaPadre" Type="int" />
+          <Property Name="FechaSigLlamada" Type="datetime" />
         </EntityType>
         <EntityType Name="NombreTabla">
           <Key>
@@ -257,16 +292,6 @@
           <Property Name="IdExamenUsuario" Type="int" />
           <Property Name="Texto" Type="varchar" MaxLength="400" />
           <Property Name="Marcada" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TipoExamen">
           <Key>
@@ -418,6 +443,30 @@
             </Principal>
             <Dependent Role="ExamenUsuario">
               <PropertyRef Name="IdAster" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Llamada_Farmacia_Farmacia">
+          <End Role="Farmacia" Type="VentasAppBDModel.Store.Farmacia" Multiplicity="0..1" />
+          <End Role="Llamada_Farmacia" Type="VentasAppBDModel.Store.Llamada_Farmacia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Farmacia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Llamada_Farmacia">
+              <PropertyRef Name="IdFarmacia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Llamada_Farmacia_Llamada_Farmacia">
+          <End Role="Llamada_Farmacia" Type="VentasAppBDModel.Store.Llamada_Farmacia" Multiplicity="0..1" />
+          <End Role="Llamada_Farmacia1" Type="VentasAppBDModel.Store.Llamada_Farmacia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Llamada_Farmacia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Llamada_Farmacia1">
+              <PropertyRef Name="IdLlamadaPadre" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -577,8 +626,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VentasAppBDModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -595,7 +643,6 @@
           <EntitySet Name="PuntajeAsesoria" EntityType="VentasAppBDModel.PuntajeAsesoria" />
           <EntitySet Name="Respuesta" EntityType="VentasAppBDModel.Respuesta" />
           <EntitySet Name="RespuestaUsuario" EntityType="VentasAppBDModel.RespuestaUsuario" />
-          <EntitySet Name="sysdiagrams" EntityType="VentasAppBDModel.sysdiagrams" />
           <EntitySet Name="TipoExamen" EntityType="VentasAppBDModel.TipoExamen" />
           <EntitySet Name="TipoPregunta" EntityType="VentasAppBDModel.TipoPregunta" />
           <EntitySet Name="UserMigration" EntityType="VentasAppBDModel.UserMigration" />
@@ -680,6 +727,16 @@
           <AssociationSet Name="ProductoLinea" Association="VentasAppBDModel.ProductoLinea">
             <End Role="Linea" EntitySet="Linea" />
             <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <EntitySet Name="Farmacia" EntityType="VentasAppBDModel.Farmacia" />
+          <EntitySet Name="Llamada_Farmacia" EntityType="VentasAppBDModel.Llamada_Farmacia" />
+          <AssociationSet Name="FK_Llamada_Farmacia_Farmacia" Association="VentasAppBDModel.FK_Llamada_Farmacia_Farmacia">
+            <End Role="Farmacia" EntitySet="Farmacia" />
+            <End Role="Llamada_Farmacia" EntitySet="Llamada_Farmacia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Llamada_Farmacia_Llamada_Farmacia" Association="VentasAppBDModel.FK_Llamada_Farmacia_Llamada_Farmacia">
+            <End Role="Llamada_Farmacia" EntitySet="Llamada_Farmacia" />
+            <End Role="Llamada_Farmacia1" EntitySet="Llamada_Farmacia" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Documento">
@@ -840,16 +897,6 @@
           <NavigationProperty Name="ExamenUsuario" Relationship="VentasAppBDModel.FK_RespuestaUsuario_ExamenUsuario" FromRole="RespuestaUsuario" ToRole="ExamenUsuario" />
           <NavigationProperty Name="Respuesta" Relationship="VentasAppBDModel.FK_RespuestaUsuario_Respuesta" FromRole="RespuestaUsuario" ToRole="Respuesta" />
           <NavigationProperty Name="UserProfile" Relationship="VentasAppBDModel.FK_RespuestaUsuario_UserProfile" FromRole="RespuestaUsuario" ToRole="UserProfile" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="TipoExamen">
           <Key>
@@ -1128,6 +1175,60 @@
           <End Role="Linea" Type="VentasAppBDModel.Linea" Multiplicity="*" />
           <End Role="Producto" Type="VentasAppBDModel.Producto" Multiplicity="*" />
         </Association>
+        <EntityType Name="Farmacia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Ruc" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Nombre" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Localidad" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ciudad" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Direccion" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Telefono" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Propietario" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EncargadoCompra" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Llamada_Farmacia" Relationship="VentasAppBDModel.FK_Llamada_Farmacia_Farmacia" FromRole="Farmacia" ToRole="Llamada_Farmacia" />
+        </EntityType>
+        <EntityType Name="Llamada_Farmacia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="IdFarmacia" />
+          <Property Type="String" Name="Observaciones" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="Fecha" Precision="3" />
+          <Property Type="Int32" Name="Orden" />
+          <Property Type="Int32" Name="IdLlamadaPadre" />
+          <Property Type="DateTime" Name="FechaSigLlamada" Precision="3" />
+          <NavigationProperty Name="Farmacia" Relationship="VentasAppBDModel.FK_Llamada_Farmacia_Farmacia" FromRole="Llamada_Farmacia" ToRole="Farmacia" />
+          <NavigationProperty Name="Llamada_Farmacia1" Relationship="VentasAppBDModel.FK_Llamada_Farmacia_Llamada_Farmacia" FromRole="Llamada_Farmacia" ToRole="Llamada_Farmacia1" />
+          <NavigationProperty Name="Llamada_Farmacia2" Relationship="VentasAppBDModel.FK_Llamada_Farmacia_Llamada_Farmacia" FromRole="Llamada_Farmacia1" ToRole="Llamada_Farmacia" />
+        </EntityType>
+        <Association Name="FK_Llamada_Farmacia_Farmacia">
+          <End Type="VentasAppBDModel.Farmacia" Role="Farmacia" Multiplicity="0..1" />
+          <End Type="VentasAppBDModel.Llamada_Farmacia" Role="Llamada_Farmacia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Farmacia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Llamada_Farmacia">
+              <PropertyRef Name="IdFarmacia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Llamada_Farmacia_Llamada_Farmacia">
+          <End Type="VentasAppBDModel.Llamada_Farmacia" Role="Llamada_Farmacia" Multiplicity="0..1" />
+          <End Type="VentasAppBDModel.Llamada_Farmacia" Role="Llamada_Farmacia1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Llamada_Farmacia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Llamada_Farmacia1">
+              <PropertyRef Name="IdLlamadaPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1273,17 +1374,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="VentasAppBDModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TipoExamen">
             <EntityTypeMapping TypeName="VentasAppBDModel.TipoExamen">
               <MappingFragment StoreEntitySet="TipoExamen">
@@ -1350,6 +1440,34 @@
               <ScalarProperty Name="Id" ColumnName="IdProducto" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Farmacia">
+            <EntityTypeMapping TypeName="VentasAppBDModel.Farmacia">
+              <MappingFragment StoreEntitySet="Farmacia">
+                <ScalarProperty Name="EncargadoCompra" ColumnName="EncargadoCompra" />
+                <ScalarProperty Name="Propietario" ColumnName="Propietario" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+                <ScalarProperty Name="Localidad" ColumnName="Localidad" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Ruc" ColumnName="Ruc" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Llamada_Farmacia">
+            <EntityTypeMapping TypeName="VentasAppBDModel.Llamada_Farmacia">
+              <MappingFragment StoreEntitySet="Llamada_Farmacia">
+                <ScalarProperty Name="FechaSigLlamada" ColumnName="FechaSigLlamada" />
+                <ScalarProperty Name="IdLlamadaPadre" ColumnName="IdLlamadaPadre" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="IdFarmacia" ColumnName="IdFarmacia" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

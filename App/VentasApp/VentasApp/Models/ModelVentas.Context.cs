@@ -37,11 +37,12 @@ namespace VentasApp.Models
         public DbSet<PuntajeAsesoria> PuntajeAsesoria { get; set; }
         public DbSet<Respuesta> Respuesta { get; set; }
         public DbSet<RespuestaUsuario> RespuestaUsuario { get; set; }
-        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<TipoExamen> TipoExamen { get; set; }
         public DbSet<TipoPregunta> TipoPregunta { get; set; }
         public DbSet<UserMigration> UserMigration { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<webpages_Roles> webpages_Roles { get; set; }
+        public DbSet<Farmacia> Farmacia { get; set; }
+        public DbSet<Llamada_Farmacia> Llamada_Farmacia { get; set; }
     }
 }

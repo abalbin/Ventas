@@ -1,0 +1,72 @@
+﻿@model VentasApp.Models.Farmacia
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h3>¿Estás seguro que deseas eliminar este registro?</h3>
+<fieldset>
+    <legend>Farmacia</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ruc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ruc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Localidad)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Localidad)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ciudad)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ciudad)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Direccion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Direccion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Telefono)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telefono)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Propietario)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Propietario)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EncargadoCompra)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EncargadoCompra)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Eliminar" class="btn btn-small red" /> |
+        @Html.ActionLink("Regresar a la lista", "Index")
+    </p>
+}

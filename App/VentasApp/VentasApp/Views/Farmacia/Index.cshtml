@@ -1,0 +1,64 @@
+﻿@model IEnumerable<VentasApp.Models.Farmacia>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Farmacias</h2>
+
+<p>
+    @Html.ActionLink("Agregar", "Create")
+</p>
+<table class="table table-striped data-table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Ruc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            Dir.
+        </th>
+        <th>
+            Tlf.
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Propietario)
+        </th>
+        <th>
+            Encargado
+        </th>
+        <th></th>
+    </tr>
+       </thead>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ruc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Direccion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Propietario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EncargadoCompra)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -17,12 +17,11 @@
         <EntityTypeShape EntityType="VentasAppBDModel.PuntajeAsesoria" Width="1.5" PointX="9.75" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="VentasAppBDModel.Respuesta" Width="1.5" PointX="12" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VentasAppBDModel.RespuestaUsuario" Width="1.5" PointX="12" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="VentasAppBDModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="VentasAppBDModel.TipoExamen" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
         <EntityTypeShape EntityType="VentasAppBDModel.TipoPregunta" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="VentasAppBDModel.UserMigration" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentasAppBDModel.UserMigration" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="VentasAppBDModel.UserProfile" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="VentasAppBDModel.webpages_Roles" Width="1.5" PointX="11.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentasAppBDModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
         <AssociationConnector Association="VentasAppBDModel.FK_Examen_Estado" ManuallyRouted="false" />
         <AssociationConnector Association="VentasAppBDModel.FK_Examen_Producto" ManuallyRouted="false" />
         <AssociationConnector Association="VentasAppBDModel.FK_Examen_TipoExamen" ManuallyRouted="false" />
@@ -43,6 +42,10 @@
         <AssociationConnector Association="VentasAppBDModel.FK_RespuestaUsuario_UserProfile" ManuallyRouted="false" />
         <AssociationConnector Association="VentasAppBDModel.DocumentoLinea" ManuallyRouted="false" />
         <AssociationConnector Association="VentasAppBDModel.ProductoLinea" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="VentasAppBDModel.Farmacia" Width="1.5" PointX="11.75" PointY="13.125" />
+        <EntityTypeShape EntityType="VentasAppBDModel.Llamada_Farmacia" Width="1.5" PointX="14" PointY="13.125" />
+        <AssociationConnector Association="VentasAppBDModel.FK_Llamada_Farmacia_Farmacia" />
+        <AssociationConnector Association="VentasAppBDModel.FK_Llamada_Farmacia_Llamada_Farmacia" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

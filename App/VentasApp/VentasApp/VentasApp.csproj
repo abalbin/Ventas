@@ -172,8 +172,10 @@
     <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Controllers\EstadoController.cs" />
     <Compile Include="Controllers\ExamenController.cs" />
+    <Compile Include="Controllers\FarmaciaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LineaController.cs" />
+    <Compile Include="Controllers\LlamadaController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\RolController.cs" />
@@ -201,7 +203,13 @@
     <Compile Include="Models\ExamenUsuario.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Farmacia.cs">
+      <DependentUpon>ModelVentas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Linea.cs">
+      <DependentUpon>ModelVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Llamada_Farmacia.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ModelVentas.Context.cs">
@@ -238,9 +246,6 @@
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RespuestaUsuario.cs">
-      <DependentUpon>ModelVentas.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TipoExamen.cs">
@@ -609,6 +614,16 @@
     <Content Include="Views\Examen\ChangeDateExamenPartial.cshtml" />
     <Content Include="Views\Report\ReportGraficasExamenPartial.cshtml" />
     <Content Include="Views\Report\ReportAsesoriaPartial.cshtml" />
+    <Content Include="Views\Farmacia\Index.cshtml" />
+    <Content Include="Views\Farmacia\Details.cshtml" />
+    <Content Include="Views\Farmacia\Create.cshtml" />
+    <Content Include="Views\Farmacia\Edit.cshtml" />
+    <Content Include="Views\Farmacia\Delete.cshtml" />
+    <Content Include="Views\Llamada\Index.cshtml" />
+    <Content Include="Views\Llamada\Details.cshtml" />
+    <Content Include="Views\Llamada\Create.cshtml" />
+    <Content Include="Views\Llamada\Edit.cshtml" />
+    <Content Include="Views\Llamada\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -288,3 +288,7 @@ ul.inline, ol.inline
 		{
 			background: #eeeeee;
 		}
+
+.display-label {
+    font-weight: bold;
+}

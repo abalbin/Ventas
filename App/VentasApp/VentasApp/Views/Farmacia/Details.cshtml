@@ -1,0 +1,64 @@
+﻿@model VentasApp.Models.Farmacia
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<fieldset>
+    <legend>@Model.Nombre</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Ruc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ruc)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Localidad)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Localidad)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Ciudad)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ciudad)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Direccion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Direccion)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Telefono)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telefono)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Propietario)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Propietario)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.EncargadoCompra)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EncargadoCompra)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-mini" })
+    @Html.ActionLink("Regresar a la lista", "Index", null, new { @class = "btn btn-mini" })
+</p>

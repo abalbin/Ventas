@@ -1,0 +1,60 @@
+﻿@model VentasApp.Models.Llamada_Farmacia
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Llamada_Farmacia</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Farmacia.Ruc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Farmacia.Ruc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Observaciones)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Observaciones)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Fecha)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fecha)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Orden)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Orden)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Llamada_Farmacia2.Observaciones)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Llamada_Farmacia2.Observaciones)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FechaSigLlamada)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FechaSigLlamada)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
