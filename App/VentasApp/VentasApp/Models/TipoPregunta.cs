@@ -9,7 +9,6 @@
 
 namespace VentasApp.Models
 {
-    using System;
     using System.Collections.Generic;
     
     public partial class TipoPregunta

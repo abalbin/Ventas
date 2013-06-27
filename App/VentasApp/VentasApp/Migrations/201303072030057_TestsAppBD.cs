@@ -1,6 +1,5 @@
 namespace VentasApp.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
     public partial class VentasAppBD : DbMigration

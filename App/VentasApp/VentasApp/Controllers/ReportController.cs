@@ -1,12 +1,10 @@
-﻿using OfficeOpenXml;
-using OfficeOpenXml.Style;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using VentasApp.Filters;
 using VentasApp.Models;
 using VentasApp.Models.ViewModels;

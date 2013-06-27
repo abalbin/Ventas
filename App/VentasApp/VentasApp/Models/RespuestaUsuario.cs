@@ -10,8 +10,7 @@
 namespace VentasApp.Models
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class RespuestaUsuario
     {
         public int Id { get; set; }
