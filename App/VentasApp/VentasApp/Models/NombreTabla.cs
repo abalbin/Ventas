@@ -9,7 +9,9 @@
 
 namespace VentasApp.Models
 {
-
+    using System;
+    using System.Collections.Generic;
+    
     public partial class NombreTabla
     {
         public int Id { get; set; }

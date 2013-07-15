@@ -16,15 +16,12 @@ namespace VentasApp.Models
     {
         public Producto()
         {
-            this.Examen = new HashSet<Examen>();
-            this.Linea = new HashSet<Linea>();
+            this.Presentacion = new HashSet<Presentacion>();
         }
     
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public Nullable<int> IdLinea { get; set; }
     
-        public virtual ICollection<Examen> Examen { get; set; }
-        public virtual ICollection<Linea> Linea { get; set; }
+        public virtual ICollection<Presentacion> Presentacion { get; set; }
     }
 }

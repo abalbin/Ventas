@@ -300,7 +300,7 @@ extend(Chart.prototype, {
 				return s2 +'.'+ s3[0];
 			})*/
 
-			// Replace HTML entities, issue #347
+			// Replace HTML Entities, issue #347
 			.replace(/&nbsp;/g, '\u00A0') // no-break space
 			.replace(/&shy;/g,  '\u00AD') // soft hyphen
 

@@ -1626,7 +1626,7 @@ TableTools.prototype = {
 	
 	
 	/**
-	 * Decode HTML entities
+	 * Decode HTML Entities
 	 *  @method  _fnHtmlDecode
 	 *  @param   {String} sData encoded string
 	 *  @returns {String} decoded string

@@ -1,12 +1,15 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using VentasApp.Filters;
 using VentasApp.Models;
 
 namespace VentasApp.Controllers
 {
-    [Authorize]
     [InitializeSimpleMembership]
     public class FarmaciaController : Controller
     {
@@ -17,7 +20,8 @@ namespace VentasApp.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Farmacia.ToList());
+            var farmacia = db.Farmacia.Include(f => f.Ubigeo);
+            return View(farmacia.ToList());
         }
 
         //
@@ -38,6 +42,7 @@ namespace VentasApp.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.IdUbigeo = new SelectList(db.Ubigeo, "Id", "Nombre");
             return View();
         }
 
@@ -45,6 +50,7 @@ namespace VentasApp.Controllers
         // POST: /Farmacia/Create
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Farmacia farmacia)
         {
             if (ModelState.IsValid)
@@ -54,6 +60,7 @@ namespace VentasApp.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.IdUbigeo = new SelectList(db.Ubigeo, "Id", "Nombre", farmacia.IdUbigeo);
             return View(farmacia);
         }
 
@@ -67,6 +74,7 @@ namespace VentasApp.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.IdUbigeo = new SelectList(db.Ubigeo, "Id", "Nombre", farmacia.IdUbigeo);
             return View(farmacia);
         }
 
@@ -74,6 +82,7 @@ namespace VentasApp.Controllers
         // POST: /Farmacia/Edit/5
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(Farmacia farmacia)
         {
             if (ModelState.IsValid)
@@ -82,6 +91,7 @@ namespace VentasApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.IdUbigeo = new SelectList(db.Ubigeo, "Id", "Nombre", farmacia.IdUbigeo);
             return View(farmacia);
         }
 
@@ -102,6 +112,7 @@ namespace VentasApp.Controllers
         // POST: /Farmacia/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Farmacia farmacia = db.Farmacia.Find(id);

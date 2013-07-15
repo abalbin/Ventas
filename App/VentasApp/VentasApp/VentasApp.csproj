@@ -169,17 +169,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Controllers\EstadoController.cs" />
-    <Compile Include="Controllers\ExamenController.cs" />
     <Compile Include="Controllers\FarmaciaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LineaController.cs" />
     <Compile Include="Controllers\LlamadaController.cs" />
+    <Compile Include="Controllers\PedidoController.cs" />
+    <Compile Include="Controllers\PresentacionController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\RolController.cs" />
-    <Compile Include="Controllers\TipoPreguntaController.cs" />
     <Compile Include="Controllers\TituloController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -191,16 +190,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Documento.cs">
-      <DependentUpon>ModelVentas.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Estado.cs">
-      <DependentUpon>ModelVentas.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Examen.cs">
-      <DependentUpon>ModelVentas.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ExamenUsuario.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Farmacia.cs">
@@ -209,7 +199,7 @@
     <Compile Include="Models\Linea.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Llamada_Farmacia.cs">
+    <Compile Include="Models\Llamada.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ModelVentas.Context.cs">
@@ -230,38 +220,25 @@
     <Compile Include="Models\NombreTabla.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Pregunta.cs">
+    <Compile Include="Models\Pedido.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PreguntaUsuario.cs">
+    <Compile Include="Models\Presentacion.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Producto.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PuntajeAsesoria.cs">
+    <Compile Include="Models\Proveedor.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Respuesta.cs">
-      <DependentUpon>ModelVentas.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RespuestaUsuario.cs">
-      <DependentUpon>ModelVentas.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TipoExamen.cs">
-      <DependentUpon>ModelVentas.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TipoPregunta.cs">
-      <DependentUpon>ModelVentas.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserMigration.cs">
+    <Compile Include="Models\Ubigeo.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserProfile.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\ChartViewModel.cs" />
-    <Compile Include="Models\ViewModels\CreatePreguntaViewModel.cs" />
     <Compile Include="Models\ViewModels\ErrorViewModel.cs" />
     <Compile Include="Models\ViewModels\HighChartAxis.cs" />
     <Compile Include="Models\ViewModels\HighChartDataLabel.cs" />
@@ -516,7 +493,9 @@
     <Content Include="Content\stylesheets\font\openwebicons.woff" />
     <Content Include="Content\stylesheets\images\flags\License" />
     <Content Include="Models\ModelTestsApp.edmx.sql" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -540,17 +519,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Examen\RespuestaPartial.cshtml" />
-    <Content Include="Views\Examen\RespuestaPopUpPartial.cshtml" />
     <Content Include="Views\Linea\Index.cshtml" />
     <Content Include="Views\Linea\Details.cshtml" />
     <Content Include="Views\Linea\Create.cshtml" />
     <Content Include="Views\Linea\Edit.cshtml" />
     <Content Include="Views\Linea\Delete.cshtml" />
     <Content Include="Views\Shared\_LayoutNoBox.cshtml" />
-    <Content Include="Views\Examen\ExamenItemListaPartial.cshtml" />
-    <Content Include="Views\Examen\AsignarAsterPopUpPartial.cshtml" />
-    <Content Include="Views\Examen\Give.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Pregunta.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Respuesta.cshtml" />
     <Content Include="Views\Rol\Index.cshtml" />
@@ -560,10 +534,7 @@
     <Content Include="Views\Rol\Delete.cshtml" />
     <Content Include="Views\Account\ManageUsers.cshtml" />
     <Content Include="Views\Account\DeleteUserPartial.cshtml" />
-    <Content Include="Views\Examen\Result.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
-    <Content Include="Views\Examen\GivePreguntaPartial.cshtml" />
-    <Content Include="Views\Examen\ElegirTipoExamenPopUpPartial.cshtml" />
     <EntityDeploy Include="Models\ModelVentas.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelVentas.Designer.cs</LastGenOutput>
@@ -589,41 +560,40 @@
     <Content Include="Views\Shared\_LayoutPrueba.cshtml" />
     <Content Include="Views\Report\ReportChartPartial.cshtml" />
     <Content Include="Views\Report\ReportRankingAsesoriaPartial.cshtml" />
-    <Content Include="Views\Examen\ResultAsesoriaPartial.cshtml" />
-    <Content Include="Views\Examen\PreguntaErrorPartial.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\RespuestaCreate.cshtml" />
-    <Content Include="Views\Examen\PreguntaItemPartial.cshtml" />
-    <Content Include="Views\Examen\PublishExamenPartial.cshtml" />
-    <Content Include="Views\Documento\Index.cshtml" />
-    <Content Include="Views\Documento\Details.cshtml" />
-    <Content Include="Views\Documento\Create.cshtml" />
-    <Content Include="Views\Documento\Edit.cshtml" />
-    <Content Include="Views\Documento\Delete.cshtml" />
     <Content Include="Views\Report\Examen.cshtml" />
-    <Content Include="Views\Producto\Index.cshtml" />
-    <Content Include="Views\Producto\Details.cshtml" />
-    <Content Include="Views\Producto\Create.cshtml" />
-    <Content Include="Views\Producto\Edit.cshtml" />
-    <Content Include="Views\Producto\Delete.cshtml" />
-    <Content Include="Views\Examen\ChangeScorePartial.cshtml" />
     <Content Include="Views\Titulo\Index.cshtml" />
     <Content Include="Views\Titulo\Details.cshtml" />
     <Content Include="Views\Titulo\Create.cshtml" />
     <Content Include="Views\Titulo\Edit.cshtml" />
     <Content Include="Views\Titulo\Delete.cshtml" />
-    <Content Include="Views\Examen\ChangeDateExamenPartial.cshtml" />
     <Content Include="Views\Report\ReportGraficasExamenPartial.cshtml" />
     <Content Include="Views\Report\ReportAsesoriaPartial.cshtml" />
-    <Content Include="Views\Farmacia\Index.cshtml" />
-    <Content Include="Views\Farmacia\Details.cshtml" />
-    <Content Include="Views\Farmacia\Create.cshtml" />
-    <Content Include="Views\Farmacia\Edit.cshtml" />
-    <Content Include="Views\Farmacia\Delete.cshtml" />
     <Content Include="Views\Llamada\Index.cshtml" />
     <Content Include="Views\Llamada\Details.cshtml" />
     <Content Include="Views\Llamada\Create.cshtml" />
     <Content Include="Views\Llamada\Edit.cshtml" />
     <Content Include="Views\Llamada\Delete.cshtml" />
+    <Content Include="Views\Farmacia\Index.cshtml" />
+    <Content Include="Views\Farmacia\Details.cshtml" />
+    <Content Include="Views\Farmacia\Create.cshtml" />
+    <Content Include="Views\Farmacia\Edit.cshtml" />
+    <Content Include="Views\Farmacia\Delete.cshtml" />
+    <Content Include="Views\Producto\Index.cshtml" />
+    <Content Include="Views\Producto\Details.cshtml" />
+    <Content Include="Views\Producto\Create.cshtml" />
+    <Content Include="Views\Producto\Edit.cshtml" />
+    <Content Include="Views\Producto\Delete.cshtml" />
+    <Content Include="Views\Presentacion\Index.cshtml" />
+    <Content Include="Views\Presentacion\Details.cshtml" />
+    <Content Include="Views\Presentacion\Create.cshtml" />
+    <Content Include="Views\Presentacion\Edit.cshtml" />
+    <Content Include="Views\Presentacion\Delete.cshtml" />
+    <Content Include="Views\Pedido\Index.cshtml" />
+    <Content Include="Views\Pedido\Details.cshtml" />
+    <Content Include="Views\Pedido\Create.cshtml" />
+    <Content Include="Views\Pedido\Edit.cshtml" />
+    <Content Include="Views\Pedido\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -653,42 +623,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Estado\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\TipoPregunta\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\TipoPregunta\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\TipoPregunta\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\TipoPregunta\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\TipoPregunta\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Examen\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Examen\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Examen\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Examen\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Examen\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Examen\PreguntaPartial.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Examen\PreguntaPopUpPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201303072030057_TestsAppBD.resx">

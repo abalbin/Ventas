@@ -9,25 +9,34 @@
 
 namespace VentasApp.Models
 {
+    using System;
     using System.Collections.Generic;
     
     public partial class Farmacia
     {
         public Farmacia()
         {
-            this.Llamada_Farmacia = new HashSet<Llamada_Farmacia>();
+            this.Llamada = new HashSet<Llamada>();
+            this.Proveedor = new HashSet<Proveedor>();
         }
     
         public int Id { get; set; }
+        public string Zona { get; set; }
+        public string Codigo { get; set; }
         public string Ruc { get; set; }
-        public string Nombre { get; set; }
-        public string Localidad { get; set; }
-        public string Ciudad { get; set; }
+        public string RazonSocial { get; set; }
+        public string RazonComercial { get; set; }
+        public Nullable<int> IdUbigeo { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
         public string Propietario { get; set; }
         public string EncargadoCompra { get; set; }
+        public string Frecuencia { get; set; }
+        public string DiasCompra { get; set; }
+        public string Horario { get; set; }
     
-        public virtual ICollection<Llamada_Farmacia> Llamada_Farmacia { get; set; }
+        public virtual Ubigeo Ubigeo { get; set; }
+        public virtual ICollection<Llamada> Llamada { get; set; }
+        public virtual ICollection<Proveedor> Proveedor { get; set; }
     }
 }

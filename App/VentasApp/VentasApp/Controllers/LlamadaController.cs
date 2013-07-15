@@ -1,13 +1,15 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using VentasApp.Filters;
 using VentasApp.Models;
 
 namespace VentasApp.Controllers
 {
-    [Authorize]
     [InitializeSimpleMembership]
     public class LlamadaController : Controller
     {
@@ -18,8 +20,8 @@ namespace VentasApp.Controllers
 
         public ActionResult Index()
         {
-            var llamada_farmacia = db.Llamada_Farmacia.Include(l => l.Farmacia).Include(l => l.Llamada_Farmacia2);
-            return View(llamada_farmacia.ToList());
+            var llamada = db.Llamada.Include(l => l.Estado);
+            return View(llamada.ToList());
         }
 
         //
@@ -27,12 +29,12 @@ namespace VentasApp.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Llamada_Farmacia llamada_farmacia = db.Llamada_Farmacia.Find(id);
-            if (llamada_farmacia == null)
+            Llamada llamada = db.Llamada.Find(id);
+            if (llamada == null)
             {
                 return HttpNotFound();
             }
-            return View(llamada_farmacia);
+            return View(llamada);
         }
 
         //
@@ -40,8 +42,8 @@ namespace VentasApp.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "Ruc");
-            ViewBag.IdLlamadaPadre = new SelectList(db.Llamada_Farmacia, "Id", "Observaciones");
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
+            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RazonSocial");
             return View();
         }
 
@@ -49,18 +51,19 @@ namespace VentasApp.Controllers
         // POST: /Llamada/Create
 
         [HttpPost]
-        public ActionResult Create(Llamada_Farmacia llamada_farmacia)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Llamada llamada)
         {
             if (ModelState.IsValid)
             {
-                db.Llamada_Farmacia.Add(llamada_farmacia);
+                llamada.IdEstado = 1;
+                db.Llamada.Add(llamada);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "Ruc", llamada_farmacia.IdFarmacia);
-            ViewBag.IdLlamadaPadre = new SelectList(db.Llamada_Farmacia, "Id", "Observaciones", llamada_farmacia.IdLlamadaPadre);
-            return View(llamada_farmacia);
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
+            return View(llamada);
         }
 
         //
@@ -68,31 +71,31 @@ namespace VentasApp.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Llamada_Farmacia llamada_farmacia = db.Llamada_Farmacia.Find(id);
-            if (llamada_farmacia == null)
+            Llamada llamada = db.Llamada.Find(id);
+            if (llamada == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "Ruc", llamada_farmacia.IdFarmacia);
-            ViewBag.IdLlamadaPadre = new SelectList(db.Llamada_Farmacia, "Id", "Observaciones", llamada_farmacia.IdLlamadaPadre);
-            return View(llamada_farmacia);
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
+            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RazonComercial", llamada.IdFarmacia);
+            return View(llamada);
         }
 
         //
         // POST: /Llamada/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Llamada_Farmacia llamada_farmacia)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Llamada llamada)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(llamada_farmacia).State = EntityState.Modified;
+                db.Entry(llamada).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "Ruc", llamada_farmacia.IdFarmacia);
-            ViewBag.IdLlamadaPadre = new SelectList(db.Llamada_Farmacia, "Id", "Observaciones", llamada_farmacia.IdLlamadaPadre);
-            return View(llamada_farmacia);
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
+            return View(llamada);
         }
 
         //
@@ -100,22 +103,23 @@ namespace VentasApp.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Llamada_Farmacia llamada_farmacia = db.Llamada_Farmacia.Find(id);
-            if (llamada_farmacia == null)
+            Llamada llamada = db.Llamada.Find(id);
+            if (llamada == null)
             {
                 return HttpNotFound();
             }
-            return View(llamada_farmacia);
+            return View(llamada);
         }
 
         //
         // POST: /Llamada/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Llamada_Farmacia llamada_farmacia = db.Llamada_Farmacia.Find(id);
-            db.Llamada_Farmacia.Remove(llamada_farmacia);
+            Llamada llamada = db.Llamada.Find(id);
+            db.Llamada.Remove(llamada);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

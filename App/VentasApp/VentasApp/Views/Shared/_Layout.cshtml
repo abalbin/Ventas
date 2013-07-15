@@ -80,6 +80,9 @@
                             @Html.ActionLink("Productos", "Index", "Producto")
                         </li>
                         <li class="">
+                            @Html.ActionLink("Presentaciones", "Index", "Presentacion")
+                        </li>
+                        <li class="">
                             @Html.ActionLink("Farmacias", "Index", "Farmacia")
                         </li>
                     </ul>
@@ -113,14 +116,14 @@
                         <span class="text">Pedidos <b class="caret"></b></span>
                     </a>
                     <ul id="pedidos-list" class="collapse secondary">
-                        <li class="li-disabled">
+                        <li>
                             @Html.ActionLink("Administración", "Index", "Pedido")
                         </li>
                     </ul>
                 </li>
             }
 
-            <!-- Documentos -->
+            <!-- Pedidos -->
 
             @if (Roles.IsUserInRole("Administrador"))
             {

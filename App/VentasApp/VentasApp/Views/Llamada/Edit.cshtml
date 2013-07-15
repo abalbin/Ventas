@@ -1,4 +1,4 @@
-﻿@model VentasApp.Models.Llamada_Farmacia
+﻿@model VentasApp.Models.Llamada
 
 @{
     ViewBag.Title = "Edit";
@@ -7,10 +7,11 @@
 <h2>Edit</h2>
 
 @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Llamada_Farmacia</legend>
+        <legend>Llamada</legend>
 
         @Html.HiddenFor(model => model.Id)
 
@@ -18,15 +19,19 @@
             @Html.LabelFor(model => model.IdFarmacia, "Farmacia")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdFarmacia", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdFarmacia)
+            @Html.DropDownList("IdFarmacia", null, String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" },
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlFarmacia"}
+                                                       })
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Observaciones)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Observaciones)
+            @Html.TextAreaFor(model => model.Observaciones)
             @Html.ValidationMessageFor(model => model.Observaciones)
         </div>
 
@@ -34,32 +39,10 @@
             @Html.LabelFor(model => model.Fecha)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Fecha)
-            @Html.ValidationMessageFor(model => model.Fecha)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Orden)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Orden)
-            @Html.ValidationMessageFor(model => model.Orden)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IdLlamadaPadre, "Llamada_Farmacia2")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("IdLlamadaPadre", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdLlamadaPadre)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.FechaSigLlamada)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.FechaSigLlamada)
-            @Html.ValidationMessageFor(model => model.FechaSigLlamada)
+            <div class="input-append date datepicker" data-date="@Model.Fecha.Value.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
+                @Html.TextBox("Fecha", Model.Fecha, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoDesde", @readonly = "" })
+                <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
+            </div>
         </div>
 
         <p>

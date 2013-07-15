@@ -1,0 +1,54 @@
+﻿@model VentasApp.Models.Pedido
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Pedido</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdPresentacion, "Presentacion")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("IdPresentacion", String.Empty)
+            @Html.ValidationMessageFor(model => model.IdPresentacion)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdProveedor, "Proveedor")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("IdProveedor", String.Empty)
+            @Html.ValidationMessageFor(model => model.IdProveedor)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdLlamada, "Llamada")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("IdLlamada", String.Empty)
+            @Html.ValidationMessageFor(model => model.IdLlamada)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,4 +1,4 @@
-﻿@model VentasApp.Models.Producto
+﻿@model VentasApp.Models.Presentacion
 
 @{
     ViewBag.Title = "Create";
@@ -11,7 +11,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Producto</legend>
+        <legend>Presentacion</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Nombre)
@@ -19,6 +19,22 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.Nombre)
             @Html.ValidationMessageFor(model => model.Nombre)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdProducto, "Producto")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("IdProducto", String.Empty)
+            @Html.ValidationMessageFor(model => model.IdProducto)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Precio)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Precio)
+            @Html.ValidationMessageFor(model => model.Precio)
         </div>
 
         <p>

@@ -119,43 +119,43 @@ namespace VentasApp.Controllers
             return View();
         }
 
-        [Authorize]
-        public ActionResult RegisterMassive()
-        {
-            try
-            {
-                var list = db.UserMigration.ToList();
-                foreach (UserMigration u in list)
-                {
-                    RegisterModel rm = new RegisterModel();
-                    string[] un = u.Mail != null ? u.Mail.Split('@') : null;
-                    rm.UserName = un == null ? string.Format("{0}{1}", u.Nombres.Substring(0, 1).ToLower(), u.Apellidos.Split(' ')[0]) : un[0];
-                    rm.Password = un == null ? string.Format("{0}{1}", u.Nombres.Substring(0, 1).ToLower(), u.Apellidos.Split(' ')[0]) : un[0];
-                    rm.ConfirmPassword = un == null ? string.Format("{0}{1}", u.Nombres.Substring(0, 1).ToLower(), u.Apellidos.Split(' ')[0]) : un[0];
-                    rm.FirstName = u.Nombres;
-                    rm.LastName = u.Apellidos;
-                    rm.IdLinea = Convert.ToInt32(u.IdLinea);
-                    rm.Mail = u.Mail;
-                    List<string> li = new List<string>();
-                    li.Add(u.RoleId.ToString());
-                    rm.IdRol = li.ToArray();
-                    RegisterUser(rm);
-                    UserProfile up = db.UserProfile.FirstOrDefault(r => r.UserName == rm.UserName);
-                    if (up != null)
-                    {
-                        up.IdLinea = Convert.ToInt32(u.IdLinea);
-                        up.Mail = u.Mail;
-                        db.SaveChanges();
-                    }
-                }
-                //RegisterUser(model);
-                return RedirectToAction("ManageUsers");
-            }
-            catch (MembershipCreateUserException e)
-            {
-                return HttpNotFound();
-            }
-        }
+        //[Authorize]
+        //public ActionResult RegisterMassive()
+        //{
+        //    try
+        //    {
+        //        var list = db.UserMigration.ToList();
+        //        foreach (UserMigration u in list)
+        //        {
+        //            RegisterModel rm = new RegisterModel();
+        //            string[] un = u.Mail != null ? u.Mail.Split('@') : null;
+        //            rm.UserName = un == null ? string.Format("{0}{1}", u.Nombres.Substring(0, 1).ToLower(), u.Apellidos.Split(' ')[0]) : un[0];
+        //            rm.Password = un == null ? string.Format("{0}{1}", u.Nombres.Substring(0, 1).ToLower(), u.Apellidos.Split(' ')[0]) : un[0];
+        //            rm.ConfirmPassword = un == null ? string.Format("{0}{1}", u.Nombres.Substring(0, 1).ToLower(), u.Apellidos.Split(' ')[0]) : un[0];
+        //            rm.FirstName = u.Nombres;
+        //            rm.LastName = u.Apellidos;
+        //            rm.IdLinea = Convert.ToInt32(u.IdLinea);
+        //            rm.Mail = u.Mail;
+        //            List<string> li = new List<string>();
+        //            li.Add(u.RoleId.ToString());
+        //            rm.IdRol = li.ToArray();
+        //            RegisterUser(rm);
+        //            UserProfile up = db.UserProfile.FirstOrDefault(r => r.UserName == rm.UserName);
+        //            if (up != null)
+        //            {
+        //                up.IdLinea = Convert.ToInt32(u.IdLinea);
+        //                up.Mail = u.Mail;
+        //                db.SaveChanges();
+        //            }
+        //        }
+        //        //RegisterUser(model);
+        //        return RedirectToAction("ManageUsers");
+        //    }
+        //    catch (MembershipCreateUserException e)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //}
 
         [Authorize]
         public ActionResult ChangePass()

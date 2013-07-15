@@ -9,18 +9,19 @@
 
 namespace VentasApp.Models
 {
+    using System;
     using System.Collections.Generic;
     
     public partial class Estado
     {
         public Estado()
         {
-            this.Examen = new HashSet<Examen>();
+            this.Llamada = new HashSet<Llamada>();
         }
     
         public int Id { get; set; }
         public string Nombre { get; set; }
     
-        public virtual ICollection<Examen> Examen { get; set; }
+        public virtual ICollection<Llamada> Llamada { get; set; }
     }
 }

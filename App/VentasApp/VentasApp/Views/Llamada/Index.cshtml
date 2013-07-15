@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VentasApp.Models.Llamada_Farmacia>
+﻿@model IEnumerable<VentasApp.Models.Llamada>
 
 @{
     ViewBag.Title = "Index";
@@ -7,21 +7,19 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Registrar llamada", "Create")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table table-striped data-table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Farmacia.Ruc)
+                Farmacia
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Observaciones)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th>F. Rellamada
             </th>
             <th></th>
         </tr>
@@ -30,21 +28,18 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Farmacia.Ruc)
+                @Html.DisplayFor(modelItem => item.Farmacia.RazonComercial)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Observaciones)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
+                @item.Fecha.Value.ToString("dd/MM/yyyy")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FechaSigLlamada)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

@@ -1,4 +1,4 @@
-﻿@model VentasApp.Models.Producto
+﻿@model VentasApp.Models.Presentacion
 
 @{
     ViewBag.Title = "Delete";
@@ -8,13 +8,27 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <fieldset>
-    <legend>Producto</legend>
+    <legend>Presentacion</legend>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Nombre)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Producto.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Producto.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Precio)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Precio)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {

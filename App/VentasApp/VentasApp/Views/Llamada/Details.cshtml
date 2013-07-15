@@ -1,4 +1,4 @@
-﻿@model VentasApp.Models.Llamada_Farmacia
+﻿@model VentasApp.Models.Llamada
 
 @{
     ViewBag.Title = "Details";
@@ -7,13 +7,13 @@
 <h2>Details</h2>
 
 <fieldset>
-    <legend>Llamada_Farmacia</legend>
+    <legend>Llamada</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Farmacia.Ruc)
+         @Html.DisplayNameFor(model => model.IdFarmacia)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Farmacia.Ruc)
+        @Html.DisplayFor(model => model.IdFarmacia)
     </div>
 
     <div class="display-label">
@@ -31,24 +31,10 @@
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Orden)
+         @Html.DisplayNameFor(model => model.Estado.Nombre)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Orden)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Llamada_Farmacia2.Observaciones)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Llamada_Farmacia2.Observaciones)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.FechaSigLlamada)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FechaSigLlamada)
+        @Html.DisplayFor(model => model.Estado.Nombre)
     </div>
 </fieldset>
 <p>

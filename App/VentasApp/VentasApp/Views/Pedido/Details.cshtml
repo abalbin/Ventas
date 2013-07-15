@@ -1,0 +1,36 @@
+﻿@model VentasApp.Models.Pedido
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Pedido</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Presentacion.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Presentacion.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Proveedor.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Proveedor.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Llamada.Observaciones)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Llamada.Observaciones)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

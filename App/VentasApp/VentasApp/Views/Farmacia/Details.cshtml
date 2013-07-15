@@ -1,64 +1,106 @@
 ﻿@model VentasApp.Models.Farmacia
 
 @{
-    ViewBag.Title = "Detalles";
+    ViewBag.Title = "Details";
 }
 
-<h2>Detalles</h2>
+<h2>Details</h2>
 
 <fieldset>
-    <legend>@Model.Nombre</legend>
+    <legend>Farmacia</legend>
 
     <div class="display-label">
-        @Html.DisplayNameFor(model => model.Ruc)
+         @Html.DisplayNameFor(model => model.Zona)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Zona)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Codigo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Codigo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ruc)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Ruc)
     </div>
 
     <div class="display-label">
-        @Html.DisplayNameFor(model => model.Localidad)
+         @Html.DisplayNameFor(model => model.RazonSocial)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Localidad)
+        @Html.DisplayFor(model => model.RazonSocial)
     </div>
 
     <div class="display-label">
-        @Html.DisplayNameFor(model => model.Ciudad)
+         @Html.DisplayNameFor(model => model.RazonComercial)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Ciudad)
+        @Html.DisplayFor(model => model.RazonComercial)
     </div>
 
     <div class="display-label">
-        @Html.DisplayNameFor(model => model.Direccion)
+         @Html.DisplayNameFor(model => model.Ubigeo.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ubigeo.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Direccion)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Direccion)
     </div>
 
     <div class="display-label">
-        @Html.DisplayNameFor(model => model.Telefono)
+         @Html.DisplayNameFor(model => model.Telefono)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Telefono)
     </div>
 
     <div class="display-label">
-        @Html.DisplayNameFor(model => model.Propietario)
+         @Html.DisplayNameFor(model => model.Propietario)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Propietario)
     </div>
 
     <div class="display-label">
-        @Html.DisplayNameFor(model => model.EncargadoCompra)
+         @Html.DisplayNameFor(model => model.EncargadoCompra)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.EncargadoCompra)
     </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Frecuencia)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Frecuencia)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DiasCompra)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DiasCompra)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Horario)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Horario)
+    </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-mini" })
-    @Html.ActionLink("Regresar a la lista", "Index", null, new { @class = "btn btn-mini" })
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>

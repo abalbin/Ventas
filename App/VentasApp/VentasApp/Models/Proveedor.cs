@@ -11,22 +11,20 @@ namespace VentasApp.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
-    public partial class UserProfile
+    public partial class Proveedor
     {
-        [Key]
-        public int UserId { get; set; }
-        [Display(Name = "Usuario")]
-        public string UserName { get; set; }
-        [Display(Name = "Nombres")]
-        public string FirstName { get; set; }
-        [Display(Name = "Apellidos")]
-        public string LastName { get; set; }
-        public string Mail { get; set; }
-        public Nullable<int> IdLinea { get; set; }
-        public string UrlImagen { get; set; }
+        public Proveedor()
+        {
+            this.Pedido = new HashSet<Pedido>();
+            this.Farmacia = new HashSet<Farmacia>();
+        }
     
-        public virtual Linea Linea { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Mail { get; set; }
+    
+        public virtual ICollection<Pedido> Pedido { get; set; }
+        public virtual ICollection<Farmacia> Farmacia { get; set; }
     }
 }

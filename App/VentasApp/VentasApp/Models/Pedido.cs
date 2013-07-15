@@ -12,16 +12,15 @@ namespace VentasApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Linea
+    public partial class Pedido
     {
-        public Linea()
-        {
-            this.UserProfile = new HashSet<UserProfile>();
-        }
-    
         public int Id { get; set; }
-        public string Nombre { get; set; }
+        public Nullable<int> IdPresentacion { get; set; }
+        public Nullable<int> IdProveedor { get; set; }
+        public Nullable<int> IdLlamada { get; set; }
     
-        public virtual ICollection<UserProfile> UserProfile { get; set; }
+        public virtual Proveedor Proveedor { get; set; }
+        public virtual Presentacion Presentacion { get; set; }
+        public virtual Llamada Llamada { get; set; }
     }
 }

@@ -11,107 +11,112 @@ using VentasApp.Models;
 namespace VentasApp.Controllers
 {
     [InitializeSimpleMembership]
-    public class ProductoController : Controller
+    public class PresentacionController : Controller
     {
         private Entities db = new Entities();
 
         //
-        // GET: /Producto/
+        // GET: /Presentacion/
 
         public ActionResult Index()
         {
-            return View(db.Producto.ToList());
+            var presentacion = db.Presentacion.Include(p => p.Producto);
+            return View(presentacion.ToList());
         }
 
         //
-        // GET: /Producto/Details/5
+        // GET: /Presentacion/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Producto producto = db.Producto.Find(id);
-            if (producto == null)
+            Presentacion presentacion = db.Presentacion.Find(id);
+            if (presentacion == null)
             {
                 return HttpNotFound();
             }
-            return View(producto);
+            return View(presentacion);
         }
 
         //
-        // GET: /Producto/Create
+        // GET: /Presentacion/Create
 
         public ActionResult Create()
         {
+            ViewBag.IdProducto = new SelectList(db.Producto, "Id", "Nombre");
             return View();
         }
 
         //
-        // POST: /Producto/Create
+        // POST: /Presentacion/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Producto producto)
+        public ActionResult Create(Presentacion presentacion)
         {
             if (ModelState.IsValid)
             {
-                db.Producto.Add(producto);
+                db.Presentacion.Add(presentacion);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(producto);
+            ViewBag.IdProducto = new SelectList(db.Producto, "Id", "Nombre", presentacion.IdProducto);
+            return View(presentacion);
         }
 
         //
-        // GET: /Producto/Edit/5
+        // GET: /Presentacion/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Producto producto = db.Producto.Find(id);
-            if (producto == null)
+            Presentacion presentacion = db.Presentacion.Find(id);
+            if (presentacion == null)
             {
                 return HttpNotFound();
             }
-            return View(producto);
+            ViewBag.IdProducto = new SelectList(db.Producto, "Id", "Nombre", presentacion.IdProducto);
+            return View(presentacion);
         }
 
         //
-        // POST: /Producto/Edit/5
+        // POST: /Presentacion/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Producto producto)
+        public ActionResult Edit(Presentacion presentacion)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(producto).State = EntityState.Modified;
+                db.Entry(presentacion).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(producto);
+            ViewBag.IdProducto = new SelectList(db.Producto, "Id", "Nombre", presentacion.IdProducto);
+            return View(presentacion);
         }
 
         //
-        // GET: /Producto/Delete/5
+        // GET: /Presentacion/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Producto producto = db.Producto.Find(id);
-            if (producto == null)
+            Presentacion presentacion = db.Presentacion.Find(id);
+            if (presentacion == null)
             {
                 return HttpNotFound();
             }
-            return View(producto);
+            return View(presentacion);
         }
 
         //
-        // POST: /Producto/Delete/5
+        // POST: /Presentacion/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Producto producto = db.Producto.Find(id);
-            db.Producto.Remove(producto);
+            Presentacion presentacion = db.Presentacion.Find(id);
+            db.Presentacion.Remove(presentacion);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

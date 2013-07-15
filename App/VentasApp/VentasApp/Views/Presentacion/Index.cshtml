@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VentasApp.Models.Producto>
+﻿@model IEnumerable<VentasApp.Models.Presentacion>
 
 @{
     ViewBag.Title = "Index";
@@ -14,6 +14,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Producto.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio)
+        </th>
         <th></th>
     </tr>
 
@@ -21,6 +27,12 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Producto.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

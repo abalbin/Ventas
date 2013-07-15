@@ -9,6 +9,7 @@
 
 namespace VentasApp.Models
 {
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
@@ -24,24 +25,17 @@ namespace VentasApp.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Documento> Documento { get; set; }
         public DbSet<Estado> Estado { get; set; }
-        public DbSet<Examen> Examen { get; set; }
-        public DbSet<ExamenUsuario> ExamenUsuario { get; set; }
-        public DbSet<Linea> Linea { get; set; }
         public DbSet<NombreTabla> NombreTabla { get; set; }
-        public DbSet<Pregunta> Pregunta { get; set; }
-        public DbSet<PreguntaUsuario> PreguntaUsuario { get; set; }
-        public DbSet<Producto> Producto { get; set; }
-        public DbSet<PuntajeAsesoria> PuntajeAsesoria { get; set; }
-        public DbSet<Respuesta> Respuesta { get; set; }
-        public DbSet<RespuestaUsuario> RespuestaUsuario { get; set; }
-        public DbSet<TipoExamen> TipoExamen { get; set; }
-        public DbSet<TipoPregunta> TipoPregunta { get; set; }
-        public DbSet<UserMigration> UserMigration { get; set; }
+        public DbSet<Pedido> Pedido { get; set; }
+        public DbSet<Proveedor> Proveedor { get; set; }
+        public DbSet<Ubigeo> Ubigeo { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<webpages_Roles> webpages_Roles { get; set; }
+        public DbSet<Presentacion> Presentacion { get; set; }
+        public DbSet<Linea> Linea { get; set; }
+        public DbSet<Producto> Producto { get; set; }
         public DbSet<Farmacia> Farmacia { get; set; }
-        public DbSet<Llamada_Farmacia> Llamada_Farmacia { get; set; }
+        public DbSet<Llamada> Llamada { get; set; }
     }
 }
