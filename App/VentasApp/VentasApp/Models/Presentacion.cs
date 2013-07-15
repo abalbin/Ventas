@@ -24,7 +24,7 @@ namespace VentasApp.Models
         public Nullable<int> IdProducto { get; set; }
         public Nullable<decimal> Precio { get; set; }
     
-        public virtual ICollection<Pedido> Pedido { get; set; }
         public virtual Producto Producto { get; set; }
+        public virtual ICollection<Pedido> Pedido { get; set; }
     }
 }

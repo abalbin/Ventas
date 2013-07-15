@@ -1,13 +1,13 @@
 ﻿@model VentasApp.Models.Pedido
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar";
 }
 
-<h2>Edit</h2>
+<h2>Editar</h2>
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -19,7 +19,12 @@
             @Html.LabelFor(model => model.IdPresentacion, "Presentacion")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdPresentacion", String.Empty)
+            @Html.DropDownList("IdPresentacion", null, String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" },
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlPresentacion"}
+                                                       })
             @Html.ValidationMessageFor(model => model.IdPresentacion)
         </div>
 
@@ -27,28 +32,47 @@
             @Html.LabelFor(model => model.IdProveedor, "Proveedor")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdProveedor", String.Empty)
+            @Html.DropDownList("IdProveedor", null, String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" },
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlProveedor"}
+                                                       })
             @Html.ValidationMessageFor(model => model.IdProveedor)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.IdLlamada, "Llamada")
+            @Html.LabelFor(model => model.Cantidad)
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdLlamada", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdLlamada)
+            @Html.EditorFor(model => model.Cantidad)
+            @Html.ValidationMessageFor(model => model.Cantidad)
         </div>
 
-        <p>
-            <input type="submit" value="Save" />
-        </p>
+        <div class="editor-label">
+            Monto total
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PrecioTotal)
+            @Html.ValidationMessageFor(model => model.PrecioTotal)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Fecha)
+        </div>
+        <div class="editor-field">
+            <div class="input-append date datepicker" data-date="@Model.Fecha.Value.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
+                @Html.TextBox("Fecha", Model.Fecha, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoDesde", @readonly = "" })
+                <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
+            </div>
+            @Html.ValidationMessageFor(model => model.Fecha)
+        </div>
+
     </fieldset>
+    <div>
+        @Html.Bootstrap().SubmitButton().Text("Guardar")
+        @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
+                    "Index", "Pedido")
+    </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

@@ -20,8 +20,9 @@ namespace VentasApp.Controllers
 
         public ActionResult Index()
         {
-            var llamada = db.Llamada.Include(l => l.Estado);
-            return View(llamada.ToList());
+            var llamada = db.Llamada;
+            var model = llamada.OrderByDescending(r => r.Fecha).ToList();
+            return View(model);
         }
 
         //
@@ -122,6 +123,13 @@ namespace VentasApp.Controllers
             db.Llamada.Remove(llamada);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult CreatePedido(int id = 0)
+        {
+            if (id == 0)
+                return HttpNotFound();
+            return RedirectToAction("Create", "Pedido", new { idLlamada = id });
         }
 
         protected override void Dispose(bool disposing)

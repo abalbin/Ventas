@@ -6,7 +6,8 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
@@ -116,17 +117,11 @@
             @Html.EditorFor(model => model.Horario)
             @Html.ValidationMessageFor(model => model.Horario)
         </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
     </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    
+    <div>
+        @Html.Bootstrap().SubmitButton().Text("Guardar")
+        @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
+                    "Index", "Farmacia")
+    </div>
 }

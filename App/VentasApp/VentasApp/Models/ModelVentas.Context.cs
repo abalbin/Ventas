@@ -27,7 +27,6 @@ namespace VentasApp.Models
     
         public DbSet<Estado> Estado { get; set; }
         public DbSet<NombreTabla> NombreTabla { get; set; }
-        public DbSet<Pedido> Pedido { get; set; }
         public DbSet<Proveedor> Proveedor { get; set; }
         public DbSet<Ubigeo> Ubigeo { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
@@ -37,5 +36,6 @@ namespace VentasApp.Models
         public DbSet<Producto> Producto { get; set; }
         public DbSet<Farmacia> Farmacia { get; set; }
         public DbSet<Llamada> Llamada { get; set; }
+        public DbSet<Pedido> Pedido { get; set; }
     }
 }

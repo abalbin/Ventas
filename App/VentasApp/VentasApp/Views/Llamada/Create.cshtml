@@ -1,10 +1,10 @@
 ﻿@model VentasApp.Models.Llamada
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear";
 }
 
-<h2>Create</h2>
+<h2>Crear</h2>
 
 @using (Html.BeginForm())
 {
@@ -44,12 +44,10 @@
             </div>
         </div>
 
-        <p>
-            <input type="submit" value="Create" />
-        </p>
     </fieldset>
+    <div>
+        @Html.Bootstrap().SubmitButton().Text("Guardar")
+        @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
+                    "Index", "Llamada")
+    </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

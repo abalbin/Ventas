@@ -16,15 +16,15 @@ namespace VentasApp.Models
     {
         public Proveedor()
         {
-            this.Pedido = new HashSet<Pedido>();
             this.Farmacia = new HashSet<Farmacia>();
+            this.Pedido = new HashSet<Pedido>();
         }
     
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Mail { get; set; }
     
-        public virtual ICollection<Pedido> Pedido { get; set; }
         public virtual ICollection<Farmacia> Farmacia { get; set; }
+        public virtual ICollection<Pedido> Pedido { get; set; }
     }
 }

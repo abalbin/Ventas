@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using VentasApp.Filters;
 using VentasApp.Models;
+using VentasApp.Models.ViewModels;
 
 namespace VentasApp.Controllers
 {
@@ -20,7 +21,7 @@ namespace VentasApp.Controllers
 
         public ActionResult Index()
         {
-            var pedido = db.Pedido.Include(p => p.Llamada).Include(p => p.Proveedor).Include(p => p.Presentacion);
+            var pedido = db.Pedido.Include(p => p.Llamada).Include(p => p.Presentacion).Include(p => p.Proveedor);
             return View(pedido.ToList());
         }
 
@@ -40,11 +41,14 @@ namespace VentasApp.Controllers
         //
         // GET: /Pedido/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int idLlamada = 0)
         {
-            ViewBag.IdLlamada = new SelectList(db.Llamada, "Id", "Observaciones");
+            if (idLlamada > 0) ViewBag.IdLlamada = idLlamada;
             ViewBag.IdProveedor = new SelectList(db.Proveedor, "Id", "Nombre");
-            ViewBag.IdPresentacion = new SelectList(db.Presentacion, "Id", "Nombre");
+            var presentaciones = db.Presentacion.AsEnumerable();
+            var modelPresentaciones = from p in presentaciones
+                                      select new PresentacionViewModel() { Id = p.Id, NombreMostrar = string.Format("{0} - {1}", p.Producto.Nombre, p.Nombre) };
+            ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar");
             return View();
         }
 
@@ -52,7 +56,6 @@ namespace VentasApp.Controllers
         // POST: /Pedido/Create
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(Pedido pedido)
         {
             if (ModelState.IsValid)
@@ -62,9 +65,11 @@ namespace VentasApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdLlamada = new SelectList(db.Llamada, "Id", "Observaciones", pedido.IdLlamada);
+            var presentaciones = db.Presentacion.AsEnumerable();
+            var modelPresentaciones = from p in presentaciones
+                                      select new PresentacionViewModel() { Id = p.Id, NombreMostrar = string.Format("{0} - {1}", p.Producto.Nombre, p.Nombre) };
+            ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar");
             ViewBag.IdProveedor = new SelectList(db.Proveedor, "Id", "Nombre", pedido.IdProveedor);
-            ViewBag.IdPresentacion = new SelectList(db.Presentacion, "Id", "Nombre", pedido.IdPresentacion);
             return View(pedido);
         }
 
@@ -78,9 +83,11 @@ namespace VentasApp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdLlamada = new SelectList(db.Llamada, "Id", "Observaciones", pedido.IdLlamada);
             ViewBag.IdProveedor = new SelectList(db.Proveedor, "Id", "Nombre", pedido.IdProveedor);
-            ViewBag.IdPresentacion = new SelectList(db.Presentacion, "Id", "Nombre", pedido.IdPresentacion);
+            var presentaciones = db.Presentacion.AsEnumerable();
+            var modelPresentaciones = from p in presentaciones
+                                      select new PresentacionViewModel() { Id = p.Id, NombreMostrar = string.Format("{0} - {1}", p.Producto.Nombre, p.Nombre) };
+            ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar", pedido.IdPresentacion);
             return View(pedido);
         }
 
@@ -88,7 +95,6 @@ namespace VentasApp.Controllers
         // POST: /Pedido/Edit/5
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(Pedido pedido)
         {
             if (ModelState.IsValid)
@@ -97,9 +103,11 @@ namespace VentasApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdLlamada = new SelectList(db.Llamada, "Id", "Observaciones", pedido.IdLlamada);
+            var presentaciones = db.Presentacion.AsEnumerable();
+            var modelPresentaciones = from p in presentaciones
+                                      select new PresentacionViewModel() { Id = p.Id, NombreMostrar = string.Format("{0} - {1}", p.Producto.Nombre, p.Nombre) };
+            ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar");
             ViewBag.IdProveedor = new SelectList(db.Proveedor, "Id", "Nombre", pedido.IdProveedor);
-            ViewBag.IdPresentacion = new SelectList(db.Presentacion, "Id", "Nombre", pedido.IdPresentacion);
             return View(pedido);
         }
 
@@ -120,7 +128,6 @@ namespace VentasApp.Controllers
         // POST: /Pedido/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Pedido pedido = db.Pedido.Find(id);

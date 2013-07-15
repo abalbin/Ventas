@@ -1,52 +1,60 @@
 ﻿@model VentasApp.Models.Pedido
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear";
 }
 
-<h2>Create</h2>
+<h2>Crear</h2>
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
+@using (Html.Bootstrap().Begin(new Form()))
+{
     @Html.ValidationSummary(true)
-
+    @Html.HiddenFor(p => p.IdLlamada)
     <fieldset>
         <legend>Pedido</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IdPresentacion, "Presentacion")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("IdPresentacion", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdPresentacion)
-        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IdProveedor, "Proveedor")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("IdProveedor", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdProveedor)
-        </div>
+        @Html.Bootstrap().LabelFor(model => model.IdPresentacion).LabelText("Presentación")
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IdLlamada, "Llamada")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("IdLlamada", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdLlamada)
-        </div>
+        @Html.DropDownList("IdPresentacion", null, String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" },
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlPresentacion"}
+                                                       })
+        @Html.ValidationMessageFor(model => model.IdPresentacion)
 
-        <p>
-            <input type="submit" value="Create" />
-        </p>
+        @Html.Bootstrap().LabelFor(model => model.IdProveedor).LabelText("Proveedor")
+
+        @Html.DropDownList("IdProveedor", null, String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" },
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlProveedor"}
+                                                       })
+        @Html.ValidationMessageFor(model => model.IdProveedor)
+
+        @Html.Bootstrap().LabelFor(model => model.Cantidad)
+
+        @Html.EditorFor(model => model.Cantidad)
+        @Html.ValidationMessageFor(model => model.Cantidad)
+
+        @Html.Bootstrap().LabelFor(model => model.PrecioTotal).LabelText("Monto total")
+        @Html.EditorFor(model => model.PrecioTotal)
+        @Html.ValidationMessageFor(model => model.PrecioTotal)
+
+        @Html.Bootstrap().LabelFor(model => model.Fecha)
+        <div class="input-append date datepicker" data-date="@DateTime.Now.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
+            @Html.TextBox("Fecha", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoDesde", @readonly = "", @class = "span3" })
+            <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
+        </div>
+        @Html.ValidationMessageFor(model => model.Fecha)
+
     </fieldset>
+    <div>
+        @Html.Bootstrap().SubmitButton().Text("Guardar")
+        @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
+                    "Index", "Pedido")
+    </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
