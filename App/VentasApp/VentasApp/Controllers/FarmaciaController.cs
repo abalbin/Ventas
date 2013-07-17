@@ -43,6 +43,7 @@ namespace VentasApp.Controllers
         public ActionResult Create()
         {
             ViewBag.IdUbigeo = new SelectList(db.Ubigeo, "Id", "Nombre");
+            ViewBag.ddlRegiones = new SelectList(db.Ubigeo.Where(u => u.Ubigeo4 == 0 && u.Ubigeo5 == 0), "Ubigeo3", "Nombre");
             return View();
         }
 
@@ -74,7 +75,11 @@ namespace VentasApp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdUbigeo = new SelectList(db.Ubigeo, "Id", "Nombre", farmacia.IdUbigeo);
+            ViewBag.IdUbigeo = new SelectList(db.Ubigeo.Where(u => u.Ubigeo3 == farmacia.Ubigeo.Ubigeo3 && u.Ubigeo4 == farmacia.Ubigeo.Ubigeo4 && u.Ubigeo5 > 0), "Id", "Nombre", farmacia.IdUbigeo);
+            ViewBag.Region = new SelectList(db.Ubigeo.Where(u => u.Ubigeo3 > 0 && u.Ubigeo4 == 0 && u.Ubigeo5 == 0), "Ubigeo3", "Nombre", farmacia.Ubigeo.Ubigeo3);
+            var provincias = from p in db.Ubigeo.Where(u => u.Ubigeo3 == farmacia.Ubigeo.Ubigeo3 && u.Ubigeo4 > 0 && u.Ubigeo5 == 0).AsEnumerable()
+                             select new { Value = string.Format("{0},{1}", p.Ubigeo3, p.Ubigeo4), Nombre = p.Nombre };
+            ViewBag.Provincia = new SelectList(provincias, "Value", "Nombre", string.Format("{0},{1}", farmacia.Ubigeo.Ubigeo3, farmacia.Ubigeo.Ubigeo4));
             return View(farmacia);
         }
 
@@ -119,6 +124,34 @@ namespace VentasApp.Controllers
             db.Farmacia.Remove(farmacia);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult GetProvinciasByRegion(int ubigeo = 0)
+        {
+            if (ubigeo != 0)
+            {
+                //string[] cadenaUbigeo = ubigeo.Split(',');
+                var result = db.Ubigeo.Where(r => r.Ubigeo3 == ubigeo && r.Ubigeo4 > 0 && r.Ubigeo5 == 0).AsEnumerable();
+                var model = from u in result
+                            select new { value = string.Format("{0},{1}", u.Ubigeo3, u.Ubigeo4), text = u.Nombre };
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            return HttpNotFound();
+        }
+
+        public ActionResult GetDistritosByProvincia(string ubigeo = "")
+        {
+            if (ubigeo != "")
+            {
+                string[] cadenaUbigeo = ubigeo.Split(',');
+                int ubig3 = Convert.ToInt32(cadenaUbigeo[0]);
+                int ubig4 = Convert.ToInt32(cadenaUbigeo[1]);
+                var result = db.Ubigeo.Where(r => r.Ubigeo3 == ubig3 && r.Ubigeo4 == ubig4 && r.Ubigeo5 > 0).AsEnumerable();
+                var model = from u in result
+                            select new { value = u.Id, text = u.Nombre };
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            return HttpNotFound();
         }
 
         protected override void Dispose(bool disposing)

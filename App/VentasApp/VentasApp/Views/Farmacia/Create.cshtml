@@ -1,10 +1,10 @@
 ﻿@model VentasApp.Models.Farmacia
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear";
 }
 
-<h2>Create</h2>
+<h2>Crear</h2>
 
 @using (Html.BeginForm())
 {
@@ -54,13 +54,25 @@
             @Html.ValidationMessageFor(model => model.RazonComercial)
         </div>
 
-        <div class="editor-label">
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.IdUbigeo, "Ubigeo")
         </div>
         <div class="editor-field">
             @Html.DropDownList("IdUbigeo", String.Empty)
             @Html.ValidationMessageFor(model => model.IdUbigeo)
+        </div>*@
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdUbigeo, "Ubicación")
         </div>
+        @Html.DropDownList("ddlRegiones", null, "Seleccione", new { @id = "ddlRegiones" })
+        <select id="ddlProvincias">
+            <option></option>
+        </select>
+        <select name="IdUbigeo" id="ddlDistritos">
+            <option></option>
+        </select>
+        @*@Html.DropDownList("ddlProvincias", null, string.Empty, new { @id = "ddlProvincias" })
+        @Html.DropDownList("ddlDistritos", null, string.Empty, new { @id = "ddlDistritos" })*@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Direccion)
@@ -124,4 +136,56 @@
         @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
                     "Index", "Farmacia")
     </div>
+}
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#ddlRegiones").change(
+            function () {
+                loadProvincia(this);
+            });
+            $("#ddlProvincias").change(
+            function () {
+                loadDistrito(this);
+            });
+        });
+
+        function loadProvincia(selectList) {
+            var selectedId = $(selectList).val();
+            if (selectedId != null && selectedId != '') {
+                $.getJSON('@Url.Action("GetProvinciasByRegion", "Farmacia")', { ubigeo: selectedId }, function (provincias) {
+                    var provinciasSelect = $('#ddlProvincias');
+                    provinciasSelect.empty();
+                    $.each(provincias, function (index, provincia) {
+                        provinciasSelect.append($('<option/>', {
+                            value: provincia.value,
+                            text: provincia.text
+                        }));
+                    });
+                    //$("#ddlProvincias").trigger("liszt:updated");
+                    $("#ddlProvincias").change();
+                });
+            }
+        }
+
+        function loadDistrito(selectList) {
+            var selectedId = $(selectList).val();
+            if (selectedId != null && selectedId != '') {
+                $.getJSON('@Url.Action("GetDistritosByProvincia", "Farmacia")', { ubigeo: selectedId }, function (distritos) {
+                    var distritosSelect = $('#ddlDistritos');
+                    distritosSelect.empty();
+                    $.each(distritos, function (index, distrito) {
+                        distritosSelect.append($('<option/>', {
+                            value: distrito.value,
+                            text: distrito.text
+                        }));
+                    });
+                    //$("#ddlDistrito").trigger("liszt:updated");
+                    $("#ddlDistritos").change();
+                });
+            }
+        }
+    </script>
 }

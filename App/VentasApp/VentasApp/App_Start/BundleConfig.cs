@@ -9,6 +9,8 @@ namespace VentasApp
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Content/javascripts/jquery-1.8.3.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jpreloader").Include(
+                        "~/Content/javascripts/jpreloader.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Content/javascripts/jquery-ui-1.9.2.custom.js"));
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
@@ -68,6 +70,8 @@ namespace VentasApp
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/stylesheets/application.css",
                         "~/Content/stylesheets/application.custom.css",
                         "~/Content/stylesheets/jquery.countdown.css"));
+
+            bundles.Add(new StyleBundle("~/Content/jpreloader").Include("~/Content/stylesheets/jpreloader.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

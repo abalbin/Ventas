@@ -89,7 +89,6 @@ namespace VentasApp.Models
         [Display(Name = "Línea")]
         public int IdLinea { get; set; }
 
-        [Required]
         [Display(Name = "E-Mail")]
         public string Mail { get; set; }
     }

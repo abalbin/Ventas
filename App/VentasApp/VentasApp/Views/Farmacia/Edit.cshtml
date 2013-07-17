@@ -60,7 +60,9 @@
             @Html.LabelFor(model => model.IdUbigeo, "Ubigeo")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdUbigeo", String.Empty)
+            @Html.DropDownList("Region", null, string.Empty, new { @id = "ddlRegiones" })
+            @Html.DropDownList("Provincia", null, string.Empty, new { @id = "ddlProvincias" })
+            @Html.DropDownList("IdUbigeo", null, string.Empty, new { @id = "ddlDistritos" })
             @Html.ValidationMessageFor(model => model.IdUbigeo)
         </div>
 
@@ -129,3 +131,53 @@
     </div>
 }
 
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#ddlRegiones").change(
+            function () {
+                loadProvincia(this);
+            });
+            $("#ddlProvincias").change(
+            function () {
+                loadDistrito(this);
+            });
+        });
+
+        function loadProvincia(selectList) {
+            var selectedId = $(selectList).val();
+            if (selectedId != null && selectedId != '') {
+                $.getJSON('@Url.Action("GetProvinciasByRegion", "Farmacia")', { ubigeo: selectedId }, function (provincias) {
+                    var provinciasSelect = $('#ddlProvincias');
+                    provinciasSelect.empty();
+                    $.each(provincias, function (index, provincia) {
+                        provinciasSelect.append($('<option/>', {
+                            value: provincia.value,
+                            text: provincia.text
+                        }));
+                    });
+                    //$("#ddlProvincias").trigger("liszt:updated");
+                    $("#ddlProvincias").change();
+                });
+            }
+        }
+
+        function loadDistrito(selectList) {
+            var selectedId = $(selectList).val();
+            if (selectedId != null && selectedId != '') {
+                $.getJSON('@Url.Action("GetDistritosByProvincia", "Farmacia")', { ubigeo: selectedId }, function (distritos) {
+                    var distritosSelect = $('#ddlDistritos');
+                    distritosSelect.empty();
+                    $.each(distritos, function (index, distrito) {
+                        distritosSelect.append($('<option/>', {
+                            value: distrito.value,
+                            text: distrito.text
+                        }));
+                    });
+                    //$("#ddlDistrito").trigger("liszt:updated");
+                    $("#ddlDistritos").change();
+                });
+            }
+        }
+    </script>
+}

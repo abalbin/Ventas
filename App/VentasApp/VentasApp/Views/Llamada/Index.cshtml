@@ -3,43 +3,53 @@
 @{
     ViewBag.Title = "Index";
 }
-
+@Styles.Render("~/Content/jpreloader")
+@Scripts.Render("~/bundles/jpreloader")
 <h2>Llamadas</h2>
 
 <p>
     @Html.ActionLink("Agregar", "Create")
 </p>
-<table class="table table-striped data-table">
-    <thead>
-        <tr>
-            <th>Farmacia
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Observaciones)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Farmacia.RazonComercial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Observaciones)
-            </td>
-            <td>
-                @item.Fecha.Value.ToString("dd/MM/yyyy")
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+<div id="divTable">
+    <table class="table table-striped data-table">
+        <thead>
+            <tr>
+                <th>Farmacia
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Observaciones)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Farmacia.RazonComercial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Observaciones)
+                </td>
+                <td>
+                    @item.Fecha.Value.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("+ Pedido", "CreatePedido", new { id = item.Id })
-            </td>
-        </tr>
-    }
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#divTable').jpreLoader();
+        });
+    </script>
+}

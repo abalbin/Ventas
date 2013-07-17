@@ -169,6 +169,11 @@
   <ItemGroup>
     <Content Include="App_Code\Helper.cs" />
     <Content Include="App_Code\Variables.cs" />
+    <Compile Include="App_GlobalResources\MyResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -286,6 +291,8 @@
     <Content Include="Content\javascripts\highcharts\themes\gray.js" />
     <Content Include="Content\javascripts\highcharts\themes\grid.js" />
     <Content Include="Content\javascripts\highcharts\themes\skies.js" />
+    <Content Include="Content\javascripts\jpreloader.js" />
+    <Content Include="Content\javascripts\jpreloader.min.js" />
     <Content Include="Content\javascripts\jquery-1.8.3.js" />
     <Content Include="Content\javascripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Content\javascripts\jqueryui192.js" />
@@ -319,12 +326,6 @@
     <Content Include="Content\stylesheets\images\dataTables\sort_both.png" />
     <Content Include="Content\stylesheets\images\dataTables\sort_desc.png" />
     <Content Include="Content\stylesheets\images\dataTables\sort_desc_disabled.png" />
-    <Content Include="Content\stylesheets\images\flags\Finland.png" />
-    <Content Include="Content\stylesheets\images\flags\Germany.png" />
-    <Content Include="Content\stylesheets\images\flags\Italy.png" />
-    <Content Include="Content\stylesheets\images\flags\Romania.png" />
-    <Content Include="Content\stylesheets\images\flags\Spain.png" />
-    <Content Include="Content\stylesheets\images\flags\Sweden.png" />
     <Content Include="Content\stylesheets\images\glyphicons-halflings-white.png" />
     <Content Include="Content\stylesheets\images\glyphicons-halflings.png" />
     <Content Include="Content\stylesheets\images\gritter\gritter-light.png" />
@@ -357,14 +358,6 @@
     <Content Include="Content\stylesheets\images\patterns\whitey_light.png" />
     <Content Include="Content\stylesheets\images\profile-thumb.png" />
     <Content Include="Content\stylesheets\images\sprite.png" />
-    <Content Include="Content\stylesheets\images\users\License.txt" />
-    <Content Include="Content\stylesheets\images\users\user1.png" />
-    <Content Include="Content\stylesheets\images\users\user2.png" />
-    <Content Include="Content\stylesheets\images\users\user3.png" />
-    <Content Include="Content\stylesheets\images\users\user4.png" />
-    <Content Include="Content\stylesheets\images\users\user5.png" />
-    <Content Include="Content\stylesheets\images\users\user6.png" />
-    <Content Include="Content\stylesheets\images\users\user7.png" />
     <Content Include="Content\javascripts\additional-methods.js" />
     <Content Include="Content\javascripts\application.js" />
     <Content Include="Content\javascripts\bootstrap.js" />
@@ -482,6 +475,7 @@
     <Content Include="Content\stylesheets\extensions\bootstrap-image-gallery.css" />
     <Content Include="Content\stylesheets\extensions\bootstrap-modal.css" />
     <Content Include="Content\stylesheets\ie_fix.css" />
+    <Content Include="Content\stylesheets\jpreloader.css" />
     <Content Include="Content\stylesheets\jquery-jvectormap.css" />
     <Content Include="Content\stylesheets\jquery-ui.css" />
     <Content Include="Content\stylesheets\jquery.countdown.css" />
@@ -498,7 +492,6 @@
     <Content Include="Content\stylesheets\font\openwebicons.eot" />
     <Content Include="Content\stylesheets\font\openwebicons.ttf" />
     <Content Include="Content\stylesheets\font\openwebicons.woff" />
-    <Content Include="Content\stylesheets\images\flags\License" />
     <Content Include="Models\ModelTestsApp.edmx.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -606,6 +599,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Documentos\" />
     <Folder Include="Content\images\" />
+    <Folder Include="Content\stylesheets\images\flags\" />
+    <Folder Include="Content\stylesheets\images\users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -632,6 +627,10 @@
     <Content Include="Views\Estado\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\MyResources.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>MyResources.Designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Migrations\201303072030057_TestsAppBD.resx">
       <DependentUpon>201303072030057_TestsAppBD.cs</DependentUpon>
     </EmbeddedResource>
@@ -652,9 +651,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>44958</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:3950/</IISUrl>
+          <IISUrl>http://localhost:3951/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
