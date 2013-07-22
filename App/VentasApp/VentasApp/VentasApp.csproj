@@ -263,7 +263,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\javascripts\bday-picker.js" />
     <Content Include="Content\javascripts\dataTables\extras\jquery.dataTables.columnFilter.js" />
+    <Content Include="Content\javascripts\dateSelectBoxes.js" />
     <Content Include="Content\javascripts\fileupload\jquery.fileupload-fp.js" />
     <Content Include="Content\javascripts\fileupload\jquery.fileupload-ui.js" />
     <Content Include="Content\javascripts\fileupload\jquery.fileupload.js" />
@@ -594,6 +596,7 @@
     <Content Include="Views\Pedido\Create.cshtml" />
     <Content Include="Views\Pedido\Edit.cshtml" />
     <Content Include="Views\Pedido\Delete.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

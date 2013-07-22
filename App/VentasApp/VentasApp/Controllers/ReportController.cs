@@ -19,10 +19,10 @@ namespace VentasApp.Controllers
         ////
         //// GET: /Report/
 
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         //public ActionResult AsesoriaTerreno()
         //{
@@ -598,57 +598,57 @@ namespace VentasApp.Controllers
         //    return null;
         //}
 
-        //private void StyleSimpleFooterReport(ExcelWorksheet ws, int x, int y, int cols)
-        //{
-        //    for (int i = x; i < x + cols; i++)
-        //    {
-        //        var cell = ws.Cells[y, i];
-        //        var fill = cell.Style.Fill;
-        //        var font = cell.Style.Font;
-        //        font.Bold = true;
-        //        fill.PatternType = ExcelFillStyle.Solid;
-        //        fill.BackgroundColor.SetColor(Color.Yellow);
-        //    }
-        //}
+        private void StyleSimpleFooterReport(ExcelWorksheet ws, int x, int y, int cols)
+        {
+            for (int i = x; i < x + cols; i++)
+            {
+                var cell = ws.Cells[y, i];
+                var fill = cell.Style.Fill;
+                var font = cell.Style.Font;
+                font.Bold = true;
+                fill.PatternType = ExcelFillStyle.Solid;
+                fill.BackgroundColor.SetColor(Color.Yellow);
+            }
+        }
 
-        //private void StyleSimpleDataReport(ExcelWorksheet ws, int x, int y, int cols, int rows)
-        //{
+        private void StyleSimpleDataReport(ExcelWorksheet ws, int x, int y, int cols, int rows)
+        {
 
-        //    for (int i = y; i < y + rows; i++)
-        //    {
-        //        for (int j = x; j < x + cols; j++)
-        //        {
-        //            var cell = ws.Cells[i, j];
-        //            var fill = cell.Style.Fill;
-        //            var border = cell.Style.Border;
+            for (int i = y; i < y + rows; i++)
+            {
+                for (int j = x; j < x + cols; j++)
+                {
+                    var cell = ws.Cells[i, j];
+                    var fill = cell.Style.Fill;
+                    var border = cell.Style.Border;
 
-        //            border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
-        //        }
-        //    }
-        //}
+                    border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+                }
+            }
+        }
 
-        //private void SetRichText(ExcelRange pregunta, string p)
-        //{
-        //    pregunta.IsRichText = true;
-        //    ExcelRichText ert = pregunta.RichText.Add(p);
-        //    ert.Bold = true;
-        //    ert.Size = 11;
-        //    ert.Color = Color.White;
-        //}
+        private void SetRichText(ExcelRange pregunta, string p)
+        {
+            pregunta.IsRichText = true;
+            ExcelRichText ert = pregunta.RichText.Add(p);
+            ert.Bold = true;
+            ert.Size = 11;
+            ert.Color = Color.White;
+        }
 
-        //private void StyleSimpleHeaderReport(ExcelWorksheet ws, int x, int y, int cols)
-        //{
-        //    for (int i = x; i < x + cols; i++)
-        //    {
-        //        var cell = ws.Cells[y, i];
-        //        var fill = cell.Style.Fill;
-        //        var border = cell.Style.Border;
+        private void StyleSimpleHeaderReport(ExcelWorksheet ws, int x, int y, int cols)
+        {
+            for (int i = x; i < x + cols; i++)
+            {
+                var cell = ws.Cells[y, i];
+                var fill = cell.Style.Fill;
+                var border = cell.Style.Border;
 
-        //        fill.PatternType = ExcelFillStyle.Solid;
-        //        fill.BackgroundColor.SetColor(Color.Black);
-        //        border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
-        //    }
-        //}
+                fill.PatternType = ExcelFillStyle.Solid;
+                fill.BackgroundColor.SetColor(Color.Black);
+                border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+            }
+        }
 
     }
 }

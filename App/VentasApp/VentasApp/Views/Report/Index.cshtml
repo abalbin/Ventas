@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Reportes";
+}
+
+<h2>Reportes</h2>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="padded">
+            <div class="section-title">Llamadas </div>
+            <div id="dateLlamada">
+            </div>
+            <button class="btn" onclick="llamadas()">
+                Generar Reporte
+            </button>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="padded">
+            <div class="section-title">Pedidos </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/dateselect")
+    <script type="text/javascript">
+        $("#dateLlamada").birthdaypicker(options = { maxAge: 3, dateFormat: 'bigEndian', placeholder: false, monthFormat: 'long' });
+        function llamadas() {
+            var year = $("#dateLlamada .birth-year").val();
+            var month = $("#dateLlamada .birth-month").val();
+            var day = $("#dateLlamada .birth-day").val();
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("ExportReportLlamadas", "Report")",
+                data: { anio: year, mes: month, dia: day },
+                success: function (data) {
+                    
+                },
+                traditional: true
+            });
+        }
+    </script>
+}

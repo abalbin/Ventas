@@ -9,6 +9,8 @@ namespace VentasApp
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Content/javascripts/jquery-1.8.3.js"));
+            bundles.Add(new ScriptBundle("~/bundles/dateselect").Include(
+                        "~/Content/javascripts/bday-picker.js"));
             bundles.Add(new ScriptBundle("~/bundles/jpreloader").Include(
                         "~/Content/javascripts/jpreloader.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
