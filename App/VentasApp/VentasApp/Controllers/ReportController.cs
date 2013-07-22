@@ -15,7 +15,7 @@ namespace VentasApp.Controllers
     [InitializeSimpleMembership]
     public class ReportController : Controller
     {
-        //private Entities db = new Entities();
+        private Entities db = new Entities();
         ////
         //// GET: /Report/
 
@@ -597,6 +597,138 @@ namespace VentasApp.Controllers
         //    }
         //    return null;
         //}
+
+        public FileResult ExportReportLlamadas(int year = 0, int month = 0, int day = 0, int modo = 1)
+        {
+            if (year > 0 && month > 0)
+            {
+                DateTime fechaVisualizacion = new DateTime(year, month, day);
+                string filenameComplemento = modo == 1 ? fechaVisualizacion.ToString("dd-MM-yyyy") : modo == 2 ? fechaVisualizacion.ToString("MMMM_yyyy") : fechaVisualizacion.Year.ToString();
+                string filename = string.Format("Reporte_Llamadas_{0}.xlsx", filenameComplemento);
+                filename = filename.Replace(" ", string.Empty);
+                using (var xlPackage = new ExcelPackage())
+                {
+                    xlPackage.Workbook.Properties.Title = "Reporte de Llamadas";
+                    xlPackage.Workbook.Properties.Company = "Unimed";
+                    var ws = xlPackage.Workbook.Worksheets.Add(filenameComplemento);
+
+                    //Write header
+                    StyleSimpleHeaderReport(ws, 2, 2, 3);
+
+                    var Farmacia = ws.Cells[2, 2];
+                    var Observaciones = ws.Cells[2, 3];
+                    var Fecha = ws.Cells[2, 4];                    
+
+                    SetRichText(Farmacia, "Farmacia");
+                    SetRichText(Observaciones, "Observaciones");
+                    SetRichText(Fecha, "Fecha");
+
+                    //Write data
+                    List<Llamada> listaLlamadas = db.Llamada.Where(l => l.Fecha.Value.Year == year).OrderByDescending(f => f.Fecha).ToList();
+                    if (modo == 2) listaLlamadas = listaLlamadas.Where(l => l.Fecha.Value.Month == month).ToList();
+                    if (modo == 1) listaLlamadas = listaLlamadas.Where(l => l.Fecha.Value.Month == month && l.Fecha.Value.Day == day).ToList();
+
+                    StyleSimpleDataReport(ws, 2, 3, 3, listaLlamadas.Count);
+
+                    int colFarmacia = 2;
+                    int colNObservaciones = 3;
+                    int colFecha = 4;
+
+                    for (int i = 3; i < listaLlamadas.Count + 3; i++)
+                    {
+                        // Farmacia
+                        var FarmaciaCell = ws.Cells[i, colFarmacia];
+                        FarmaciaCell.Value = listaLlamadas[i - 3].Farmacia == null ? "No registrada" : listaLlamadas[i - 3].Farmacia.RazonComercial == null ? "No registrada" : listaLlamadas[i - 3].Farmacia.RazonComercial.Trim();
+                        // Observaciones
+                        var ObservacionesCell = ws.Cells[i, colNObservaciones];
+                        ObservacionesCell.Value = listaLlamadas[i - 3].Observaciones.Trim();
+                        // Fecha
+                        var FechaCell = ws.Cells[i, colFecha];
+                        FechaCell.Value = listaLlamadas[i - 3].Fecha.Value.ToString("dd-MM-yyyy");
+                    }
+                    //--------------
+
+                    //Autosize columns
+                    for (int i = 2; i <= 8; i++)
+                        ws.Column(i).AutoFit();
+                    //----------------
+                    return File(xlPackage.GetAsByteArray(), "application/excel", filename);
+                }
+            }
+            return null;
+        }
+
+        public FileResult ExportReportPedidos(int year = 0, int month = 0, int day = 0, int modo = 1)
+        {
+            if (year > 0 && month > 0)
+            {
+                DateTime fechaVisualizacion = new DateTime(year, month, day);
+                string filenameComplemento = modo == 1 ? fechaVisualizacion.ToString("dd-MM-yyyy") : modo == 2 ? fechaVisualizacion.ToString("MMMM_yyyy") : fechaVisualizacion.Year.ToString();
+                string filename = string.Format("Reporte_Pedidos_{0}.xlsx", filenameComplemento);
+                filename = filename.Replace(" ", string.Empty);
+                using (var xlPackage = new ExcelPackage())
+                {
+                    xlPackage.Workbook.Properties.Title = "Reporte de Pedidos";
+                    xlPackage.Workbook.Properties.Company = "Unimed";
+                    var ws = xlPackage.Workbook.Worksheets.Add(filenameComplemento);
+
+                    //Write header
+                    StyleSimpleHeaderReport(ws, 2, 2, 5);
+
+                    var Presentacion = ws.Cells[2, 2];
+                    var Proveedor = ws.Cells[2, 3];
+                    var Cantidad = ws.Cells[2, 4];
+                    var PrecioTotal = ws.Cells[2, 5];
+                    var Fecha = ws.Cells[2, 6];
+
+                    SetRichText(Presentacion, "Presentación");
+                    SetRichText(Proveedor, "Proveedor");
+                    SetRichText(Cantidad, "Cantidad");
+                    SetRichText(PrecioTotal, "Precio Total");
+                    SetRichText(Fecha, "Fecha");
+
+                    //Write data
+                    List<Pedido> listaPedidos = db.Pedido.Where(l => l.Fecha.Value.Year == year).OrderByDescending(f => f.Fecha).ToList();
+                    if (modo == 2) listaPedidos = listaPedidos.Where(l => l.Fecha.Value.Month == month).ToList();
+                    if (modo == 1) listaPedidos = listaPedidos.Where(l => l.Fecha.Value.Month == month && l.Fecha.Value.Day == day).ToList();
+
+                    StyleSimpleDataReport(ws, 2, 3, 5, listaPedidos.Count);
+
+                    int colPresentacion = 2;
+                    int colProveedor = 3;
+                    int colCantidad = 4;
+                    int colPrecioTotal = 5;
+                    int colFecha = 6;
+
+                    for (int i = 3; i < listaPedidos.Count + 3; i++)
+                    {
+                        // Pres
+                        var PresentacionCell = ws.Cells[i, colPresentacion];
+                        PresentacionCell.Value = string.Format("{0} - {1}", listaPedidos[i - 3].Presentacion.Producto.Nombre, listaPedidos[i - 3].Presentacion.Nombre);
+                        // Observaciones
+                        var ProveedorCell = ws.Cells[i, colProveedor];
+                        ProveedorCell.Value = listaPedidos[i - 3].Proveedor.Nombre;
+                        // Observaciones
+                        var PrecioTotalCell = ws.Cells[i, colPrecioTotal];
+                        PrecioTotalCell.Value = listaPedidos[i - 3].PrecioTotal == null ? "0" : listaPedidos[i - 3].PrecioTotal.ToString();
+                        // Observaciones
+                        var CantidadCell = ws.Cells[i, colCantidad];
+                        CantidadCell.Value = listaPedidos[i - 3].Cantidad;
+                        // Fecha
+                        var FechaCell = ws.Cells[i, colFecha];
+                        FechaCell.Value = listaPedidos[i - 3].Fecha.Value.ToString("dd-MM-yyyy");
+                    }
+                    //--------------
+
+                    //Autosize columns
+                    for (int i = 2; i <= 8; i++)
+                        ws.Column(i).AutoFit();
+                    //----------------
+                    return File(xlPackage.GetAsByteArray(), "application/excel", filename);
+                }
+            }
+            return null;
+        }
 
         private void StyleSimpleFooterReport(ExcelWorksheet ws, int x, int y, int cols)
         {

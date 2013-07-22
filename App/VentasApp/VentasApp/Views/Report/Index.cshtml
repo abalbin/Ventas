@@ -10,14 +10,31 @@
             <div class="section-title">Llamadas </div>
             <div id="dateLlamada">
             </div>
-            <button class="btn" onclick="llamadas()">
-                Generar Reporte
+            <button class="btn" onclick="llamadas(1)">
+                Generar Reporte del día
+            </button>
+            <button class="btn" onclick="llamadas(2)">
+                Generar Reporte del mes
+            </button>
+            <button class="btn" onclick="llamadas(3)">
+                Generar Reporte del año
             </button>
         </div>
     </div>
     <div class="span6">
         <div class="padded">
             <div class="section-title">Pedidos </div>
+            <div id="datePedido">
+            </div>
+            <button class="btn" onclick="pedidos(1)">
+                Generar Reporte del día
+            </button>
+            <button class="btn" onclick="pedidos(2)">
+                Generar Reporte del mes
+            </button>
+            <button class="btn" onclick="pedidos(3)">
+                Generar Reporte del año
+            </button>
         </div>
     </div>
 </div>
@@ -26,19 +43,22 @@
     @Scripts.Render("~/bundles/dateselect")
     <script type="text/javascript">
         $("#dateLlamada").birthdaypicker(options = { maxAge: 3, dateFormat: 'bigEndian', placeholder: false, monthFormat: 'long' });
-        function llamadas() {
+        $("#datePedido").birthdaypicker(options = { maxAge: 3, dateFormat: 'bigEndian', placeholder: false, monthFormat: 'long' });
+        function llamadas(modo) {
             var year = $("#dateLlamada .birth-year").val();
             var month = $("#dateLlamada .birth-month").val();
             var day = $("#dateLlamada .birth-day").val();
-            $.ajax({
-                type: "GET",
-                url: "@Url.Action("ExportReportLlamadas", "Report")",
-                data: { anio: year, mes: month, dia: day },
-                success: function (data) {
-                    
-                },
-                traditional: true
-            });
+            var url = '@Url.Action("ExportReportLlamadas", "Report")';
+            url += "?year=" + year + "&month=" + month + "&day=" + day + "&modo=" + modo;
+            window.location.href = url;
+        }
+        function pedidos(modo) {
+            var year = $("#datePedido .birth-year").val();
+            var month = $("#datePedido .birth-month").val();
+            var day = $("#datePedido .birth-day").val();
+            var url = '@Url.Action("ExportReportPedidos", "Report")';
+            url += "?year=" + year + "&month=" + month + "&day=" + day + "&modo=" + modo;
+            window.location.href = url;
         }
     </script>
 }
