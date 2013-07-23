@@ -8,6 +8,9 @@ using OfficeOpenXml.Style;
 using VentasApp.Filters;
 using VentasApp.Models;
 using VentasApp.Models.ViewModels;
+using System.Net.Mail;
+using System.Net;
+using VentasApp.Mailers;
 
 namespace VentasApp.Controllers
 {
@@ -18,6 +21,13 @@ namespace VentasApp.Controllers
         private Entities db = new Entities();
         ////
         //// GET: /Report/
+
+        private IUserMailer _userMailer = new UserMailer();
+        public IUserMailer UserMailer
+        {
+            get { return _userMailer; }
+            set { _userMailer = value; }
+        }
 
         public ActionResult Index()
         {
@@ -617,7 +627,7 @@ namespace VentasApp.Controllers
 
                     var Farmacia = ws.Cells[2, 2];
                     var Observaciones = ws.Cells[2, 3];
-                    var Fecha = ws.Cells[2, 4];                    
+                    var Fecha = ws.Cells[2, 4];
 
                     SetRichText(Farmacia, "Farmacia");
                     SetRichText(Observaciones, "Observaciones");

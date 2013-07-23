@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using VentasApp.Filters;
+using VentasApp.Mailers;
 using VentasApp.Models;
 using VentasApp.Models.ViewModels;
 
@@ -15,6 +15,13 @@ namespace VentasApp.Controllers
     public class PedidoController : Controller
     {
         private Entities db = new Entities();
+
+        private IUserMailer _userMailer = new UserMailer();
+        public IUserMailer UserMailer
+        {
+            get { return _userMailer; }
+            set { _userMailer = value; }
+        }
 
         //
         // GET: /Pedido/
@@ -62,6 +69,11 @@ namespace VentasApp.Controllers
             {
                 db.Pedido.Add(pedido);
                 db.SaveChanges();
+                var prov = db.Proveedor.Find(pedido.IdProveedor);
+                var pres = db.Presentacion.Find(pedido.IdPresentacion);
+                pedido.Proveedor = prov;
+                pedido.Presentacion = pres;
+                EnviarAlertaPedido(pedido);
                 return RedirectToAction("Index");
             }
 
@@ -71,6 +83,18 @@ namespace VentasApp.Controllers
             ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar");
             ViewBag.IdProveedor = new SelectList(db.Proveedor, "Id", "Nombre", pedido.IdProveedor);
             return View(pedido);
+        }
+
+        public void EnviarAlertaPedido(Pedido model)
+        {
+            UserMailer.AlertPedido(model).Send();
+        }
+
+        public ActionResult SendMail(int id = 0)
+        {
+            var model = db.Pedido.Find(id);
+            if (model != null) EnviarAlertaPedido(model);
+            return RedirectToAction("Index");
         }
 
         //

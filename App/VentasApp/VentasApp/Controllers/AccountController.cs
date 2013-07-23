@@ -191,7 +191,7 @@ namespace VentasApp.Controllers
                 try
                 {
                     List<string> roleNames = new List<string>();
-                    db.Entry(model).State = System.Data.EntityState.Modified;
+                    db.Entry(model).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                     foreach (var s in IdRol)
                     {

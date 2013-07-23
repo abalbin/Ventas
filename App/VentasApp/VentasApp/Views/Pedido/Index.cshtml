@@ -12,14 +12,17 @@
 <table class="table table-striped data-table">
     <thead>
         <tr>
+            <th>
+                Producto
+            </th>
             <th>Presentación
             </th>
-            <th>Proveedor
+            <th>Prov.
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cantidad)
+                Cant.
             </th>
-            <th>Monto total
+            <th>Precio
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Fecha)
@@ -31,6 +34,9 @@
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @item.Presentacion.Producto.Nombre
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Presentacion.Nombre)
             </td>
@@ -48,7 +54,8 @@
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }) |
+                @Html.ActionLink("Alerta", "SendMail", new { id = item.Id })
             </td>
         </tr>
     }

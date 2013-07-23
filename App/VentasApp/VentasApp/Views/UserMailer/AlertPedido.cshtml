@@ -1,0 +1,95 @@
+@model VentasApp.Models.Pedido
+
+<table width="705" cellspacing="0" cellpadding="0" border="0" align="center">
+    <tbody>
+        <tr>
+            <td width="706">
+                <table width="705" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td style="BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-RIGHT: #cccccc 1px solid; PADDING: 15px 10px">
+                                <p style="PADDING-BOTTOM: 3px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 32px; PADDING-TOP: 0px"><strong>@Model.Proveedor.Nombre</strong></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="BORDER-LEFT: #cccccc 1px solid"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#f9f9f9" style="BORDER-TOP: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-RIGHT: #cccccc 1px solid">
+                <table width="700" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr>
+
+                            <td width="535" valign="top" bgcolor="#f9f9f9" align="left" style="PADDING-BOTTOM: 15px; PADDING-LEFT: 15px; PADDING-RIGHT: 10px; PADDING-TOP: 20px">
+                                <table width="98%" cellspacing="0" cellpadding="0" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="525">
+                                                <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="477" align="left">
+                                                                <p style="PADDING-TOP: 20px; PADDING-BOTTOM: 6px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 16px; PADDING-TOP: 0px"><strong>Se ha generado un nuevo pedido. A continuación, se tienen los detalles:</strong></p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <table width="100%" cellspacing="0" cellpadding="0" border="0" style="BORDER-LEFT: #cccccc 1px solid; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 12px; BORDER-TOP: #cccccc 1px solid; BORDER-RIGHT: #cccccc 1px solid">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="155" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>PRODUCTO</strong></td>
+                                                            <td width="45" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>PRESENTACIÓN</strong></td>
+                                                            <td width="102" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>CANTIDAD</strong></td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="155" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@Model.Presentacion.Producto.Nombre</td>
+                                                            <td width="45" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@Model.Presentacion.Nombre</td>
+                                                            <td width="102" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@Model.Cantidad</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <br>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff">
+                    <tbody>
+                        <tr>
+                            <td width="549" style="PADDING-BOTTOM: 15px; PADDING-LEFT: 25px; PADDING-RIGHT: 15px; BORDER-TOP: #cccccc 1px solid; PADDING-TOP: 15px"></td>
+                            <td width="154" style="BORDER-TOP: #cccccc 1px solid; PADDING-TOP: 15px">
+                                <img width="180" height="80" src="http://www.unimed.com.pe:8080/Unimed/graficos/logo-unimed.jpg" alt="Unimed" style="DISPLAY: block"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td style="PADDING-BOTTOM: 10px; PADDING-LEFT: 25px; PADDING-RIGHT: 10px; BORDER-TOP: #cccccc 1px solid; PADDING-TOP: 10px">
+                                <table width="100%" cellspacing="0" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <td valign="middle" height="35"><font size="1" face="Arial, Helvetica, sans-serif">Unimed 2013. Todos los derechos reservados</font></td>
+                                            <td valign="middle" align="right"><font size="1" face="Arial, Helvetica, sans-serif"><a target="_blank" href="http://www.unimed.com.pe/"><font size="1" color="#1f4f82" face="Arial, Helvetica, sans-serif">Contacte con nosotros</font></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
