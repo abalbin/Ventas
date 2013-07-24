@@ -1,0 +1,37 @@
+﻿@model VentasApp.Models.Proveedor
+
+@{
+    ViewBag.Title = "Crear";
+}
+
+<h2>Crear</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Proveedor</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nombre)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Nombre)
+            @Html.ValidationMessageFor(model => model.Nombre)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Mail)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Mail)
+            @Html.ValidationMessageFor(model => model.Mail)
+        </div>
+
+        </fieldset>
+    <div>
+        @Html.Bootstrap().SubmitButton().Text("Guardar")
+        @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
+                    "Index", "Proveedor")
+    </div>
+}

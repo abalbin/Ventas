@@ -85,6 +85,9 @@
                         <li class="">
                             @Html.ActionLink("Farmacias", "Index", "Farmacia")
                         </li>
+                        <li class="">
+                            @Html.ActionLink("Proveedores", "Index", "Proveedor")
+                        </li>
                     </ul>
                 </li>
             }
@@ -137,12 +140,12 @@
                         </span>
                     </a>
                     <ul id="reportes-list" class="collapse secondary">
-                        <li class="li-disabled">
-                            @Html.ActionLink("Llamadas y Pedidos", "LlamadasPedidos", "Report")
+                        <li>
+                            @Html.ActionLink("Llamadas y Pedidos", "Index", "Report")
                         </li>
-                        <li class="li-disabled">
+                        @*<li class="li-disabled">
                             @Html.ActionLink("Pedidos", "Pedidos", "Report")
-                        </li>
+                        </li>*@
                     </ul>
                 </li>
             }

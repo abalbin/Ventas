@@ -1,0 +1,39 @@
+﻿@model IEnumerable<VentasApp.Models.Proveedor>
+
+@{
+    ViewBag.Title = "Proveedores";
+}
+
+<h2>Proveedores</h2>
+
+<p>
+    @Html.ActionLink("Agregar", "Create")
+</p>
+<table class="table table-striped data-table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mail)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
