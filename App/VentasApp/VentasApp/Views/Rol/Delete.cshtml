@@ -9,15 +9,16 @@
     <legend>Rol</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.RoleName):
+         Nombre:
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.RoleName)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Eliminar" class="btn btn-small red" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    <div>
+        @Html.Bootstrap().SubmitButton().Text("Eliminar").Style(ButtonStyle.Danger)
+        @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
+                    "Index", "Rol")
+    </div>
 }

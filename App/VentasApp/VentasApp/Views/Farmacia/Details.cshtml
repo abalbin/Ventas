@@ -1,10 +1,11 @@
 ﻿@model VentasApp.Models.Farmacia
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
-<h2>Details</h2>
+<h2>Detalles
+</h2>
 
 <fieldset>
     <legend>Farmacia</legend>
@@ -100,7 +101,10 @@
         @Html.DisplayFor(model => model.Horario)
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+    <div>
+        @Html.Bootstrap().ActionLinkButton("Editar","Edit").RouteValues(new { id=Model.Id }).Style(ButtonStyle.Info)
+        @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
+                    "Index", "Farmacia")
+    </div>
+

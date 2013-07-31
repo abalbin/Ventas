@@ -1,12 +1,10 @@
 ﻿@model VentasApp.Models.Farmacia
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Estás seguro que deseas eliminar este registro?</h3>
 <fieldset>
     <legend>Farmacia</legend>
 
@@ -103,8 +101,9 @@
 </fieldset>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    <div>
+        @Html.Bootstrap().SubmitButton().Text("Eliminar").Style(ButtonStyle.Danger)
+        @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
+                    "Index", "Farmacia")
+    </div>
 }

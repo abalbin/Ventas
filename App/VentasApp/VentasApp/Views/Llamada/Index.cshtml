@@ -14,7 +14,12 @@
     <table class="table table-striped data-table">
         <thead>
             <tr>
+                <th>
+                    aasd
+                </th>
                 <th>Farmacia
+                </th>
+                <th>RUC
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Observaciones)
@@ -29,7 +34,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Farmacia.RazonComercial)
+                    @item.IdFarmacia
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Farmacia.RazonSocial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Farmacia.Ruc)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Observaciones)
