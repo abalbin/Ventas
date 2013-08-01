@@ -17,6 +17,7 @@ namespace VentasApp.Models
         public Llamada()
         {
             this.Pedido = new HashSet<Pedido>();
+            this.Llamada1 = new HashSet<Llamada>();
         }
     
         public int Id { get; set; }
@@ -24,9 +25,15 @@ namespace VentasApp.Models
         public string Observaciones { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
         public Nullable<int> IdEstado { get; set; }
+        public Nullable<bool> EsRellamada { get; set; }
+        public Nullable<System.DateTime> FechaPrevistaRellamada { get; set; }
+        public string FechaPrevistaRellamadaStr { get; set; }
+        public Nullable<int> IdLlamadaPadre { get; set; }
     
         public virtual Estado Estado { get; set; }
         public virtual Farmacia Farmacia { get; set; }
         public virtual ICollection<Pedido> Pedido { get; set; }
+        public virtual ICollection<Llamada> Llamada1 { get; set; }
+        public virtual Llamada Llamada2 { get; set; }
     }
 }

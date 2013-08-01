@@ -273,6 +273,9 @@
     <Content Include="Content\javascripts\bday-picker.js" />
     <Content Include="Content\javascripts\dataTables\extras\jquery.dataTables.columnFilter.js" />
     <Content Include="Content\javascripts\dateSelectBoxes.js" />
+    <Content Include="Content\javascripts\datetimepicker\bootstrap-datetimepicker.js" />
+    <Content Include="Content\javascripts\datetimepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="Content\javascripts\datetimepicker\locales\bootstrap-datetimepicker.es.js" />
     <Content Include="Content\javascripts\fileupload\jquery.fileupload-fp.js" />
     <Content Include="Content\javascripts\fileupload\jquery.fileupload-ui.js" />
     <Content Include="Content\javascripts\fileupload\jquery.fileupload.js" />
@@ -305,6 +308,7 @@
     <Content Include="Content\javascripts\jquery-1.8.3.js" />
     <Content Include="Content\javascripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Content\javascripts\jqueryui192.js" />
+    <Content Include="Content\stylesheets\datetimepicker.css" />
     <Content Include="Content\stylesheets\font\fontawesome-webfont.svg" />
     <Content Include="Content\stylesheets\font\openwebicons.svg" />
     <Content Include="Content\stylesheets\images\bg-input-focus.png" />

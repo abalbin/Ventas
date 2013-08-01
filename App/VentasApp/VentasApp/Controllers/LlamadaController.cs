@@ -45,6 +45,8 @@ namespace VentasApp.Controllers
         {
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
             ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RazonSocial");
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
+            ViewBag.EsRellamada = false;
             return View();
         }
 
@@ -57,9 +59,28 @@ namespace VentasApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                llamada.IdEstado = 1;
+                string fechaStr = llamada.FechaPrevistaRellamadaStr;
+                bool esRellamada = llamada.EsRellamada.Value;
+                llamada.Fecha = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
+                llamada.FechaPrevistaRellamada = null;
+                llamada.FechaPrevistaRellamadaStr = null;
+                llamada.EsRellamada = false;
+                llamada.IdLlamadaPadre = null;
                 db.Llamada.Add(llamada);
                 db.SaveChanges();
+                if (esRellamada)
+                {
+                    Llamada rellamada = new Llamada()
+                    {
+                        FechaPrevistaRellamada = Convert.ToDateTime(fechaStr),
+                        IdFarmacia = llamada.IdFarmacia,
+                        EsRellamada = true,
+                        IdLlamadaPadre = llamada.Id
+                    };
+                    db.Llamada.Add(rellamada);
+                    db.SaveChanges();
+                }
+                
                 return RedirectToAction("Index");
             }
 
@@ -79,6 +100,8 @@ namespace VentasApp.Controllers
             }
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
             ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RazonComercial", llamada.IdFarmacia);
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
+
             return View(llamada);
         }
 

@@ -26,6 +26,7 @@
         <AssociationConnector Association="VentasAppBDModel.FK_Pedido_Llamada" />
         <AssociationConnector Association="VentasAppBDModel.FK_Pedido_Presentacion" />
         <AssociationConnector Association="VentasAppBDModel.FK_Pedido_Proveedor" />
+        <AssociationConnector Association="VentasAppBDModel.FK_Llamada_Llamada" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -39,6 +39,10 @@
             <End Role="Farmacia" EntitySet="Farmacia" />
             <End Role="Llamada" EntitySet="Llamada" />
           </AssociationSet>
+          <AssociationSet Name="FK_Llamada_Llamada" Association="VentasAppBDModel.Store.FK_Llamada_Llamada">
+            <End Role="Llamada" EntitySet="Llamada" />
+            <End Role="Llamada1" EntitySet="Llamada" />
+          </AssociationSet>
           <AssociationSet Name="FK_Pedido_Llamada" Association="VentasAppBDModel.Store.FK_Pedido_Llamada">
             <End Role="Llamada" EntitySet="Llamada" />
             <End Role="Pedido" EntitySet="Pedido" />
@@ -110,6 +114,10 @@
           <Property Name="Observaciones" Type="varchar" MaxLength="500" />
           <Property Name="Fecha" Type="datetime" />
           <Property Name="IdEstado" Type="int" />
+          <Property Name="EsRellamada" Type="bit" />
+          <Property Name="FechaPrevistaRellamada" Type="datetime" />
+          <Property Name="FechaPrevistaRellamadaStr" Type="nvarchar" MaxLength="100" />
+          <Property Name="IdLlamadaPadre" Type="int" />
         </EntityType>
         <EntityType Name="NombreTabla">
           <Key>
@@ -246,6 +254,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Llamada_Llamada">
+          <End Role="Llamada" Type="VentasAppBDModel.Store.Llamada" Multiplicity="0..1" />
+          <End Role="Llamada1" Type="VentasAppBDModel.Store.Llamada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Llamada">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Llamada1">
+              <PropertyRef Name="IdLlamadaPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Pedido_Llamada">
           <End Role="Llamada" Type="VentasAppBDModel.Store.Llamada" Multiplicity="0..1" />
           <End Role="Pedido" Type="VentasAppBDModel.Store.Pedido" Multiplicity="*" />
@@ -358,6 +378,10 @@
           <AssociationSet Name="FK_Pedido_Proveedor" Association="VentasAppBDModel.FK_Pedido_Proveedor">
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Llamada_Llamada" Association="VentasAppBDModel.FK_Llamada_Llamada">
+            <End Role="Llamada" EntitySet="Llamada" />
+            <End Role="Llamada1" EntitySet="Llamada" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Estado">
@@ -504,6 +528,12 @@
           <NavigationProperty Name="Estado" Relationship="VentasAppBDModel.FK_Llamada_Estado" FromRole="Llamada" ToRole="Estado" />
           <NavigationProperty Name="Farmacia" Relationship="VentasAppBDModel.FK_Llamada_Farmacia" FromRole="Llamada" ToRole="Farmacia" />
           <NavigationProperty Name="Pedido" Relationship="VentasAppBDModel.FK_Pedido_Llamada" FromRole="Llamada" ToRole="Pedido" />
+          <Property Type="Boolean" Name="EsRellamada" />
+          <Property Type="DateTime" Name="FechaPrevistaRellamada" Precision="3" />
+          <Property Type="String" Name="FechaPrevistaRellamadaStr" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="IdLlamadaPadre" />
+          <NavigationProperty Name="Llamada1" Relationship="VentasAppBDModel.FK_Llamada_Llamada" FromRole="Llamada" ToRole="Llamada1" />
+          <NavigationProperty Name="Llamada2" Relationship="VentasAppBDModel.FK_Llamada_Llamada" FromRole="Llamada1" ToRole="Llamada" />
         </EntityType>
         <Association Name="FK_Llamada_Estado">
           <End Type="VentasAppBDModel.Estado" Role="Estado" Multiplicity="0..1" />
@@ -593,6 +623,18 @@
             </Principal>
             <Dependent Role="Pedido">
               <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Llamada_Llamada">
+          <End Type="VentasAppBDModel.Llamada" Role="Llamada" Multiplicity="0..1" />
+          <End Type="VentasAppBDModel.Llamada" Role="Llamada1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Llamada">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Llamada1">
+              <PropertyRef Name="IdLlamadaPadre" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -711,6 +753,10 @@
           <EntitySetMapping Name="Llamada">
             <EntityTypeMapping TypeName="VentasAppBDModel.Llamada">
               <MappingFragment StoreEntitySet="Llamada">
+                <ScalarProperty Name="IdLlamadaPadre" ColumnName="IdLlamadaPadre" />
+                <ScalarProperty Name="FechaPrevistaRellamadaStr" ColumnName="FechaPrevistaRellamadaStr" />
+                <ScalarProperty Name="FechaPrevistaRellamada" ColumnName="FechaPrevistaRellamada" />
+                <ScalarProperty Name="EsRellamada" ColumnName="EsRellamada" />
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />

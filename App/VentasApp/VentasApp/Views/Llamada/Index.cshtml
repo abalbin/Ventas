@@ -14,9 +14,6 @@
     <table class="table table-striped data-table">
         <thead>
             <tr>
-                <th>
-                    aasd
-                </th>
                 <th>Farmacia
                 </th>
                 <th>RUC
@@ -25,7 +22,13 @@
                     @Html.DisplayNameFor(model => model.Observaciones)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Fecha)
+                    F. Registro
+                </th>
+                <th>
+                    F. Rellamada
+                </th>
+                <th>
+                    Estado
                 </th>
                 <th></th>
             </tr>
@@ -33,9 +36,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @item.IdFarmacia
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Farmacia.RazonSocial)
                 </td>
@@ -46,7 +46,13 @@
                     @Html.DisplayFor(modelItem => item.Observaciones)
                 </td>
                 <td>
-                    @item.Fecha.Value.ToString("dd/MM/yyyy")
+                    @(item.Fecha.HasValue ? item.Fecha.Value.ToString("dd/MM/yyyy") : "Pendiente")
+                </td>
+                <td>
+                    @(item.FechaPrevistaRellamada.HasValue ? item.FechaPrevistaRellamada.Value.ToString("dd/MM/yyyy hh:mm") : "No tiene")
+                </td>
+                <td>
+                    @(item.Estado != null ? item.Estado.Nombre : "No asignado")
                 </td>
                 <td>
                     @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |

@@ -92,6 +92,10 @@ ul.inline, ol.inline
 	visibility: hidden;
 }
 
+.hide-input {
+	display:none;
+}
+
 .respuesta:hover .remove {
 	visibility: visible;
 }
@@ -296,4 +300,8 @@ ul.inline, ol.inline
 select
 {
 	width: auto !important;
+}
+
+.input-datetimepicker {
+    height: 25px !important;
 }

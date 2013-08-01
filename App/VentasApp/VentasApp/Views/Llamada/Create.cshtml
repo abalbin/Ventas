@@ -5,6 +5,7 @@
 }
 
 <h2>Crear</h2>
+@Styles.Render("~/Content/datetimepicker")
 
 @using (Html.BeginForm())
 {
@@ -35,14 +36,32 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Fecha)
+            Estado
         </div>
         <div class="editor-field">
-            <div class="input-append date datepicker" data-date="@DateTime.Now.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
+            @Html.DropDownList("IdEstado", null, String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" },
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlEstado"}
+                                                       })
+        </div>
+        <br />
+        <div class="editor-label">
+            @Html.CheckBox("EsRellamada", new { @class = "chkRellamada" }) Volver a llamar
+        </div>
+        <div id="divFechaPrevistaRellamada" class="editor-field hide-input">
+            <div class="input-append date form_datetime">
+                @Html.TextBox("FechaPrevistaRellamadaStr", DateTime.Now.ToString("dd/MM/yyyy hh:mm"), new { @placeholder = "Elegir", @id = "txtFechaPrevistaRellamada", @readonly = "", @class = "input-datetimepicker" })
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            @*<div class="input-append date datepicker" data-date="@DateTime.Now.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
                 @Html.TextBox("Fecha", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoDesde", @readonly = "" })
                 <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
-            </div>
+            </div>*@
+            @Html.ValidationMessageFor(model => model.FechaPrevistaRellamada)
         </div>
+
 
     </fieldset>
     <div>
@@ -50,4 +69,31 @@
         @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
                     "Index", "Llamada")
     </div>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/datetimepicker")
+    <script type="text/javascript">
+        $(".form_datetime").datetimepicker({
+            format: "dd/mm/yyyy hh:ii",
+            todayBtn: true,
+            language: "es"
+        });
+        $(document).ready(function () {
+            EnableDisableDiv();
+            $('.chkRellamada').click(function (event) {
+                EnableDisableDiv();
+            });
+        });
+
+        function EnableDisableDiv() {
+            if ($('.chkRellamada').is(':checked')) {
+                $('#divFechaPrevistaRellamada').show();
+            }
+            else {
+                $('#divFechaPrevistaRellamada').hide();
+            }
+        }
+
+    </script>
 }

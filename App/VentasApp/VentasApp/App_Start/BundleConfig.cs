@@ -67,6 +67,9 @@ namespace VentasApp
             bundles.Add(new ScriptBundle("~/bundles/fileuploadextras").Include(
                         "~/Content/javascripts/fileupload/jquery.fileupload-fp.js",
                         "~/Content/javascripts/fileupload/jquery.fileupload-ui.js"));
+            bundles.Add(new ScriptBundle("~/bundles/datetimepicker").Include(
+                        "~/Content/javascripts/datetimepicker/bootstrap-datetimepicker.js",
+                        "~/Content/javascripts/datetimepicker/locales/bootstrap-datetimepicker.es.js"));
             
             
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/stylesheets/application.css",
@@ -74,6 +77,8 @@ namespace VentasApp
                         "~/Content/stylesheets/jquery.countdown.css"));
 
             bundles.Add(new StyleBundle("~/Content/jpreloader").Include("~/Content/stylesheets/jpreloader.css"));
+
+            bundles.Add(new StyleBundle("~/Content/datetimepicker").Include("~/Content/stylesheets/datetimepicker.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
