@@ -11,6 +11,7 @@ using VentasApp.Models;
 namespace VentasApp.Controllers
 {
     [InitializeSimpleMembership]
+    [Authorize]
     public class LlamadaController : Controller
     {
         private Entities db = new Entities();
