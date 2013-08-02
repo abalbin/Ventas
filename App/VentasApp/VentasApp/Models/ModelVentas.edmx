@@ -118,6 +118,8 @@
           <Property Name="FechaPrevistaRellamada" Type="datetime" />
           <Property Name="FechaPrevistaRellamadaStr" Type="nvarchar" MaxLength="100" />
           <Property Name="IdLlamadaPadre" Type="int" />
+          <Property Name="EsRellamadaHelper" Type="bit" />
+          <Property Name="ConPedido" Type="bit" />
         </EntityType>
         <EntityType Name="NombreTabla">
           <Key>
@@ -534,6 +536,8 @@
           <Property Type="Int32" Name="IdLlamadaPadre" />
           <NavigationProperty Name="Llamada1" Relationship="VentasAppBDModel.FK_Llamada_Llamada" FromRole="Llamada" ToRole="Llamada1" />
           <NavigationProperty Name="Llamada2" Relationship="VentasAppBDModel.FK_Llamada_Llamada" FromRole="Llamada1" ToRole="Llamada" />
+          <Property Type="Boolean" Name="EsRellamadaHelper" />
+          <Property Type="Boolean" Name="ConPedido" />
         </EntityType>
         <Association Name="FK_Llamada_Estado">
           <End Type="VentasAppBDModel.Estado" Role="Estado" Multiplicity="0..1" />
@@ -753,6 +757,8 @@
           <EntitySetMapping Name="Llamada">
             <EntityTypeMapping TypeName="VentasAppBDModel.Llamada">
               <MappingFragment StoreEntitySet="Llamada">
+                <ScalarProperty Name="ConPedido" ColumnName="ConPedido" />
+                <ScalarProperty Name="EsRellamadaHelper" ColumnName="EsRellamadaHelper" />
                 <ScalarProperty Name="IdLlamadaPadre" ColumnName="IdLlamadaPadre" />
                 <ScalarProperty Name="FechaPrevistaRellamadaStr" ColumnName="FechaPrevistaRellamadaStr" />
                 <ScalarProperty Name="FechaPrevistaRellamada" ColumnName="FechaPrevistaRellamada" />

@@ -11,6 +11,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ConPedido, new { @id = "hdnConPedido" })
 
     <fieldset>
         <legend>Llamada</legend>
@@ -48,7 +49,7 @@
         </div>
         <br />
         <div class="editor-label">
-            @Html.CheckBox("EsRellamada", new { @class = "chkRellamada" }) Volver a llamar
+            @Html.CheckBox("EsRellamadaHelper", new { @class = "chkRellamada" }) Volver a llamar
         </div>
         <div id="divFechaPrevistaRellamada" class="editor-field hide-input">
             <div class="input-append date form_datetime">
@@ -66,6 +67,7 @@
     </fieldset>
     <div>
         @Html.Bootstrap().SubmitButton().Text("Guardar")
+        @Html.Bootstrap().SubmitButton().Text("Guardar y pedido").HtmlAttributes(new { @onclick="submitClick()"})
         @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
                     "Index", "Llamada")
     </div>
@@ -74,6 +76,9 @@
 @section scripts{
     @Scripts.Render("~/bundles/datetimepicker")
     <script type="text/javascript">
+        function submitClick() {
+            $("#hdnConPedido").val("true");
+        }
         $(".form_datetime").datetimepicker({
             format: "dd/mm/yyyy hh:ii",
             todayBtn: true,

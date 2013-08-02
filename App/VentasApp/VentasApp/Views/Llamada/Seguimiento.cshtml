@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<VentasApp.Models.Llamada>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Seguimiento";
 }
 @Styles.Render("~/Content/jpreloader")
 @Scripts.Render("~/bundles/jpreloader")
-<h2>Llamadas</h2>
+<h2>Seguimiento de Llamadas</h2>
 
 <p>
     @Html.ActionLink("Agregar", "Create")
@@ -55,8 +55,7 @@
                     @(item.Estado != null ? item.Estado.Nombre : "No asignado")
                 </td>
                 <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("+ Pedido", "CreatePedido", new { id = item.Id })
+                    @Html.ActionLink("Editar", "EditSeguimiento", new { id = item.Id }) 
                 </td>
             </tr>
         }

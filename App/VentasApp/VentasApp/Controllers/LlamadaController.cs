@@ -25,6 +25,13 @@ namespace VentasApp.Controllers
             return View(model);
         }
 
+        public ActionResult Seguimiento()
+        {
+            var llamada = db.Llamada.Where(r => r.EsRellamada.Value);
+            var model = llamada.OrderByDescending(r => r.Fecha).ToList();
+            return View(model);
+        }
+
         //
         // GET: /Llamada/Details/5
 
@@ -46,7 +53,7 @@ namespace VentasApp.Controllers
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
             ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RazonSocial");
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
-            ViewBag.EsRellamada = false;
+            ViewBag.EsRellamadaHelper = false;
             return View();
         }
 
@@ -60,10 +67,10 @@ namespace VentasApp.Controllers
             if (ModelState.IsValid)
             {
                 string fechaStr = llamada.FechaPrevistaRellamadaStr;
-                bool esRellamada = llamada.EsRellamada.Value;
+                bool esRellamada = llamada.EsRellamadaHelper.Value;
                 llamada.Fecha = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
                 llamada.FechaPrevistaRellamada = null;
-                llamada.FechaPrevistaRellamadaStr = null;
+                llamada.FechaPrevistaRellamadaStr = !esRellamada ? null : fechaStr;
                 llamada.EsRellamada = false;
                 llamada.IdLlamadaPadre = null;
                 db.Llamada.Add(llamada);
@@ -80,7 +87,8 @@ namespace VentasApp.Controllers
                     db.Llamada.Add(rellamada);
                     db.SaveChanges();
                 }
-                
+                if (llamada.ConPedido.HasValue && llamada.ConPedido.Value)
+                    return RedirectToAction("Create", "Pedido", new { idLlamada = llamada.Id });
                 return RedirectToAction("Index");
             }
 
@@ -101,6 +109,22 @@ namespace VentasApp.Controllers
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
             ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RazonComercial", llamada.IdFarmacia);
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
+            ViewBag.EsRellamadaHelper = false;
+
+            return View(llamada);
+        }
+
+        public ActionResult EditSeguimiento(int id = 0)
+        {
+            Llamada llamada = db.Llamada.Find(id);
+            if (llamada == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
+            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RazonComercial", llamada.IdFarmacia);
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
+            ViewBag.EsRellamadaHelper = false;
 
             return View(llamada);
         }
@@ -116,7 +140,42 @@ namespace VentasApp.Controllers
             {
                 db.Entry(llamada).State = EntityState.Modified;
                 db.SaveChanges();
+                if (llamada.ConPedido.HasValue && llamada.ConPedido.Value)
+                    return RedirectToAction("Create", "Pedido", new { idLlamada = llamada.Id });
                 return RedirectToAction("Index");
+            }
+            ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
+            return View(llamada);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSeguimiento(Llamada llamada)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(llamada).State = EntityState.Modified;
+                string fechaStr = llamada.FechaPrevistaRellamadaStr;
+                bool esRellamada = llamada.EsRellamadaHelper.Value;
+                llamada.Fecha = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
+                llamada.FechaPrevistaRellamadaStr = !esRellamada ? null : fechaStr;
+                llamada.EsRellamada = false;
+                db.SaveChanges();
+                if (esRellamada)
+                {
+                    Llamada rellamada = new Llamada()
+                    {
+                        FechaPrevistaRellamada = Convert.ToDateTime(fechaStr),
+                        IdFarmacia = llamada.IdFarmacia,
+                        EsRellamada = true,
+                        IdLlamadaPadre = llamada.Id
+                    };
+                    db.Llamada.Add(rellamada);
+                    db.SaveChanges();
+                }
+                if (llamada.ConPedido.HasValue && llamada.ConPedido.Value)
+                    return RedirectToAction("Create", "Pedido", new { idLlamada = llamada.Id });
+                return RedirectToAction("Seguimiento");
             }
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
             return View(llamada);

@@ -4,7 +4,7 @@
     ViewBag.Title = "Editar";
 }
 
-<h2>Editar</h2>
+<h2>Seguimiento</h2>
 @Styles.Render("~/Content/datetimepicker")
 
 @using (Html.BeginForm())
@@ -16,21 +16,18 @@
         <legend>Llamada</legend>
 
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.IdFarmacia)
         @Html.HiddenFor(model => model.EsRellamada)
         @Html.HiddenFor(model => model.IdLlamadaPadre)
-        @Html.HiddenFor(model => model.Fecha)
+        @Html.HiddenFor(model => model.FechaPrevistaRellamada)
         @Html.HiddenFor(model => model.ConPedido, new { @id = "hdnConPedido" })
 
         <div class="editor-label">
             @Html.LabelFor(model => model.IdFarmacia, "Farmacia")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdFarmacia", null, String.Empty, new Dictionary<string, object>
-                                                       {
-                                                           { "data-placeholder", "Seleccione" },
-                                                           { "class", "chzn-select" },
-                                                           { "id", "ddlFarmacia"}
-                                                       })
+            <strong>@Model.Farmacia.RazonSocial
+            </strong>
         </div>
 
         <div class="editor-label">

@@ -615,6 +615,8 @@
     <Content Include="Views\Proveedor\Create.cshtml" />
     <Content Include="Views\Proveedor\Edit.cshtml" />
     <Content Include="Views\Proveedor\Delete.cshtml" />
+    <Content Include="Views\Llamada\Seguimiento.cshtml" />
+    <Content Include="Views\Llamada\EditSeguimiento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

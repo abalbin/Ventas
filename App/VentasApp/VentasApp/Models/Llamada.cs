@@ -29,6 +29,8 @@ namespace VentasApp.Models
         public Nullable<System.DateTime> FechaPrevistaRellamada { get; set; }
         public string FechaPrevistaRellamadaStr { get; set; }
         public Nullable<int> IdLlamadaPadre { get; set; }
+        public Nullable<bool> EsRellamadaHelper { get; set; }
+        public Nullable<bool> ConPedido { get; set; }
     
         public virtual Estado Estado { get; set; }
         public virtual Farmacia Farmacia { get; set; }
