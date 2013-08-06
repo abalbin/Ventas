@@ -15,8 +15,24 @@
 
     <fieldset>
         <legend>Llamada</legend>
+        <div class="well">
+            <div class="row-fluid">
+                <div class="span12">
+                    <label>Farmacia (RUC): </label>
+                    @Html.DropDownList("IdFarmacia", null, String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" },
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlFarmacia"}
+                                                       })
+                </div>
+            </div>
+            <div id="divDetallesFarmacia">
+                @Html.Partial("DetallesFarmaciaPartial", ViewBag.Farmacia as VentasApp.Models.Farmacia)
+            </div>
+        </div>
 
-        <div class="editor-label">
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.IdFarmacia, "Farmacia")
         </div>
         <div class="editor-field">
@@ -26,7 +42,7 @@
                                                            { "class", "chzn-select" },
                                                            { "id", "ddlFarmacia"}
                                                        })
-        </div>
+        </div>*@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Observaciones)
@@ -56,10 +72,6 @@
                 @Html.TextBox("FechaPrevistaRellamadaStr", DateTime.Now.ToString("dd/MM/yyyy hh:mm"), new { @placeholder = "Elegir", @id = "txtFechaPrevistaRellamada", @readonly = "", @class = "input-datetimepicker" })
                 <span class="add-on"><i class="icon-th"></i></span>
             </div>
-            @*<div class="input-append date datepicker" data-date="@DateTime.Now.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
-                @Html.TextBox("Fecha", DateTime.Now, "{0:dd/MM/yyyy}", new { @placeholder = "Elegir", @id = "txtComparativoDesde", @readonly = "" })
-                <button class="btn light-blue inverse date-button" type="button"><i class="icon-th"></i></button>
-            </div>*@
             @Html.ValidationMessageFor(model => model.FechaPrevistaRellamada)
         </div>
 
@@ -89,6 +101,10 @@
             $('.chkRellamada').click(function (event) {
                 EnableDisableDiv();
             });
+            $("#ddlFarmacia").change(
+            function () {
+                loadDatos(this);
+            });
         });
 
         function EnableDisableDiv() {
@@ -97,6 +113,22 @@
             }
             else {
                 $('#divFechaPrevistaRellamada').hide();
+            }
+        }
+        function loadDatos(selectList) {
+            var selectedId = $(selectList).val();
+            if (selectedId != null && selectedId != '') {
+                $.ajax({
+                    url: '@Url.Action("GetDetallesFarmaciaPartial", "Llamada")',
+                    type: 'GET',
+                    data: { id: selectedId },
+                    success: function (result) {
+                        $("#divDetallesFarmacia").html(result);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
             }
         }
 

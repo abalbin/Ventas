@@ -52,11 +52,17 @@ namespace VentasApp.Controllers
         public ActionResult Create()
         {
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
-            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RazonSocial");
+            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "Ruc");
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre");
             ViewBag.EsRellamadaHelper = false;
             return View();
         }
+        public PartialViewResult GetDetallesFarmaciaPartial(int id = 0)
+        {
+            var farmacia = db.Farmacia.Find(id);
+            return PartialView("DetallesFarmaciaPartial", farmacia);
+        }
+
 
         //
         // POST: /Llamada/Create
@@ -108,9 +114,10 @@ namespace VentasApp.Controllers
                 return HttpNotFound();
             }
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
-            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RazonComercial", llamada.IdFarmacia);
+            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RUC", llamada.IdFarmacia);
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
             ViewBag.EsRellamadaHelper = false;
+            ViewBag.Farmacia = db.Farmacia.Find(llamada.IdFarmacia);
 
             return View(llamada);
         }
@@ -123,7 +130,7 @@ namespace VentasApp.Controllers
                 return HttpNotFound();
             }
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
-            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RazonComercial", llamada.IdFarmacia);
+            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "Ruc", llamada.IdFarmacia);
             ViewBag.IdEstado = new SelectList(db.Estado, "Id", "Nombre", llamada.IdEstado);
             ViewBag.EsRellamadaHelper = false;
 

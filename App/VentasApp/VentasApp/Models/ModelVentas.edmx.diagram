@@ -5,28 +5,32 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="7a6a72fd06bf45209424a0bb4b093ab5" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="VentasAppBDModel.Estado" Width="1.5" PointX="3" PointY="8.125" />
+        <EntityTypeShape EntityType="VentasAppBDModel.Estado" Width="1.5" PointX="0.75" PointY="2.25" />
         <EntityTypeShape EntityType="VentasAppBDModel.NombreTabla" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="VentasAppBDModel.Proveedor" Width="1.5" PointX="5.25" PointY="6.25" />
-        <EntityTypeShape EntityType="VentasAppBDModel.Ubigeo" Width="1.5" PointX="0.75" PointY="2.625" />
-        <EntityTypeShape EntityType="VentasAppBDModel.UserProfile" Width="1.5" PointX="10" PointY="8" />
-        <EntityTypeShape EntityType="VentasAppBDModel.webpages_Roles" Width="1.5" PointX="9.75" PointY="0.75" />
-        <EntityTypeShape EntityType="VentasAppBDModel.Presentacion" Width="1.5" PointX="5.25" PointY="11.375" />
-        <EntityTypeShape EntityType="VentasAppBDModel.Linea" Width="1.5" PointX="7.75" PointY="8.375" />
-        <EntityTypeShape EntityType="VentasAppBDModel.Producto" Width="1.5" PointX="3" PointY="11.625" />
+        <EntityTypeShape EntityType="VentasAppBDModel.Proveedor" Width="1.5" PointX="3" PointY="8.875" />
+        <EntityTypeShape EntityType="VentasAppBDModel.Ubigeo" Width="1.5" PointX="1.5" PointY="11.875" />
+        <EntityTypeShape EntityType="VentasAppBDModel.UserProfile" Width="1.5" PointX="8" PointY="7" />
+        <EntityTypeShape EntityType="VentasAppBDModel.webpages_Roles" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="VentasAppBDModel.Presentacion" Width="1.5" PointX="3" PointY="15.625" />
+        <EntityTypeShape EntityType="VentasAppBDModel.Linea" Width="1.5" PointX="5.75" PointY="7.375" />
+        <EntityTypeShape EntityType="VentasAppBDModel.Producto" Width="1.5" PointX="0.75" PointY="15.875" />
         <AssociationConnector Association="VentasAppBDModel.FK_UserProfile_Linea" />
         <AssociationConnector Association="VentasAppBDModel.FK_Presentacion_Producto" />
-        <EntityTypeShape EntityType="VentasAppBDModel.Farmacia" Width="1.5" PointX="3" PointY="1.75" />
-        <EntityTypeShape EntityType="VentasAppBDModel.Llamada" Width="1.5" PointX="5.25" PointY="2.625" />
+        <EntityTypeShape EntityType="VentasAppBDModel.Farmacia" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="VentasAppBDModel.Llamada" Width="1.5" PointX="3" PointY="1.125" />
         <AssociationConnector Association="VentasAppBDModel.FK_Llamada_Estado" />
         <AssociationConnector Association="VentasAppBDModel.FK_Farmacia_Ubigeo" />
         <AssociationConnector Association="VentasAppBDModel.FK_Llamada_Farmacia" />
         <AssociationConnector Association="VentasAppBDModel.Farmacia_Proveedor" />
-        <EntityTypeShape EntityType="VentasAppBDModel.Pedido" Width="1.5" PointX="7.5" PointY="4" />
+        <EntityTypeShape EntityType="VentasAppBDModel.Pedido" Width="1.5" PointX="5.25" PointY="1" />
         <AssociationConnector Association="VentasAppBDModel.FK_Pedido_Llamada" />
         <AssociationConnector Association="VentasAppBDModel.FK_Pedido_Presentacion" />
         <AssociationConnector Association="VentasAppBDModel.FK_Pedido_Proveedor" />
         <AssociationConnector Association="VentasAppBDModel.FK_Llamada_Llamada" />
+        <EntityTypeShape EntityType="VentasAppBDModel.FormaPago" Width="1.5" PointX="3" PointY="6.5" />
+        <AssociationConnector Association="VentasAppBDModel.FK_Pedido_Estado" />
+        <AssociationConnector Association="VentasAppBDModel.FK_Pedido_Farmacia" />
+        <AssociationConnector Association="VentasAppBDModel.FK_Pedido_FormaPago" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

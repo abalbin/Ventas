@@ -214,6 +214,9 @@
     <Compile Include="Models\Farmacia.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FormaPago.cs">
+      <DependentUpon>ModelVentas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Linea.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
@@ -263,6 +266,7 @@
     <Compile Include="Models\ViewModels\HighChartsPoint.cs" />
     <Compile Include="Models\ViewModels\HighChartsSeries.cs" />
     <Compile Include="Models\ViewModels\HighChartTitle.cs" />
+    <Compile Include="Models\ViewModels\HomeViewModel.cs" />
     <Compile Include="Models\ViewModels\PresentacionViewModel.cs" />
     <Compile Include="Models\webpages_Roles.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
@@ -617,6 +621,8 @@
     <Content Include="Views\Proveedor\Delete.cshtml" />
     <Content Include="Views\Llamada\Seguimiento.cshtml" />
     <Content Include="Views\Llamada\EditSeguimiento.cshtml" />
+    <Content Include="Views\Llamada\DetallesFarmaciaPartial.cshtml" />
+    <Content Include="Views\Pedido\DetallesFarmaciaPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

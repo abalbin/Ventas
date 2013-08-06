@@ -23,8 +23,8 @@
     }
     <nav id="primary" class="main-nav collapsible-nav">
         <!-- Brand -->
-        <a id="sidebar-brand" href="../pages/dashboard.html">Pedidos
-        </a>
+        @Html.ActionLink("Pedidos", "Index", "Home", null, new { @id = "sidebar-brand" })
+
         <button type="button" class="btn btn-navbar btn-inverse" data-toggle="collapse" data-target=".nav-collapse">
             <i class="icon-reorder"></i>
         </button>
@@ -157,10 +157,8 @@
     </nav>
 
     <div class="top-bar">
-        <a id="topbar-brand" class="brand" href="../dashboard.html">Pedidos
-        </a>
-
-
+        @Html.ActionLink("Pedidos", "Index", "Home", null, new { @id = "topbar-brand", @class="brand"})
+        
     </div>
     <section id="main">
         <div class="container-fluid">

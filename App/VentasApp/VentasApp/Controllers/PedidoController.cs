@@ -13,6 +13,7 @@ using VentasApp.Models.ViewModels;
 namespace VentasApp.Controllers
 {
     [InitializeSimpleMembership]
+    [Authorize]
     public class PedidoController : Controller
     {
         private Entities db = new Entities();
@@ -51,13 +52,29 @@ namespace VentasApp.Controllers
 
         public ActionResult Create(int idLlamada = 0)
         {
-            if (idLlamada > 0) ViewBag.IdLlamada = idLlamada;
+            if (idLlamada > 0)
+            {
+                ViewBag.IdLlamada = idLlamada;
+                var llamada = db.Llamada.Find(idLlamada);
+                ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RUC", llamada.IdFarmacia);
+                ViewBag.Farmacia = db.Farmacia.Find(llamada.IdFarmacia);
+            }
+            else
+                ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RUC");
             ViewBag.IdProveedor = new SelectList(db.Proveedor, "Id", "Nombre");
+            ViewBag.IdEstado = new SelectList(db.Estado.Where(e => e.Pedido1.Value), "Id", "Nombre");
+            ViewBag.IdFormaPago = new SelectList(db.FormaPago, "Id", "Nombre");
             var presentaciones = db.Presentacion.AsEnumerable();
             var modelPresentaciones = from p in presentaciones
                                       select new PresentacionViewModel() { Id = p.Id, NombreMostrar = string.Format("{0} - {1}", p.Producto.Nombre, p.Nombre) };
             ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar");
             return View();
+        }
+
+        public PartialViewResult GetDetallesFarmaciaPartial(int id = 0)
+        {
+            var farmacia = db.Farmacia.Find(id);
+            return PartialView("DetallesFarmaciaPartial", farmacia);
         }
 
         //
@@ -133,6 +150,8 @@ namespace VentasApp.Controllers
                                       select new PresentacionViewModel() { Id = p.Id, NombreMostrar = string.Format("{0} - {1}", p.Producto.Nombre, p.Nombre) };
             ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar");
             ViewBag.IdProveedor = new SelectList(db.Proveedor, "Id", "Nombre", pedido.IdProveedor);
+            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RUC", pedido.IdFarmacia);
+            ViewBag.Farmacia = db.Farmacia.Find(pedido.IdFarmacia);
             return View(pedido);
         }
 

@@ -18,6 +18,7 @@ namespace VentasApp.Models
         {
             this.Llamada = new HashSet<Llamada>();
             this.Proveedor = new HashSet<Proveedor>();
+            this.Pedido = new HashSet<Pedido>();
         }
     
         public int Id { get; set; }
@@ -38,5 +39,6 @@ namespace VentasApp.Models
         public virtual Ubigeo Ubigeo { get; set; }
         public virtual ICollection<Llamada> Llamada { get; set; }
         public virtual ICollection<Proveedor> Proveedor { get; set; }
+        public virtual ICollection<Pedido> Pedido { get; set; }
     }
 }

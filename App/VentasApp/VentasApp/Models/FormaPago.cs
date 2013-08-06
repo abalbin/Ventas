@@ -12,19 +12,16 @@ namespace VentasApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Estado
+    public partial class FormaPago
     {
-        public Estado()
+        public FormaPago()
         {
-            this.Llamada = new HashSet<Llamada>();
             this.Pedido = new HashSet<Pedido>();
         }
     
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public Nullable<bool> Pedido1 { get; set; }
     
-        public virtual ICollection<Llamada> Llamada { get; set; }
         public virtual ICollection<Pedido> Pedido { get; set; }
     }
 }

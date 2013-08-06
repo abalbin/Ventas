@@ -1,10 +1,92 @@
-﻿@{
+﻿@model VentasApp.Models.ViewModels.HomeViewModel
+
+@{
     ViewBag.Title = "Inicio";
 }
 
 <div class="header center">
-    <div class="tagline text-transparent"><h1>Bienvenido</h1></div>
+    <div class="tagline text-transparent">
+        <h2>Bienvenido</h2>
+    </div>
     <div class="subtitle text-transparent"></div>
+</div>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="padded">
+            <div class="section-title">Estadísticas del día de hoy</div>
+            <ul class="audience-alt">
+                <li>
+                    <div class="icon">
+                        <div class="big-label medium-blue text-inverse">
+                            <i class="icon-phone"></i>
+                        </div>
+                    </div>
+
+                    <div class="value">@Model.LlamadasRegistradas</div>
+                    <div class="stat-name">Llamadas registradas</div>
+
+                    <div class="percent">(+@Model.LlamadasRegistradasPercent %)</div>
+                    <div class="progress-bar audience-progress">
+                        <div class="progress progress-medium-blue">
+                            <div class="bar" style="width: @string.Format("{0}%", Model.LlamadasRegistradasPercent)"></div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="icon">
+                        <div class="big-label dark-blue text-inverse">
+                            <i class="icon-time"></i>
+                        </div>
+                    </div>
+                    <div class="value">@Model.LlamadasPendientes</div>
+                    <div class="stat-name">Llamadas pendientes</div>
+
+                    <div class="percent">(+@Model.LlamadasPendientesPercent %)</div>
+                    <div class="progress-bar audience-progress">
+                        <div class="progress progress-dark-blue">
+                            <div class="bar" style="width: @string.Format("{0}%", Model.LlamadasPendientesPercent)"></div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="icon">
+                        <div class="big-label light-blue">
+                            <i class="icon-money"></i>
+                        </div>
+                    </div>
+                    <div class="value">@Model.PedidosRegistrados</div>
+                    <div class="stat-name">Pedidos registrados</div>
+
+                    <div class="percent">(+@Model.PedidosRegistradosPercent %)</div>
+                    <div class="progress-bar audience-progress">
+                        <div class="progress progress-light-blue">
+                            <div class="bar" style="width: @string.Format("{0}%", Model.PedidosRegistradosPercent)"></div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="icon">
+                        <div class="big-label dark-plum text-inverse">
+                            <i class="icon-copy"></i>
+                        </div>
+                    </div>
+                    <div class="value">@Model.LlamadasPedidosRegistrados</div>
+                    <div class="stat-name">Llamadas con pedidos registrados</div>
+
+                    <div class="percent">(+@Model.LlamadasPedidosRegistrados %)</div>
+                    <div class="progress-bar audience-progress">
+                        <div class="progress progress-dark-plum">
+                            <div class="bar" style="width: @string.Format("{0}%", Model.LlamadasPedidosRegistrados)"></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 

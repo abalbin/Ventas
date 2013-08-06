@@ -1,0 +1,27 @@
+﻿@model VentasApp.Models.Farmacia
+
+@if (Model != null)
+{
+    <div class="row-fluid">
+        <div class="span4">
+            <strong>Razón Social:</strong> @Model.RazonSocial
+        </div>
+        <div class="span4">
+            <strong>Razón Comercial:</strong> @Model.RazonComercial
+        </div>    
+        <div class="span4">
+            <strong>Dirección:</strong> @Model.Direccion
+        </div>    
+    </div>
+    <div class="row-fluid">     
+        <div class="span4">
+            <strong>Propietario:</strong> @Model.Propietario
+        </div>
+        <div class="span4">
+            <strong>Encargado:</strong> @Model.EncargadoCompra
+        </div>
+        <div class="span4">
+            <strong>Horario:</strong> @Model.Horario
+        </div>
+    </div>
+}

@@ -21,7 +21,24 @@
         @Html.HiddenFor(model => model.Fecha)
         @Html.HiddenFor(model => model.ConPedido, new { @id = "hdnConPedido" })
 
-        <div class="editor-label">
+        <div class="well">
+            <div class="row-fluid">
+                <div class="span12">
+                    <label>Farmacia (RUC): </label>
+                    @Html.DropDownList("IdFarmacia", null, String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" },
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlFarmacia"}
+                                                       })
+                </div>
+            </div>
+            <div id="divDetallesFarmacia">
+                @Html.Partial("DetallesFarmaciaPartial", ViewBag.Farmacia as VentasApp.Models.Farmacia)
+            </div>
+        </div>
+
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.IdFarmacia, "Farmacia")
         </div>
         <div class="editor-field">
@@ -31,7 +48,7 @@
                                                            { "class", "chzn-select" },
                                                            { "id", "ddlFarmacia"}
                                                        })
-        </div>
+        </div>*@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Observaciones)
@@ -93,6 +110,10 @@
             $('.chkRellamada').click(function (event) {
                 EnableDisableDiv();
             });
+            $("#ddlFarmacia").change(
+            function () {
+                loadDatos(this);
+            });
         });
 
         function EnableDisableDiv() {
@@ -101,6 +122,23 @@
             }
             else {
                 $('#divFechaPrevistaRellamada').hide();
+            }
+        }
+
+        function loadDatos(selectList) {
+            var selectedId = $(selectList).val();
+            if (selectedId != null && selectedId != '') {
+                $.ajax({
+                    url: '@Url.Action("GetDetallesFarmaciaPartial", "Llamada")',
+                    type: 'GET',
+                    data: { id: selectedId },
+                    success: function (result) {
+                        $("#divDetallesFarmacia").html(result);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
             }
         }
 

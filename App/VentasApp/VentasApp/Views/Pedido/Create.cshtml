@@ -10,9 +10,25 @@
 {
     @Html.ValidationSummary(true)
     @Html.HiddenFor(p => p.IdLlamada)
+      
     <fieldset>
         <legend>Pedido</legend>
-
+        <div class="well">
+            <div class="row-fluid">
+                <div class="span12">
+                    <label>Farmacia (RUC): </label>
+                    @Html.DropDownList("IdFarmacia", null, String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" },
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlFarmacia"}
+                                                       })
+                </div>
+            </div>
+            <div id="divDetallesFarmacia">
+                @Html.Partial("DetallesFarmaciaPartial", ViewBag.Farmacia as VentasApp.Models.Farmacia)
+            </div>
+        </div>
 
         @Html.Bootstrap().LabelFor(model => model.IdPresentacion).LabelText("Presentación")
 
@@ -34,6 +50,26 @@
                                                        })
         @Html.ValidationMessageFor(model => model.IdProveedor)
 
+        @Html.Bootstrap().LabelFor(model => model.IdFormaPago).LabelText("Forma de Pago")
+
+        @Html.DropDownList("IdFormaPago", null, String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" },
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlFormaPago"}
+                                                       })
+        @Html.ValidationMessageFor(model => model.IdFormaPago)
+
+        @Html.Bootstrap().LabelFor(model => model.IdEstado)
+
+        @Html.DropDownList("IdEstado", null, String.Empty, new Dictionary<string, object>
+                                                       {
+                                                           { "data-placeholder", "Seleccione" },
+                                                           { "class", "chzn-select" },
+                                                           { "id", "ddlEstado"}
+                                                       })
+        @Html.ValidationMessageFor(model => model.IdEstado)
+
         @Html.Bootstrap().LabelFor(model => model.Cantidad)
 
         @Html.EditorFor(model => model.Cantidad)
@@ -42,6 +78,11 @@
         @Html.Bootstrap().LabelFor(model => model.PrecioTotal).LabelText("Monto total")
         @Html.EditorFor(model => model.PrecioTotal)
         @Html.ValidationMessageFor(model => model.PrecioTotal)
+
+        @Html.Bootstrap().LabelFor(model => model.Comentario)
+
+        @Html.TextAreaFor(model => model.Comentario)
+        @Html.ValidationMessageFor(model => model.Comentario)
 
         @Html.Bootstrap().LabelFor(model => model.Fecha)
         <div class="input-append date datepicker" data-date="@DateTime.Now.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
@@ -56,5 +97,33 @@
         @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
                     "Index", "Pedido")
     </div>
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#ddlFarmacia").change(
+            function () {
+                loadDatos(this);
+            });
+        });
+
+        function loadDatos(selectList) {
+            var selectedId = $(selectList).val();
+            if (selectedId != null && selectedId != '') {
+                $.ajax({
+                    url: '@Url.Action("GetDetallesFarmaciaPartial", "Pedido")',
+                    type: 'GET',
+                    data: { id: selectedId },
+                    success: function (result) {
+                        $("#divDetallesFarmacia").html(result);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+        }
+    </script>
 }
 

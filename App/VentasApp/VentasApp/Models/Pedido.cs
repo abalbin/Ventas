@@ -21,9 +21,16 @@ namespace VentasApp.Models
         public int Cantidad { get; set; }
         public Nullable<decimal> PrecioTotal { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
+        public Nullable<int> IdFarmacia { get; set; }
+        public string Comentario { get; set; }
+        public Nullable<int> IdFormaPago { get; set; }
+        public Nullable<int> IdEstado { get; set; }
     
         public virtual Llamada Llamada { get; set; }
         public virtual Presentacion Presentacion { get; set; }
         public virtual Proveedor Proveedor { get; set; }
+        public virtual Estado Estado { get; set; }
+        public virtual Farmacia Farmacia { get; set; }
+        public virtual FormaPago FormaPago { get; set; }
     }
 }

@@ -305,3 +305,7 @@ select
 .input-datetimepicker {
     height: 25px !important;
 }
+
+.chzn-container {
+    margin-bottom: 10px !important;
+}
