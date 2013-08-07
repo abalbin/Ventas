@@ -12,15 +12,7 @@
 <table class="table table-striped data-table">
     <thead>
         <tr>
-            <th>
-                Producto
-            </th>
-            <th>Presentación
-            </th>
             <th>Prov.
-            </th>
-            <th>
-                Cant.
             </th>
             <th>Precio
             </th>
@@ -35,16 +27,7 @@
     {
         <tr>
             <td>
-                @item.Presentacion.Producto.Nombre
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Presentacion.Nombre)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Proveedor.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cantidad)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PrecioTotal)

@@ -16,8 +16,8 @@ namespace VentasApp.Models
     {
         public Llamada()
         {
-            this.Pedido = new HashSet<Pedido>();
             this.Llamada1 = new HashSet<Llamada>();
+            this.Pedido = new HashSet<Pedido>();
         }
     
         public int Id { get; set; }
@@ -34,8 +34,8 @@ namespace VentasApp.Models
     
         public virtual Estado Estado { get; set; }
         public virtual Farmacia Farmacia { get; set; }
-        public virtual ICollection<Pedido> Pedido { get; set; }
         public virtual ICollection<Llamada> Llamada1 { get; set; }
         public virtual Llamada Llamada2 { get; set; }
+        public virtual ICollection<Pedido> Pedido { get; set; }
     }
 }

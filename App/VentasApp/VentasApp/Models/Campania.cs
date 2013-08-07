@@ -12,19 +12,14 @@ namespace VentasApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Estado
+    public partial class Campania
     {
-        public Estado()
-        {
-            this.Llamada = new HashSet<Llamada>();
-            this.Pedido11 = new HashSet<Pedido>();
-        }
-    
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public Nullable<bool> Pedido1 { get; set; }
+        public Nullable<int> IdPresentacion { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
+        public Nullable<bool> Vigente { get; set; }
     
-        public virtual ICollection<Llamada> Llamada { get; set; }
-        public virtual ICollection<Pedido> Pedido11 { get; set; }
+        public virtual Presentacion Presentacion { get; set; }
     }
 }

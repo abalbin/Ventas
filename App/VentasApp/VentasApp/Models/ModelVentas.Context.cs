@@ -36,7 +36,9 @@ namespace VentasApp.Models
         public DbSet<Producto> Producto { get; set; }
         public DbSet<Farmacia> Farmacia { get; set; }
         public DbSet<Llamada> Llamada { get; set; }
-        public DbSet<Pedido> Pedido { get; set; }
         public DbSet<FormaPago> FormaPago { get; set; }
+        public DbSet<Campania> Campania { get; set; }
+        public DbSet<Pedido> Pedido { get; set; }
+        public DbSet<Presentacion_Pedido> Presentacion_Pedido { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace VentasApp.Controllers
 
         public ActionResult Index()
         {
-            var pedido = db.Pedido.Include(p => p.Llamada).Include(p => p.Presentacion).Include(p => p.Proveedor);
+            var pedido = db.Pedido.Include(p => p.Llamada).Include(p => p.Proveedor);
             return View(pedido.ToList());
         }
 
@@ -68,7 +68,19 @@ namespace VentasApp.Controllers
             var modelPresentaciones = from p in presentaciones
                                       select new PresentacionViewModel() { Id = p.Id, NombreMostrar = string.Format("{0} - {1}", p.Producto.Nombre, p.Nombre) };
             ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar");
+            Session["Presentaciones"] = new List<Presentacion_Pedido>();
+            ViewBag.Presentaciones = Session["Presentaciones"];
             return View();
+        }
+
+        public PartialViewResult AddPresentacion(int idPresentacion = 0, int cantidad = 0)
+        {
+            List<Presentacion_Pedido> lista = Session["Presentaciones"] as List<Presentacion_Pedido>;
+            if (lista == null) lista = new List<Presentacion_Pedido>();
+            var presentacion = db.Presentacion.Find(idPresentacion);
+            var presPedido = new Presentacion_Pedido() { Cantidad = cantidad, IdPresentacion = idPresentacion, Presentacion = presentacion };
+            lista.Add(presPedido);
+            return PartialView("PresentacionesPartial", Session["Presentaciones"]);
         }
 
         public PartialViewResult GetDetallesFarmaciaPartial(int id = 0)
@@ -88,9 +100,9 @@ namespace VentasApp.Controllers
                 db.Pedido.Add(pedido);
                 db.SaveChanges();
                 var prov = db.Proveedor.Find(pedido.IdProveedor);
-                var pres = db.Presentacion.Find(pedido.IdPresentacion);
+                //var pres = db.Presentacion.Find(pedido.IdPresentacion);
                 pedido.Proveedor = prov;
-                pedido.Presentacion = pres;
+                //pedido.Presentacion = pres;
                 EnviarAlertaPedido(pedido);
                 return RedirectToAction("Index");
             }
@@ -129,7 +141,7 @@ namespace VentasApp.Controllers
             var presentaciones = db.Presentacion.AsEnumerable();
             var modelPresentaciones = from p in presentaciones
                                       select new PresentacionViewModel() { Id = p.Id, NombreMostrar = string.Format("{0} - {1}", p.Producto.Nombre, p.Nombre) };
-            ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar", pedido.IdPresentacion);
+            //ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar", pedido.IdPresentacion);
             return View(pedido);
         }
 

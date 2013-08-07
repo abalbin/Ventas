@@ -29,16 +29,33 @@
                 @Html.Partial("DetallesFarmaciaPartial", ViewBag.Farmacia as VentasApp.Models.Farmacia)
             </div>
         </div>
+        <div class="well">
+            <div class="row-fluid">
+                <div class="span6">
+                    @Html.Bootstrap().Label("lblPresentacion").LabelText("Presentación")
 
-        @Html.Bootstrap().LabelFor(model => model.IdPresentacion).LabelText("Presentación")
-
-        @Html.DropDownList("IdPresentacion", null, String.Empty, new Dictionary<string, object>
+                    @Html.DropDownList("IdPresentacion", null, String.Empty, new Dictionary<string, object>
                                                        {
                                                            { "data-placeholder", "Seleccione" },
                                                            { "class", "chzn-select" },
                                                            { "id", "ddlPresentacion"}
                                                        })
-        @Html.ValidationMessageFor(model => model.IdPresentacion)
+                </div>
+                <div class="span3">
+                    @Html.Bootstrap().Label("lblCantidad").LabelText("Cantidad")
+
+                    @Html.TextBox("txtCantidad", "0", new { @id = "txtCantidad" })
+                </div>
+                <div class="span3">
+                    <button class="btn btn-primary" onclick="addPresentacion()">Agregar</button>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12" id="divPresentaciones">
+                    @Html.Partial("PresentacionesPartial", ViewBag.Presentaciones as List<VentasApp.Models.Presentacion_Pedido>)
+                </div>
+            </div>
+        </div>
 
         @Html.Bootstrap().LabelFor(model => model.IdProveedor).LabelText("Proveedor")
 
@@ -60,7 +77,7 @@
                                                        })
         @Html.ValidationMessageFor(model => model.IdFormaPago)
 
-        @Html.Bootstrap().LabelFor(model => model.IdEstado)
+        @Html.Bootstrap().LabelFor(model => model.IdEstado).LabelText("Estado")
 
         @Html.DropDownList("IdEstado", null, String.Empty, new Dictionary<string, object>
                                                        {
@@ -69,15 +86,6 @@
                                                            { "id", "ddlEstado"}
                                                        })
         @Html.ValidationMessageFor(model => model.IdEstado)
-
-        @Html.Bootstrap().LabelFor(model => model.Cantidad)
-
-        @Html.EditorFor(model => model.Cantidad)
-        @Html.ValidationMessageFor(model => model.Cantidad)
-
-        @Html.Bootstrap().LabelFor(model => model.PrecioTotal).LabelText("Monto total")
-        @Html.EditorFor(model => model.PrecioTotal)
-        @Html.ValidationMessageFor(model => model.PrecioTotal)
 
         @Html.Bootstrap().LabelFor(model => model.Comentario)
 
@@ -117,6 +125,26 @@
                     data: { id: selectedId },
                     success: function (result) {
                         $("#divDetallesFarmacia").html(result);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+        }
+
+        function addPresentacion() {
+            var idPres = $("#ddlPresentacion").val();
+            var cant = $("#txtCantidad").val();
+            if (idPres != null && idPres != '') {
+                $.ajax({
+                    url: '@Url.Action("AddPresentacion", "Pedido")',
+                    type: 'GET',
+                    data: { idPresentacion: idPres, cantidad: cant},
+                    success: function (result) {
+                        $("#divPresentaciones").html(result);
+                        $("#ddlPresentacion").val() = null;
+                        $("#txtCantidad").val("0");
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alert(errorThrown);

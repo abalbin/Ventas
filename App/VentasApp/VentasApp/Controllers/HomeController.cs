@@ -23,7 +23,8 @@ namespace VentasApp.Controllers
             model.LlamadasPendientes = db.Llamada.AsEnumerable().Where(l => l.EsRellamada.Value && (l.FechaPrevistaRellamada != null ? l.FechaPrevistaRellamada.Value.Date.Equals(now.Date) : false)).Count();
             model.PedidosRegistrados = db.Pedido.AsEnumerable().Where(l => l.Fecha.Value.Date.Equals(now.Date)).Count();
             model.LlamadasPedidosRegistrados = db.Pedido.AsEnumerable().Where(l => l.Fecha.Value.Date.Equals(now.Date) && l.IdLlamada != null).Count();
-            model.Total = model.LlamadasRegistradas + model.LlamadasPendientes + model.PedidosRegistrados + model.LlamadasPedidosRegistrados;
+            model.CampaniasVigentes = db.Campania.AsEnumerable().Where(l => l.Vigente.Value).Count();
+            model.Total = model.LlamadasRegistradas + model.LlamadasPendientes + model.PedidosRegistrados + model.LlamadasPedidosRegistrados + model.CampaniasVigentes;
 
             model.Total = model.Total == 0 ? 1 : model.Total;
 
@@ -31,6 +32,7 @@ namespace VentasApp.Controllers
             model.LlamadasPendientesPercent = model.LlamadasPendientes * 100 / model.Total;
             model.PedidosRegistradosPercent = model.PedidosRegistrados * 100 / model.Total;
             model.LlamadasPedidosRegistradosPercent = model.LlamadasPedidosRegistrados * 100 / model.Total;
+            model.CampaniasVigentesPercent = model.CampaniasVigentes * 100 / model.Total;
 
             return View("Index", model);
         }

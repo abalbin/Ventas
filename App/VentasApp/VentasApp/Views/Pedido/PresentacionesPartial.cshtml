@@ -1,0 +1,83 @@
+﻿@model IEnumerable<VentasApp.Models.Presentacion_Pedido>
+@{
+    decimal total = 0;
+}
+
+<table class="table table-striped data-table-simple">
+    <thead>
+        <tr>
+            <th>
+                Presentación
+            </th>
+            <th>Producto
+            </th>
+            <th>
+                Precio
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        total += item.Presentacion.Precio.Value;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Presentacion.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Presentacion.Producto.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Presentacion.Precio)
+            </td>
+            <td>
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<span>
+    <strong>Monto Total:</strong> @Html.Label("PrecioTotal", total.ToString())
+</span>
+
+<script type="text/javascript">
+    $(function () {
+        $('.data-table-simple').dataTable({
+            "aoColumns": [
+                           { "sTitle": "Nombre", "bSortable": true },
+                           { "sTitle": "Producto", "bSortable": true },
+                           { "sTitle": "Precio", "bSortable": true },
+                           { "sTitle": null, "bSortable": false }
+                           ],
+            "oLanguage": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers",
+            "sDom": '<""l>t'
+        });
+    })
+</script>

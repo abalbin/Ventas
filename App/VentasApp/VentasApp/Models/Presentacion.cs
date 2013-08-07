@@ -16,7 +16,8 @@ namespace VentasApp.Models
     {
         public Presentacion()
         {
-            this.Pedido = new HashSet<Pedido>();
+            this.Campania = new HashSet<Campania>();
+            this.Presentacion_Pedido = new HashSet<Presentacion_Pedido>();
         }
     
         public int Id { get; set; }
@@ -25,6 +26,7 @@ namespace VentasApp.Models
         public Nullable<decimal> Precio { get; set; }
     
         public virtual Producto Producto { get; set; }
-        public virtual ICollection<Pedido> Pedido { get; set; }
+        public virtual ICollection<Campania> Campania { get; set; }
+        public virtual ICollection<Presentacion_Pedido> Presentacion_Pedido { get; set; }
     }
 }

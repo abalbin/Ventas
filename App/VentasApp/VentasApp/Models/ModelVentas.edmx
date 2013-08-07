@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="VentasAppBDModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="VentasAppBDModelStoreContainer">
+          <EntitySet Name="Campania" EntityType="VentasAppBDModel.Store.Campania" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Estado" EntityType="VentasAppBDModel.Store.Estado" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Farmacia" EntityType="VentasAppBDModel.Store.Farmacia" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Farmacia_Proveedor" EntityType="VentasAppBDModel.Store.Farmacia_Proveedor" store:Type="Tables" Schema="dbo" />
@@ -15,11 +16,16 @@
           <EntitySet Name="NombreTabla" EntityType="VentasAppBDModel.Store.NombreTabla" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Pedido" EntityType="VentasAppBDModel.Store.Pedido" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Presentacion" EntityType="VentasAppBDModel.Store.Presentacion" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Presentacion_Pedido" EntityType="VentasAppBDModel.Store.Presentacion_Pedido" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Producto" EntityType="VentasAppBDModel.Store.Producto" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Proveedor" EntityType="VentasAppBDModel.Store.Proveedor" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Ubigeo" EntityType="VentasAppBDModel.Store.Ubigeo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserProfile" EntityType="VentasAppBDModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_Roles" EntityType="VentasAppBDModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Campania_Presentacion" Association="VentasAppBDModel.Store.FK_Campania_Presentacion">
+            <End Role="Presentacion" EntitySet="Presentacion" />
+            <End Role="Campania" EntitySet="Campania" />
+          </AssociationSet>
           <AssociationSet Name="FK_Farmacia_Proveedor_Farmacia" Association="VentasAppBDModel.Store.FK_Farmacia_Proveedor_Farmacia">
             <End Role="Farmacia" EntitySet="Farmacia" />
             <End Role="Farmacia_Proveedor" EntitySet="Farmacia_Proveedor" />
@@ -60,13 +66,17 @@
             <End Role="Llamada" EntitySet="Llamada" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pedido_Presentacion" Association="VentasAppBDModel.Store.FK_Pedido_Presentacion">
-            <End Role="Presentacion" EntitySet="Presentacion" />
-            <End Role="Pedido" EntitySet="Pedido" />
-          </AssociationSet>
           <AssociationSet Name="FK_Pedido_Proveedor" Association="VentasAppBDModel.Store.FK_Pedido_Proveedor">
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Presentacion_Pedido_Pedido" Association="VentasAppBDModel.Store.FK_Presentacion_Pedido_Pedido">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="Presentacion_Pedido" EntitySet="Presentacion_Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Presentacion_Pedido_Presentacion" Association="VentasAppBDModel.Store.FK_Presentacion_Pedido_Presentacion">
+            <End Role="Presentacion" EntitySet="Presentacion" />
+            <End Role="Presentacion_Pedido" EntitySet="Presentacion_Pedido" />
           </AssociationSet>
           <AssociationSet Name="FK_Presentacion_Producto" Association="VentasAppBDModel.Store.FK_Presentacion_Producto">
             <End Role="Producto" EntitySet="Producto" />
@@ -77,6 +87,16 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Campania">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="varchar" MaxLength="400" />
+          <Property Name="IdPresentacion" Type="int" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Vigente" Type="bit" />
+        </EntityType>
         <EntityType Name="Estado">
           <Key>
             <PropertyRef Name="Id" />
@@ -155,10 +175,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="IdPresentacion" Type="int" Nullable="false" />
           <Property Name="IdProveedor" Type="int" Nullable="false" />
           <Property Name="IdLlamada" Type="int" />
-          <Property Name="Cantidad" Type="int" Nullable="false" />
           <Property Name="PrecioTotal" Type="decimal" Scale="2" />
           <Property Name="Fecha" Type="datetime" />
           <Property Name="IdFarmacia" Type="int" />
@@ -174,6 +192,15 @@
           <Property Name="Nombre" Type="varchar" MaxLength="200" />
           <Property Name="IdProducto" Type="int" />
           <Property Name="Precio" Type="decimal" Scale="2" />
+        </EntityType>
+        <EntityType Name="Presentacion_Pedido">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="IdPresentacion" Type="int" Nullable="false" />
+          <Property Name="IdPedido" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -221,6 +248,18 @@
           <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
         </EntityType>
+        <Association Name="FK_Campania_Presentacion">
+          <End Role="Presentacion" Type="VentasAppBDModel.Store.Presentacion" Multiplicity="0..1" />
+          <End Role="Campania" Type="VentasAppBDModel.Store.Campania" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Presentacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campania">
+              <PropertyRef Name="IdPresentacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Farmacia_Proveedor_Farmacia">
           <End Role="Farmacia" Type="VentasAppBDModel.Store.Farmacia" Multiplicity="1" />
           <End Role="Farmacia_Proveedor" Type="VentasAppBDModel.Store.Farmacia_Proveedor" Multiplicity="*" />
@@ -341,18 +380,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pedido_Presentacion">
-          <End Role="Presentacion" Type="VentasAppBDModel.Store.Presentacion" Multiplicity="1" />
-          <End Role="Pedido" Type="VentasAppBDModel.Store.Pedido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Presentacion">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pedido">
-              <PropertyRef Name="IdPresentacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Pedido_Proveedor">
           <End Role="Proveedor" Type="VentasAppBDModel.Store.Proveedor" Multiplicity="1" />
           <End Role="Pedido" Type="VentasAppBDModel.Store.Pedido" Multiplicity="*" />
@@ -362,6 +389,30 @@
             </Principal>
             <Dependent Role="Pedido">
               <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Presentacion_Pedido_Pedido">
+          <End Role="Pedido" Type="VentasAppBDModel.Store.Pedido" Multiplicity="1" />
+          <End Role="Presentacion_Pedido" Type="VentasAppBDModel.Store.Presentacion_Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Presentacion_Pedido">
+              <PropertyRef Name="IdPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Presentacion_Pedido_Presentacion">
+          <End Role="Presentacion" Type="VentasAppBDModel.Store.Presentacion" Multiplicity="1" />
+          <End Role="Presentacion_Pedido" Type="VentasAppBDModel.Store.Presentacion_Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Presentacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Presentacion_Pedido">
+              <PropertyRef Name="IdPresentacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -429,24 +480,18 @@
             <End Role="Farmacia" EntitySet="Farmacia" />
             <End Role="Proveedor" EntitySet="Proveedor" />
           </AssociationSet>
-          <EntitySet Name="Pedido" EntityType="VentasAppBDModel.Pedido" />
-          <AssociationSet Name="FK_Pedido_Llamada" Association="VentasAppBDModel.FK_Pedido_Llamada">
-            <End Role="Llamada" EntitySet="Llamada" />
-            <End Role="Pedido" EntitySet="Pedido" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pedido_Presentacion" Association="VentasAppBDModel.FK_Pedido_Presentacion">
-            <End Role="Presentacion" EntitySet="Presentacion" />
-            <End Role="Pedido" EntitySet="Pedido" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pedido_Proveedor" Association="VentasAppBDModel.FK_Pedido_Proveedor">
-            <End Role="Proveedor" EntitySet="Proveedor" />
-            <End Role="Pedido" EntitySet="Pedido" />
-          </AssociationSet>
           <AssociationSet Name="FK_Llamada_Llamada" Association="VentasAppBDModel.FK_Llamada_Llamada">
             <End Role="Llamada" EntitySet="Llamada" />
             <End Role="Llamada1" EntitySet="Llamada" />
           </AssociationSet>
           <EntitySet Name="FormaPago" EntityType="VentasAppBDModel.FormaPago" />
+          <EntitySet Name="Campania" EntityType="VentasAppBDModel.Campania" />
+          <AssociationSet Name="FK_Campania_Presentacion" Association="VentasAppBDModel.FK_Campania_Presentacion">
+            <End Role="Presentacion" EntitySet="Presentacion" />
+            <End Role="Campania" EntitySet="Campania" />
+          </AssociationSet>
+          <EntitySet Name="Pedido" EntityType="VentasAppBDModel.Pedido" />
+          <EntitySet Name="Presentacion_Pedido" EntityType="VentasAppBDModel.Presentacion_Pedido" />
           <AssociationSet Name="FK_Pedido_Estado" Association="VentasAppBDModel.FK_Pedido_Estado">
             <End Role="Estado" EntitySet="Estado" />
             <End Role="Pedido" EntitySet="Pedido" />
@@ -459,6 +504,22 @@
             <End Role="FormaPago" EntitySet="FormaPago" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
+          <AssociationSet Name="FK_Pedido_Llamada" Association="VentasAppBDModel.FK_Pedido_Llamada">
+            <End Role="Llamada" EntitySet="Llamada" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedido_Proveedor" Association="VentasAppBDModel.FK_Pedido_Proveedor">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Presentacion_Pedido_Pedido" Association="VentasAppBDModel.FK_Presentacion_Pedido_Pedido">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="Presentacion_Pedido" EntitySet="Presentacion_Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Presentacion_Pedido_Presentacion" Association="VentasAppBDModel.FK_Presentacion_Pedido_Presentacion">
+            <End Role="Presentacion" EntitySet="Presentacion" />
+            <End Role="Presentacion_Pedido" EntitySet="Presentacion_Pedido" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Estado">
           <Key>
@@ -467,8 +528,8 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Nombre" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Llamada" Relationship="VentasAppBDModel.FK_Llamada_Estado" FromRole="Estado" ToRole="Llamada" />
-          <NavigationProperty Name="Pedido" Relationship="VentasAppBDModel.FK_Pedido_Estado" FromRole="Estado" ToRole="Pedido" />
           <Property Type="Boolean" Name="Pedido1" />
+          <NavigationProperty Name="Pedido11" Relationship="VentasAppBDModel.FK_Pedido_Estado" FromRole="Estado" ToRole="Pedido" />
         </EntityType>
         <EntityType Name="NombreTabla">
           <Key>
@@ -530,7 +591,8 @@
           <Property Type="Int32" Name="IdProducto" />
           <Property Type="Decimal" Name="Precio" Precision="18" Scale="2" />
           <NavigationProperty Name="Producto" Relationship="VentasAppBDModel.FK_Presentacion_Producto" FromRole="Presentacion" ToRole="Producto" />
-          <NavigationProperty Name="Pedido" Relationship="VentasAppBDModel.FK_Pedido_Presentacion" FromRole="Presentacion" ToRole="Pedido" />
+          <NavigationProperty Name="Campania" Relationship="VentasAppBDModel.FK_Campania_Presentacion" FromRole="Presentacion" ToRole="Campania" />
+          <NavigationProperty Name="Presentacion_Pedido" Relationship="VentasAppBDModel.FK_Presentacion_Pedido_Presentacion" FromRole="Presentacion" ToRole="Presentacion_Pedido" />
         </EntityType>
         <EntityType Name="Linea">
           <Key>
@@ -606,7 +668,6 @@
           <Property Type="Int32" Name="IdEstado" />
           <NavigationProperty Name="Estado" Relationship="VentasAppBDModel.FK_Llamada_Estado" FromRole="Llamada" ToRole="Estado" />
           <NavigationProperty Name="Farmacia" Relationship="VentasAppBDModel.FK_Llamada_Farmacia" FromRole="Llamada" ToRole="Farmacia" />
-          <NavigationProperty Name="Pedido" Relationship="VentasAppBDModel.FK_Pedido_Llamada" FromRole="Llamada" ToRole="Pedido" />
           <Property Type="Boolean" Name="EsRellamada" />
           <Property Type="DateTime" Name="FechaPrevistaRellamada" Precision="3" />
           <Property Type="String" Name="FechaPrevistaRellamadaStr" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -615,6 +676,7 @@
           <NavigationProperty Name="Llamada2" Relationship="VentasAppBDModel.FK_Llamada_Llamada" FromRole="Llamada1" ToRole="Llamada" />
           <Property Type="Boolean" Name="EsRellamadaHelper" />
           <Property Type="Boolean" Name="ConPedido" />
+          <NavigationProperty Name="Pedido" Relationship="VentasAppBDModel.FK_Pedido_Llamada" FromRole="Llamada" ToRole="Pedido" />
         </EntityType>
         <Association Name="FK_Llamada_Estado">
           <End Type="VentasAppBDModel.Estado" Role="Estado" Multiplicity="0..1" />
@@ -656,64 +718,6 @@
           <End Type="VentasAppBDModel.Farmacia" Role="Farmacia" Multiplicity="*" />
           <End Type="VentasAppBDModel.Proveedor" Role="Proveedor" Multiplicity="*" />
         </Association>
-        <EntityType Name="Pedido">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="IdPresentacion" Nullable="false" />
-          <Property Type="Int32" Name="IdProveedor" Nullable="false" />
-          <Property Type="Int32" Name="IdLlamada" />
-          <Property Type="Int32" Name="Cantidad" Nullable="false" />
-          <Property Type="Decimal" Name="PrecioTotal" Precision="18" Scale="2" />
-          <Property Type="DateTime" Name="Fecha" Precision="3" />
-          <NavigationProperty Name="Llamada" Relationship="VentasAppBDModel.FK_Pedido_Llamada" FromRole="Pedido" ToRole="Llamada" />
-          <NavigationProperty Name="Presentacion" Relationship="VentasAppBDModel.FK_Pedido_Presentacion" FromRole="Pedido" ToRole="Presentacion" />
-          <NavigationProperty Name="Proveedor" Relationship="VentasAppBDModel.FK_Pedido_Proveedor" FromRole="Pedido" ToRole="Proveedor" />
-          <Property Type="Int32" Name="IdFarmacia" />
-          <Property Type="String" Name="Comentario" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="IdFormaPago" />
-          <Property Type="Int32" Name="IdEstado" />
-          <NavigationProperty Name="Estado" Relationship="VentasAppBDModel.FK_Pedido_Estado" FromRole="Pedido" ToRole="Estado" />
-          <NavigationProperty Name="Farmacia" Relationship="VentasAppBDModel.FK_Pedido_Farmacia" FromRole="Pedido" ToRole="Farmacia" />
-          <NavigationProperty Name="FormaPago" Relationship="VentasAppBDModel.FK_Pedido_FormaPago" FromRole="Pedido" ToRole="FormaPago" />
-        </EntityType>
-        <Association Name="FK_Pedido_Llamada">
-          <End Type="VentasAppBDModel.Llamada" Role="Llamada" Multiplicity="0..1" />
-          <End Type="VentasAppBDModel.Pedido" Role="Pedido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Llamada">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pedido">
-              <PropertyRef Name="IdLlamada" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pedido_Presentacion">
-          <End Type="VentasAppBDModel.Presentacion" Role="Presentacion" Multiplicity="1" />
-          <End Type="VentasAppBDModel.Pedido" Role="Pedido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Presentacion">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pedido">
-              <PropertyRef Name="IdPresentacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pedido_Proveedor">
-          <End Type="VentasAppBDModel.Proveedor" Role="Proveedor" Multiplicity="1" />
-          <End Type="VentasAppBDModel.Pedido" Role="Pedido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Proveedor">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pedido">
-              <PropertyRef Name="IdProveedor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Llamada_Llamada">
           <End Type="VentasAppBDModel.Llamada" Role="Llamada" Multiplicity="0..1" />
           <End Type="VentasAppBDModel.Llamada" Role="Llamada1" Multiplicity="*" />
@@ -733,6 +737,60 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Nombre" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Pedido" Relationship="VentasAppBDModel.FK_Pedido_FormaPago" FromRole="FormaPago" ToRole="Pedido" />
+        </EntityType>
+        <EntityType Name="Campania">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Nombre" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdPresentacion" />
+          <Property Type="DateTime" Name="Fecha" Precision="3" />
+          <Property Type="Boolean" Name="Vigente" />
+          <NavigationProperty Name="Presentacion" Relationship="VentasAppBDModel.FK_Campania_Presentacion" FromRole="Campania" ToRole="Presentacion" />
+        </EntityType>
+        <Association Name="FK_Campania_Presentacion">
+          <End Type="VentasAppBDModel.Presentacion" Role="Presentacion" Multiplicity="0..1" />
+          <End Type="VentasAppBDModel.Campania" Role="Campania" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Presentacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campania">
+              <PropertyRef Name="IdPresentacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="IdProveedor" Nullable="false" />
+          <Property Type="Int32" Name="IdLlamada" />
+          <Property Type="Decimal" Name="PrecioTotal" Precision="18" Scale="2" />
+          <Property Type="DateTime" Name="Fecha" Precision="3" />
+          <Property Type="Int32" Name="IdFarmacia" />
+          <Property Type="String" Name="Comentario" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="IdFormaPago" />
+          <Property Type="Int32" Name="IdEstado" />
+          <NavigationProperty Name="Estado" Relationship="VentasAppBDModel.FK_Pedido_Estado" FromRole="Pedido" ToRole="Estado" />
+          <NavigationProperty Name="Farmacia" Relationship="VentasAppBDModel.FK_Pedido_Farmacia" FromRole="Pedido" ToRole="Farmacia" />
+          <NavigationProperty Name="FormaPago" Relationship="VentasAppBDModel.FK_Pedido_FormaPago" FromRole="Pedido" ToRole="FormaPago" />
+          <NavigationProperty Name="Llamada" Relationship="VentasAppBDModel.FK_Pedido_Llamada" FromRole="Pedido" ToRole="Llamada" />
+          <NavigationProperty Name="Proveedor" Relationship="VentasAppBDModel.FK_Pedido_Proveedor" FromRole="Pedido" ToRole="Proveedor" />
+          <NavigationProperty Name="Presentacion_Pedido" Relationship="VentasAppBDModel.FK_Presentacion_Pedido_Pedido" FromRole="Pedido" ToRole="Presentacion_Pedido" />
+        </EntityType>
+        <EntityType Name="Presentacion_Pedido">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="IdPresentacion" Nullable="false" />
+          <Property Type="Int32" Name="IdPedido" Nullable="false" />
+          <Property Type="Int32" Name="Cantidad" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Pedido" Relationship="VentasAppBDModel.FK_Presentacion_Pedido_Pedido" FromRole="Presentacion_Pedido" ToRole="Pedido" />
+          <NavigationProperty Name="Presentacion" Relationship="VentasAppBDModel.FK_Presentacion_Pedido_Presentacion" FromRole="Presentacion_Pedido" ToRole="Presentacion" />
         </EntityType>
         <Association Name="FK_Pedido_Estado">
           <End Type="VentasAppBDModel.Estado" Role="Estado" Multiplicity="0..1" />
@@ -767,6 +825,54 @@
             </Principal>
             <Dependent Role="Pedido">
               <PropertyRef Name="IdFormaPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedido_Llamada">
+          <End Type="VentasAppBDModel.Llamada" Role="Llamada" Multiplicity="0..1" />
+          <End Type="VentasAppBDModel.Pedido" Role="Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Llamada">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="IdLlamada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedido_Proveedor">
+          <End Type="VentasAppBDModel.Proveedor" Role="Proveedor" Multiplicity="1" />
+          <End Type="VentasAppBDModel.Pedido" Role="Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Presentacion_Pedido_Pedido">
+          <End Type="VentasAppBDModel.Pedido" Role="Pedido" Multiplicity="1" />
+          <End Type="VentasAppBDModel.Presentacion_Pedido" Role="Presentacion_Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Presentacion_Pedido">
+              <PropertyRef Name="IdPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Presentacion_Pedido_Presentacion">
+          <End Type="VentasAppBDModel.Presentacion" Role="Presentacion" Multiplicity="1" />
+          <End Type="VentasAppBDModel.Presentacion_Pedido" Role="Presentacion_Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Presentacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Presentacion_Pedido">
+              <PropertyRef Name="IdPresentacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -908,6 +1014,25 @@
               <ScalarProperty Name="Id" ColumnName="IdFarmacia" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="FormaPago">
+            <EntityTypeMapping TypeName="VentasAppBDModel.FormaPago">
+              <MappingFragment StoreEntitySet="FormaPago">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campania">
+            <EntityTypeMapping TypeName="VentasAppBDModel.Campania">
+              <MappingFragment StoreEntitySet="Campania">
+                <ScalarProperty Name="Vigente" ColumnName="Vigente" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdPresentacion" ColumnName="IdPresentacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Pedido">
             <EntityTypeMapping TypeName="VentasAppBDModel.Pedido">
               <MappingFragment StoreEntitySet="Pedido">
@@ -917,19 +1042,19 @@
                 <ScalarProperty Name="IdFarmacia" ColumnName="IdFarmacia" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="PrecioTotal" ColumnName="PrecioTotal" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="IdLlamada" ColumnName="IdLlamada" />
                 <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
-                <ScalarProperty Name="IdPresentacion" ColumnName="IdPresentacion" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FormaPago">
-            <EntityTypeMapping TypeName="VentasAppBDModel.FormaPago">
-              <MappingFragment StoreEntitySet="FormaPago">
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <EntitySetMapping Name="Presentacion_Pedido">
+            <EntityTypeMapping TypeName="VentasAppBDModel.Presentacion_Pedido">
+              <MappingFragment StoreEntitySet="Presentacion_Pedido">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+                <ScalarProperty Name="IdPresentacion" ColumnName="IdPresentacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

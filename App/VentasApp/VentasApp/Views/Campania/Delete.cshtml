@@ -1,0 +1,46 @@
+﻿@model VentasApp.Models.Campania
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h3>¿Estás seguro que deseas eliminar este registro?</h3>
+<fieldset>
+    <legend>Campaña</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nombre)
+    </div>
+
+    <div class="display-label">
+         Presentación
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Presentacion.Nombre)
+    </div>
+
+    <div class="display-label">
+         Fecha de Creación
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fecha)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Vigente)
+    </div>
+    <div class="display-field">
+        @(Model.Vigente.Value ? "Sí" : "No")
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.Bootstrap().SubmitButton().Text("Eliminar").Style(ButtonStyle.Danger)
+        @Html.Bootstrap().ActionLinkButton("Regresar a la lista",
+                    "Index", "Campania")
+    </div>
+}

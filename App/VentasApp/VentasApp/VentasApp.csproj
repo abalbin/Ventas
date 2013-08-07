@@ -184,6 +184,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CampaniaController.cs" />
     <Compile Include="Controllers\EstadoController.cs" />
     <Compile Include="Controllers\FarmaciaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -208,6 +209,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Campania.cs">
+      <DependentUpon>ModelVentas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Estado.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
@@ -245,6 +249,9 @@
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Presentacion.cs">
+      <DependentUpon>ModelVentas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Presentacion_Pedido.cs">
       <DependentUpon>ModelVentas.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Producto.cs">
@@ -623,6 +630,12 @@
     <Content Include="Views\Llamada\EditSeguimiento.cshtml" />
     <Content Include="Views\Llamada\DetallesFarmaciaPartial.cshtml" />
     <Content Include="Views\Pedido\DetallesFarmaciaPartial.cshtml" />
+    <Content Include="Views\Campania\Index.cshtml" />
+    <Content Include="Views\Campania\Details.cshtml" />
+    <Content Include="Views\Campania\Create.cshtml" />
+    <Content Include="Views\Campania\Edit.cshtml" />
+    <Content Include="Views\Campania\Delete.cshtml" />
+    <Content Include="Views\Pedido\PresentacionesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="value">@Model.LlamadasRegistradas</div>
-                    <div class="stat-name">Llamadas registradas</div>
+                    <div class="stat-name">@Html.ActionLink("Llamadas Registradas", "Index", "Llamada")</div>
 
                     <div class="percent">(+@Model.LlamadasRegistradasPercent %)</div>
                     <div class="progress-bar audience-progress">
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="value">@Model.LlamadasPendientes</div>
-                    <div class="stat-name">Llamadas pendientes</div>
+                    <div class="stat-name">@Html.ActionLink("Llamadas Pendientes", "Seguimiento", "Llamada")</div>
 
                     <div class="percent">(+@Model.LlamadasPendientesPercent %)</div>
                     <div class="progress-bar audience-progress">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="value">@Model.PedidosRegistrados</div>
-                    <div class="stat-name">Pedidos registrados</div>
+                    <div class="stat-name">@Html.ActionLink("Pedidos Registrados", "Index", "Pedido")</div>
 
                     <div class="percent">(+@Model.PedidosRegistradosPercent %)</div>
                     <div class="progress-bar audience-progress">
@@ -75,12 +75,29 @@
                         </div>
                     </div>
                     <div class="value">@Model.LlamadasPedidosRegistrados</div>
-                    <div class="stat-name">Llamadas con pedidos registrados</div>
+                    <div class="stat-name">@Html.ActionLink("Llamadas con pedidos registrados", "Index", "Llamada")</div>
 
-                    <div class="percent">(+@Model.LlamadasPedidosRegistrados %)</div>
+                    <div class="percent">(+@Model.LlamadasPedidosRegistradosPercent %)</div>
                     <div class="progress-bar audience-progress">
                         <div class="progress progress-dark-plum">
-                            <div class="bar" style="width: @string.Format("{0}%", Model.LlamadasPedidosRegistrados)"></div>
+                            <div class="bar" style="width: @string.Format("{0}%", Model.LlamadasPedidosRegistradosPercent)"></div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="icon">
+                        <div class="big-label text-blue text-inverse">
+                            <i class="icon-tasks"></i>
+                        </div>
+                    </div>
+                    <div class="value">@Model.CampaniasVigentes</div>
+                    <div class="stat-name">@Html.ActionLink("Campañas Vigentes", "Index", "Campania")</div>
+
+                    <div class="percent">(+@Model.CampaniasVigentesPercent %)</div>
+                    <div class="progress-bar audience-progress">
+                        <div class="progress progress-dark-plum">
+                            <div class="bar" style="width: @string.Format("{0}%", Model.CampaniasVigentesPercent)"></div>
                         </div>
                     </div>
                 </li>

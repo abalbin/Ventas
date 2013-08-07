@@ -713,8 +713,8 @@ namespace VentasApp.Controllers
                     for (int i = 3; i < listaPedidos.Count + 3; i++)
                     {
                         // Pres
-                        var PresentacionCell = ws.Cells[i, colPresentacion];
-                        PresentacionCell.Value = string.Format("{0} - {1}", listaPedidos[i - 3].Presentacion.Producto.Nombre, listaPedidos[i - 3].Presentacion.Nombre);
+                        //var PresentacionCell = ws.Cells[i, colPresentacion];
+                        //PresentacionCell.Value = string.Format("{0} - {1}", listaPedidos[i - 3].Presentacion.Producto.Nombre, listaPedidos[i - 3].Presentacion.Nombre);
                         // Observaciones
                         var ProveedorCell = ws.Cells[i, colProveedor];
                         ProveedorCell.Value = listaPedidos[i - 3].Proveedor.Nombre;
@@ -722,8 +722,8 @@ namespace VentasApp.Controllers
                         var PrecioTotalCell = ws.Cells[i, colPrecioTotal];
                         PrecioTotalCell.Value = listaPedidos[i - 3].PrecioTotal == null ? "0" : listaPedidos[i - 3].PrecioTotal.ToString();
                         // Observaciones
-                        var CantidadCell = ws.Cells[i, colCantidad];
-                        CantidadCell.Value = listaPedidos[i - 3].Cantidad;
+                        //var CantidadCell = ws.Cells[i, colCantidad];
+                        //CantidadCell.Value = listaPedidos[i - 3].Cantidad;
                         // Fecha
                         var FechaCell = ws.Cells[i, colFecha];
                         FechaCell.Value = listaPedidos[i - 3].Fecha.Value.ToString("dd-MM-yyyy");

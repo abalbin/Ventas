@@ -11,11 +11,13 @@ namespace VentasApp.Models.ViewModels
         public int LlamadasPendientes { get; set; }
         public int PedidosRegistrados { get; set; }
         public int LlamadasPedidosRegistrados { get; set; }
+        public int CampaniasVigentes { get; set; }
         public int Total { get; set; }
 
         public float LlamadasRegistradasPercent { get; set; }
         public float LlamadasPendientesPercent { get; set; }
         public float PedidosRegistradosPercent { get; set; }
+        public float CampaniasVigentesPercent { get; set; }
         public float LlamadasPedidosRegistradosPercent { get; set; }
     }
 }

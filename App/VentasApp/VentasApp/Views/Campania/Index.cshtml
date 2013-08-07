@@ -1,0 +1,57 @@
+﻿@model IEnumerable<VentasApp.Models.Campania>
+
+@{
+    ViewBag.Title = "Campañas";
+}
+
+<h2>Campañas</h2>
+
+<p>
+    @Html.ActionLink("Agregar", "Create")
+</p>
+<table class="table table-striped data-table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                Producto
+            </th>
+            <th>Presentación
+            </th>
+            <th>F. Creación
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vigente)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @item.Presentacion.Producto.Nombre
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Presentacion.Nombre)
+            </td>
+            <td>
+                @item.Fecha.Value.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @(item.Vigente.Value ? "Sí" : "No")
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
