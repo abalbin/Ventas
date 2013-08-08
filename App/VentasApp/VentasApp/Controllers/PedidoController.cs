@@ -70,6 +70,8 @@ namespace VentasApp.Controllers
             ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar");
             Session["Presentaciones"] = new List<Presentacion_Pedido>();
             ViewBag.Presentaciones = Session["Presentaciones"];
+            var listaCampanias = db.Campania.Where(c => c.Vigente.Value).ToList();
+            ViewBag.Campanias = listaCampanias.Count > 0 ? listaCampanias : new List<Campania>();
             return View();
         }
 
@@ -152,11 +154,28 @@ namespace VentasApp.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.IdFarmacia = new SelectList(db.Farmacia, "Id", "RUC", pedido.IdFarmacia);
+            ViewBag.Farmacia = db.Farmacia.Find(pedido.IdFarmacia);
             ViewBag.IdProveedor = new SelectList(db.Proveedor, "Id", "Nombre", pedido.IdProveedor);
+            ViewBag.IdEstado = new SelectList(db.Estado.Where(e => e.Pedido1.Value), "Id", "Nombre", pedido.IdEstado);
+            ViewBag.IdFormaPago = new SelectList(db.FormaPago, "Id", "Nombre", pedido.IdFormaPago);
             var presentaciones = db.Presentacion.AsEnumerable();
             var modelPresentaciones = from p in presentaciones
                                       select new PresentacionViewModel() { Id = p.Id, NombreMostrar = string.Format("{0} - {1}", p.Producto.Nombre, p.Nombre) };
-            //ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar", pedido.IdPresentacion);
+            ViewBag.IdPresentacion = new SelectList(modelPresentaciones, "Id", "NombreMostrar");
+            //Session["Presentaciones"] = pedido.Presentacion_Pedido.ToList();
+            var listPresentaciones = pedido.Presentacion_Pedido.ToList();
+            var listaSession = new List<Presentacion_Pedido>();
+            foreach (var item in listPresentaciones)
+            {
+                var pres = new Presentacion_Pedido() { Presentacion = item.Presentacion, Cantidad = item.Cantidad };
+                listaSession.Add(pres);
+            }
+            Session["Presentaciones"] = listaSession;
+            ViewBag.Presentaciones = Session["Presentaciones"];
+            var listaCampanias = db.Campania.Where(c => c.Vigente.Value).ToList();
+            ViewBag.Campanias = listaCampanias.Count > 0 ? listaCampanias : new List<Campania>();
+            pedido.Presentacion_Pedido = null;
             return View(pedido);
         }
 
@@ -168,7 +187,16 @@ namespace VentasApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                var listaPres = db.Presentacion_Pedido.Where(p => p.IdPedido == pedido.Id);
+                foreach (var item in listaPres)
+                {
+                    db.Presentacion_Pedido.Remove(item);
+                    db.Entry(item).State = EntityState.Deleted;
+                }
+                db.SaveChanges();
                 db.Entry(pedido).State = EntityState.Modified;
+                pedido.Presentacion_Pedido = Session["Presentaciones"] as List<Presentacion_Pedido>;
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
