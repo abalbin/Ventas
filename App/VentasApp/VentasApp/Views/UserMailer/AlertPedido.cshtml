@@ -47,11 +47,14 @@
                                                             <td width="102" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>CANTIDAD</strong></td>
 
                                                         </tr>
-                                                        <tr>
-                                                            <td width="155" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@Model.Presentacion.Producto.Nombre</td>
-                                                            <td width="45" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@Model.Presentacion.Nombre</td>
-                                                            <td width="102" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@Model.Cantidad</td>
-                                                        </tr>
+                                                        @foreach (var item in Model.Presentacion_Pedido)
+                                                        { 
+                                                            <tr>
+                                                                <td width="155" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@item.Presentacion.Producto.Nombre</td>
+                                                                <td width="45" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@item.Presentacion.Nombre</td>
+                                                                <td width="102" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@item.Cantidad</td>
+                                                            </tr>
+                                                        }
                                                     </tbody>
                                                 </table>
                                                 <br>

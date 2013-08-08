@@ -1,4 +1,7 @@
-﻿li.span6:nth-child(2n+1), li.span12
+﻿#profile-text{
+	width: 75% !important;
+}
+li.span6:nth-child(2n+1), li.span12
 {
 	margin-left: 0 !important;
 }
@@ -303,9 +306,9 @@ select
 }
 
 .input-datetimepicker {
-    height: 25px !important;
+	height: 25px !important;
 }
 
 .chzn-container {
-    margin-bottom: 10px !important;
+	margin-bottom: 10px !important;
 }

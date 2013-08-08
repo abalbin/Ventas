@@ -73,13 +73,27 @@ namespace VentasApp.Controllers
             return View();
         }
 
-        public PartialViewResult AddPresentacion(int idPresentacion = 0, int cantidad = 0)
+        public ActionResult AddPresentacion(int idPresentacion = 0, int cantidad = 0)
         {
             List<Presentacion_Pedido> lista = Session["Presentaciones"] as List<Presentacion_Pedido>;
             if (lista == null) lista = new List<Presentacion_Pedido>();
-            var presentacion = db.Presentacion.Find(idPresentacion);
-            var presPedido = new Presentacion_Pedido() { Cantidad = cantidad, IdPresentacion = idPresentacion, Presentacion = presentacion };
-            lista.Add(presPedido);
+            var item = lista.Find(p=>p.IdPresentacion == idPresentacion);
+            if (item != null) item.Cantidad += cantidad;
+            else
+            {
+                var presentacion = db.Presentacion.Find(idPresentacion);
+                var presPedido = new Presentacion_Pedido() { Cantidad = cantidad, IdPresentacion = idPresentacion, Presentacion = presentacion };
+                lista.Add(presPedido);
+            }            
+            return PartialView("PresentacionesPartial", Session["Presentaciones"]);
+        }
+
+        public ActionResult RemovePresentacion(int id = 0)
+        {
+            List<Presentacion_Pedido> lista = Session["Presentaciones"] as List<Presentacion_Pedido>;
+            if (lista == null) lista = new List<Presentacion_Pedido>();
+            var item = lista.Find(p=>p.IdPresentacion == id);
+            lista.Remove(item);
             return PartialView("PresentacionesPartial", Session["Presentaciones"]);
         }
 
@@ -97,6 +111,7 @@ namespace VentasApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                pedido.Presentacion_Pedido = Session["Presentaciones"] as List<Presentacion_Pedido>;
                 db.Pedido.Add(pedido);
                 db.SaveChanges();
                 var prov = db.Proveedor.Find(pedido.IdProveedor);

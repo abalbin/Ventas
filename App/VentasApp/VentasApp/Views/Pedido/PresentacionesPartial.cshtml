@@ -6,20 +6,19 @@
 <table class="table table-striped data-table-simple">
     <thead>
         <tr>
-            <th>
-                Presentación
+            <th>Presentación
             </th>
             <th>Producto
             </th>
-            <th>
-                Precio
+            <th>Precio
             </th>
+            <th>Cantidad</th>
             <th></th>
         </tr>
     </thead>
     @foreach (var item in Model)
     {
-        total += item.Presentacion.Precio.Value;
+        total += (item.Presentacion.Precio.Value * item.Cantidad.Value);
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Presentacion.Nombre)
@@ -31,7 +30,10 @@
                 @Html.DisplayFor(modelItem => item.Presentacion.Precio)
             </td>
             <td>
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                @item.Cantidad
+            </td>
+            <td>
+                @Ajax.ActionLink("Eliminar", "RemovePresentacion", new { id = item.IdPresentacion }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "divPresentaciones" })
             </td>
         </tr>
     }
@@ -39,8 +41,9 @@
 </table>
 
 <span>
-    <strong>Monto Total:</strong> @Html.Label("PrecioTotal", total.ToString())
+    <strong>Monto Total:</strong> @total
 </span>
+@Html.Hidden("PrecioTotal", total)
 
 <script type="text/javascript">
     $(function () {
@@ -49,8 +52,9 @@
                            { "sTitle": "Nombre", "bSortable": true },
                            { "sTitle": "Producto", "bSortable": true },
                            { "sTitle": "Precio", "bSortable": true },
+                           { "sTitle": "Cantidad", "bSortable": true },
                            { "sTitle": null, "bSortable": false }
-                           ],
+            ],
             "oLanguage": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
