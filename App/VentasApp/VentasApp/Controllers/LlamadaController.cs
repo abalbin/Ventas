@@ -89,7 +89,8 @@ namespace VentasApp.Controllers
                         FechaPrevistaRellamada = Convert.ToDateTime(fechaStr),
                         IdFarmacia = llamada.IdFarmacia,
                         EsRellamada = true,
-                        IdLlamadaPadre = llamada.Id
+                        IdLlamadaPadre = llamada.Id,
+                        Observaciones = llamada.Observaciones
                     };
                     db.Llamada.Add(rellamada);
                     db.SaveChanges();
