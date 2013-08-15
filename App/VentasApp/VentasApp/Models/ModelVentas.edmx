@@ -192,6 +192,7 @@
           <Property Name="Nombre" Type="varchar" MaxLength="200" />
           <Property Name="IdProducto" Type="int" />
           <Property Name="Precio" Type="decimal" Scale="2" />
+          <Property Name="Codigo" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Presentacion_Pedido">
           <Key>
@@ -593,6 +594,7 @@
           <NavigationProperty Name="Producto" Relationship="VentasAppBDModel.FK_Presentacion_Producto" FromRole="Presentacion" ToRole="Producto" />
           <NavigationProperty Name="Campania" Relationship="VentasAppBDModel.FK_Campania_Presentacion" FromRole="Presentacion" ToRole="Campania" />
           <NavigationProperty Name="Presentacion_Pedido" Relationship="VentasAppBDModel.FK_Presentacion_Pedido_Presentacion" FromRole="Presentacion" ToRole="Presentacion_Pedido" />
+          <Property Type="String" Name="Codigo" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Linea">
           <Key>
@@ -946,6 +948,7 @@
           <EntitySetMapping Name="Presentacion">
             <EntityTypeMapping TypeName="VentasAppBDModel.Presentacion">
               <MappingFragment StoreEntitySet="Presentacion">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Precio" ColumnName="Precio" />
                 <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />

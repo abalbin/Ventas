@@ -682,51 +682,65 @@ namespace VentasApp.Controllers
                     xlPackage.Workbook.Properties.Company = "Unimed";
                     var ws = xlPackage.Workbook.Worksheets.Add(filenameComplemento);
 
-                    //Write header
-                    StyleSimpleHeaderReport(ws, 2, 2, 5);
-
-                    var Presentacion = ws.Cells[2, 2];
-                    var Proveedor = ws.Cells[2, 3];
-                    var Cantidad = ws.Cells[2, 4];
-                    var PrecioTotal = ws.Cells[2, 5];
-                    var Fecha = ws.Cells[2, 6];
-
-                    SetRichText(Presentacion, "Presentación");
-                    SetRichText(Proveedor, "Proveedor");
-                    SetRichText(Cantidad, "Cantidad");
-                    SetRichText(PrecioTotal, "Precio Total");
-                    SetRichText(Fecha, "Fecha");
-
                     //Write data
                     List<Pedido> listaPedidos = db.Pedido.Where(l => l.Fecha.Value.Year == year).OrderByDescending(f => f.Fecha).ToList();
                     if (modo == 2) listaPedidos = listaPedidos.Where(l => l.Fecha.Value.Month == month).ToList();
                     if (modo == 1) listaPedidos = listaPedidos.Where(l => l.Fecha.Value.Month == month && l.Fecha.Value.Day == day).ToList();
 
-                    StyleSimpleDataReport(ws, 2, 3, 5, listaPedidos.Count);
+                    int cursor = 1;
+                    int colCodigo = 2;
+                    int colProducto = 3;
+                    int colPresentacion = 4;
+                    int colCantidad = 5;
+                    int colPrecio = 6;
+                    int colSubtotal = 7;
 
-                    int colPresentacion = 2;
-                    int colProveedor = 3;
-                    int colCantidad = 4;
-                    int colPrecioTotal = 5;
-                    int colFecha = 6;
-
-                    for (int i = 3; i < listaPedidos.Count + 3; i++)
+                    foreach (var item in listaPedidos)
                     {
-                        // Pres
-                        //var PresentacionCell = ws.Cells[i, colPresentacion];
-                        //PresentacionCell.Value = string.Format("{0} - {1}", listaPedidos[i - 3].Presentacion.Producto.Nombre, listaPedidos[i - 3].Presentacion.Nombre);
-                        // Observaciones
-                        var ProveedorCell = ws.Cells[i, colProveedor];
-                        ProveedorCell.Value = listaPedidos[i - 3].Proveedor.Nombre;
-                        // Observaciones
-                        var PrecioTotalCell = ws.Cells[i, colPrecioTotal];
-                        PrecioTotalCell.Value = listaPedidos[i - 3].PrecioTotal == null ? "0" : listaPedidos[i - 3].PrecioTotal.ToString();
-                        // Observaciones
-                        //var CantidadCell = ws.Cells[i, colCantidad];
-                        //CantidadCell.Value = listaPedidos[i - 3].Cantidad;
-                        // Fecha
-                        var FechaCell = ws.Cells[i, colFecha];
-                        FechaCell.Value = listaPedidos[i - 3].Fecha.Value.ToString("dd-MM-yyyy");
+                        cursor++;
+                        ws.Cells[string.Format("B{0}:G{0}", cursor)].Merge = true;
+                        ws.Cells[cursor, 2].Value = string.Format("Pedido {0} - Farmacia: {1} (RUC: {2})", item.Fecha.Value.ToString("dd/MM/yyyy"), item.Farmacia.RazonSocial, item.Farmacia.Ruc);
+
+                        cursor++;
+                        StyleSimpleHeaderReport(ws, 2, cursor, 6);
+                        var hdrCodigo = ws.Cells[cursor, colCodigo];
+                        var hdrProducto = ws.Cells[cursor, colProducto];
+                        var hdrPresentacion = ws.Cells[cursor, colPresentacion];
+                        var hdrCantidad = ws.Cells[cursor, colCantidad];
+                        var hdrPrecio = ws.Cells[cursor, colPrecio];
+                        var hdrSubtotal = ws.Cells[cursor, colSubtotal];
+                        SetRichText(hdrCodigo, "Código");
+                        SetRichText(hdrProducto, "Producto");
+                        SetRichText(hdrPresentacion, "Presentación");
+                        SetRichText(hdrCantidad, "Cantidad");
+                        SetRichText(hdrPrecio, "Precio");
+                        SetRichText(hdrSubtotal, "Subtotal");
+
+                        cursor++;
+                        StyleSimpleDataReport(ws, 2, cursor, 6, item.Presentacion_Pedido.Count);
+                        foreach (var pres in item.Presentacion_Pedido)
+                        {
+                            var itemCodigoCell = ws.Cells[cursor, colCodigo];
+                            itemCodigoCell.Value = pres.Presentacion.Codigo;
+                            var itemProductoCell = ws.Cells[cursor, colProducto];
+                            itemProductoCell.Value = pres.Presentacion.Producto.Nombre;
+                            var itemPresentacionCell = ws.Cells[cursor, colPresentacion];
+                            itemPresentacionCell.Value = pres.Presentacion.Nombre;
+                            var itemCantidadCell = ws.Cells[cursor, colCantidad];
+                            itemCantidadCell.Value = pres.Cantidad;
+                            var itemPrecioCell = ws.Cells[cursor, colPrecio];
+                            itemPrecioCell.Value = pres.Presentacion.Precio;
+                            var itemSubtotalCell = ws.Cells[cursor, colSubtotal];
+                            itemSubtotalCell.Value = pres.Presentacion.Precio * pres.Cantidad;
+                            cursor++;
+                        }
+                        StyleSimpleFooterReport(ws, colPrecio, cursor, 2);
+                        var titleTotalCell = ws.Cells[cursor, colPrecio];
+                        titleTotalCell.Value = "TOTAL";
+                        var totalCell = ws.Cells[cursor, colSubtotal];
+                        totalCell.Value = item.PrecioTotal;
+
+                        cursor += 2;
                     }
                     //--------------
 

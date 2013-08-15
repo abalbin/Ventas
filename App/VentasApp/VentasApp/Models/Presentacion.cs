@@ -24,6 +24,7 @@ namespace VentasApp.Models
         public string Nombre { get; set; }
         public Nullable<int> IdProducto { get; set; }
         public Nullable<decimal> Precio { get; set; }
+        public string Codigo { get; set; }
     
         public virtual Producto Producto { get; set; }
         public virtual ICollection<Campania> Campania { get; set; }
