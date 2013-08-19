@@ -29,7 +29,11 @@ namespace VentasApp.Controllers
         public ActionResult Seguimiento()
         {
             var llamada = db.Llamada.Where(r => r.EsRellamada.Value);
-            var model = llamada.OrderByDescending(r => r.Fecha).ToList();
+            var all = llamada.OrderByDescending(r => r.FechaPrevistaRellamada).ToList();
+            DateTime now = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
+            var llamadasHoy = all.Where(r => r.FechaPrevistaRellamada.Value.Date.Equals(now.Date)).ToList();
+            all.RemoveAll(r => r.FechaPrevistaRellamada.Value.Date.Equals(now.Date));
+            var model = llamadasHoy.Concat(all);
             return View(model);
         }
 

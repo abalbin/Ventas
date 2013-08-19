@@ -52,7 +52,8 @@ $(function () {
         },
         "bJQueryUI": true,
         "sPaginationType": "full_numbers",
-        "sDom": '<""l>t<"F"fp>'
+        "sDom": '<""l>t<"F"fp>',
+        "aaSorting": []
     });
     $(".pagination").pagination({
         items: 100,

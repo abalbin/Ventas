@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Seguimiento";
+    DateTime now = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
 }
 @Styles.Render("~/Content/jpreloader")
 @Scripts.Render("~/bundles/jpreloader")
@@ -35,28 +36,29 @@
         </thead>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
+            bool hoy = item.FechaPrevistaRellamada.Value.Date.Equals(now.Date);
+            <tr class="@(hoy ? "light-blue-custom" : "")">
+                <td class="@(hoy ? "light-blue-custom" : "")">
                     @Html.DisplayFor(modelItem => item.Farmacia.RazonSocial)
                     <br />
                     <small class="table-cell-info"><i class="icon-phone"></i>@item.Farmacia.Telefono</small>
                 </td>
-                <td>
+                <td class="@(hoy ? "light-blue-custom" : "")">
                     @Html.DisplayFor(modelItem => item.Farmacia.Ruc)
                 </td>
-                <td>
+                <td class="@(hoy ? "light-blue-custom" : "")">
                     @Html.DisplayFor(modelItem => item.Observaciones)
                 </td>
-                <td>
+                <td class="@(hoy ? "light-blue-custom" : "")">
                     @(item.Fecha.HasValue ? item.Fecha.Value.ToString("dd/MM/yyyy") : "Pendiente")
                 </td>
-                <td>
+                <td class="@(hoy ? "light-blue-custom" : "")">
                     @(item.FechaPrevistaRellamada.HasValue ? item.FechaPrevistaRellamada.Value.ToString("dd/MM/yyyy HH:mm") : "No tiene")
                 </td>
-                <td>
+                <td class="@(hoy ? "light-blue-custom" : "")">
                     @(item.Estado != null ? item.Estado.Nombre : "No asignado")
                 </td>
-                <td>
+                <td class="@(hoy ? "light-blue-custom" : "")">
                     @Html.ActionLink("Editar", "EditSeguimiento", new { id = item.Id }) 
                 </td>
             </tr>
