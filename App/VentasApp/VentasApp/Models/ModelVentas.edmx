@@ -193,15 +193,17 @@
           <Property Name="IdProducto" Type="int" />
           <Property Name="Precio" Type="decimal" Scale="2" />
           <Property Name="Codigo" Type="varchar" MaxLength="50" />
+          <Property Name="Descuento" Type="decimal" Scale="2" />
         </EntityType>
         <EntityType Name="Presentacion_Pedido">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="IdPresentacion" Type="int" Nullable="false" />
           <Property Name="IdPedido" Type="int" Nullable="false" />
+          <Property Name="IdCampania" Type="int" />
           <Property Name="Cantidad" Type="int" />
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -595,6 +597,7 @@
           <NavigationProperty Name="Campania" Relationship="VentasAppBDModel.FK_Campania_Presentacion" FromRole="Presentacion" ToRole="Campania" />
           <NavigationProperty Name="Presentacion_Pedido" Relationship="VentasAppBDModel.FK_Presentacion_Pedido_Presentacion" FromRole="Presentacion" ToRole="Presentacion_Pedido" />
           <Property Type="String" Name="Codigo" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="Descuento" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Linea">
           <Key>
@@ -793,6 +796,7 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Pedido" Relationship="VentasAppBDModel.FK_Presentacion_Pedido_Pedido" FromRole="Presentacion_Pedido" ToRole="Pedido" />
           <NavigationProperty Name="Presentacion" Relationship="VentasAppBDModel.FK_Presentacion_Pedido_Presentacion" FromRole="Presentacion_Pedido" ToRole="Presentacion" />
+          <Property Type="Int32" Name="IdCampania" />
         </EntityType>
         <Association Name="FK_Pedido_Estado">
           <End Type="VentasAppBDModel.Estado" Role="Estado" Multiplicity="0..1" />
@@ -948,6 +952,7 @@
           <EntitySetMapping Name="Presentacion">
             <EntityTypeMapping TypeName="VentasAppBDModel.Presentacion">
               <MappingFragment StoreEntitySet="Presentacion">
+                <ScalarProperty Name="Descuento" ColumnName="Descuento" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Precio" ColumnName="Precio" />
                 <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
@@ -1054,6 +1059,7 @@
           <EntitySetMapping Name="Presentacion_Pedido">
             <EntityTypeMapping TypeName="VentasAppBDModel.Presentacion_Pedido">
               <MappingFragment StoreEntitySet="Presentacion_Pedido">
+                <ScalarProperty Name="IdCampania" ColumnName="IdCampania" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />

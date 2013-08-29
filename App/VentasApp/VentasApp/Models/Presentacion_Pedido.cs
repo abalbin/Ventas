@@ -18,6 +18,7 @@ namespace VentasApp.Models
         public int IdPedido { get; set; }
         public Nullable<int> Cantidad { get; set; }
         public int Id { get; set; }
+        public Nullable<int> IdCampania { get; set; }
     
         public virtual Pedido Pedido { get; set; }
         public virtual Presentacion Presentacion { get; set; }
