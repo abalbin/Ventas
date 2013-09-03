@@ -6,11 +6,12 @@
 <table class="table table-striped data-table-simple">
     <thead>
         <tr>
-            <th>Presentación
-            </th>
-            <th>Producto
+            <th>Nombre
             </th>
             <th>Precio
+            </th>
+            <th>
+                Dscto.
             </th>
             <th>Cantidad</th>
             <th></th>
@@ -21,13 +22,13 @@
         total += (item.Presentacion.Precio.Value * item.Cantidad.Value);
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Presentacion.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Presentacion.Producto.Nombre)
+                @string.Format("{0} - {1}", item.Presentacion.Producto.Nombre, item.Presentacion.Nombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Presentacion.Precio)
+            </td>
+            <td>
+                @string.Format("{0}%", item.Presentacion.Descuento)
             </td>
             <td>
                 @item.Cantidad
@@ -50,9 +51,9 @@
         $('.data-table-simple').dataTable({
             "aoColumns": [
                            { "sTitle": "Nombre", "bSortable": true },
-                           { "sTitle": "Producto", "bSortable": true },
-                           { "sTitle": "Precio", "bSortable": true },
-                           { "sTitle": "Cantidad", "bSortable": true },
+                           { "sTitle": "Precio", "bSortable": false },
+                           { "sTitle": "Dscto.", "bSortable": false },
+                           { "sTitle": "Cantidad", "bSortable": false },
                            { "sTitle": null, "bSortable": false }
             ],
             "oLanguage": {
