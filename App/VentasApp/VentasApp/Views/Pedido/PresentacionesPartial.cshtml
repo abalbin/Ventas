@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<VentasApp.Models.Presentacion_Pedido>
+@using VentasApp.Helpers
 @{
     decimal total = 0;
 }
@@ -14,12 +15,14 @@
             </th>
             <th>Cantidad</th>
             <th>S. Total</th>
+            <th>Camp.</th>
             <th></th>
         </tr>
     </thead>
     @foreach (var item in Model)
     {
         total += (item.Presentacion.Precio.Value * item.Cantidad.Value * (100 - item.Presentacion.Descuento.Value) / 100);
+        var textoCampania = (item.IdCampania == null || item.IdCampania == 0) ? "Seleccionar" : item.Campania.Nombre;
         <tr>
             <td>
                 @string.Format("{0} - {1}", item.Presentacion.Producto.Nombre, item.Presentacion.Nombre)
@@ -36,8 +39,16 @@
             <td>
                 @(decimal.Round(Convert.ToDecimal(item.Cantidad * item.Presentacion.Precio * (100 - item.Presentacion.Descuento) / 100), 2))
             </td>
+            <td class="table-op">
+                @Ajax.ActionLink(textoCampania, "SelectCampaniaPartial", "Pedido", new { id = item.IdPresentacion }, new AjaxOptions() { HttpMethod = "Get", OnSuccess = "showModalSelectCampania", UpdateTargetId = "modal-selCampania" }, new { @title = "Seleccionar Campaña" })
+                @if (textoCampania != "Seleccionar")
+                {
+                    @Ajax.ContentActionLink(@"<i class=""icon-remove""></i>", "RemoveCampaniaOffPresentacion", "Pedido", new { id = item.IdPresentacion }, new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "divPresentaciones" }, new { @title = "Quitar Campaña", @class = "icon-op-hidden icon-op" }) 
+                }
+            </td>
             <td>
-                @Ajax.ActionLink("Eliminar", "RemovePresentacion", new { id = item.IdPresentacion }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "divPresentaciones" })
+                @Ajax.ContentActionLink(@"<i class=""icon-remove""></i>", "RemovePresentacion", "Pedido", new { id = item.IdPresentacion }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "divPresentaciones" }, new { @class = "icon-op" })
+
             </td>
         </tr>
     }
@@ -58,6 +69,7 @@
                            { "sTitle": "Dscto.", "bSortable": false },
                            { "sTitle": "Cant.", "bSortable": false },
                            { "sTitle": "S. Total", "bSortable": false },
+                           { "sTitle": "Camp.", "bSortable": false },
                            { "sTitle": null, "bSortable": false }
             ],
             "oLanguage": {

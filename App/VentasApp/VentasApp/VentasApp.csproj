@@ -640,6 +640,7 @@
     <Content Include="Views\Campania\Delete.cshtml" />
     <Content Include="Views\Pedido\PresentacionesPartial.cshtml" />
     <Content Include="Views\Pedido\CampaniasPartial.cshtml" />
+    <Content Include="Views\Pedido\SelectCampaniaPartial.cshtml" />
     <None Include="Web.ReleaseUnimed.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -683,6 +684,12 @@
     <EmbeddedResource Include="Migrations\201303072030057_TestsAppBD.resx">
       <DependentUpon>201303072030057_TestsAppBD.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VentasApp.Helpers\VentasApp.Helpers.csproj">
+      <Project>{7061113f-f0d4-41d2-b015-58311c7013c0}</Project>
+      <Name>VentasApp.Helpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

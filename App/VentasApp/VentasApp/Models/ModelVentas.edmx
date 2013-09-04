@@ -70,6 +70,10 @@
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
+          <AssociationSet Name="FK_Presentacion_Pedido_Campania" Association="VentasAppBDModel.Store.FK_Presentacion_Pedido_Campania">
+            <End Role="Campania" EntitySet="Campania" />
+            <End Role="Presentacion_Pedido" EntitySet="Presentacion_Pedido" />
+          </AssociationSet>
           <AssociationSet Name="FK_Presentacion_Pedido_Pedido" Association="VentasAppBDModel.Store.FK_Presentacion_Pedido_Pedido">
             <End Role="Pedido" EntitySet="Pedido" />
             <End Role="Presentacion_Pedido" EntitySet="Presentacion_Pedido" />
@@ -395,6 +399,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Presentacion_Pedido_Campania">
+          <End Role="Campania" Type="VentasAppBDModel.Store.Campania" Multiplicity="0..1" />
+          <End Role="Presentacion_Pedido" Type="VentasAppBDModel.Store.Presentacion_Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campania">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Presentacion_Pedido">
+              <PropertyRef Name="IdCampania" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Presentacion_Pedido_Pedido">
           <End Role="Pedido" Type="VentasAppBDModel.Store.Pedido" Multiplicity="1" />
           <End Role="Presentacion_Pedido" Type="VentasAppBDModel.Store.Presentacion_Pedido" Multiplicity="*" />
@@ -521,6 +537,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Presentacion_Pedido_Presentacion" Association="VentasAppBDModel.FK_Presentacion_Pedido_Presentacion">
             <End Role="Presentacion" EntitySet="Presentacion" />
+            <End Role="Presentacion_Pedido" EntitySet="Presentacion_Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Presentacion_Pedido_Campania" Association="VentasAppBDModel.FK_Presentacion_Pedido_Campania">
+            <End Role="Campania" EntitySet="Campania" />
             <End Role="Presentacion_Pedido" EntitySet="Presentacion_Pedido" />
           </AssociationSet>
           </EntityContainer>
@@ -753,6 +773,7 @@
           <Property Type="DateTime" Name="Fecha" Precision="3" />
           <Property Type="Boolean" Name="Vigente" />
           <NavigationProperty Name="Presentacion" Relationship="VentasAppBDModel.FK_Campania_Presentacion" FromRole="Campania" ToRole="Presentacion" />
+          <NavigationProperty Name="Presentacion_Pedido" Relationship="VentasAppBDModel.FK_Presentacion_Pedido_Campania" FromRole="Campania" ToRole="Presentacion_Pedido" />
         </EntityType>
         <Association Name="FK_Campania_Presentacion">
           <End Type="VentasAppBDModel.Presentacion" Role="Presentacion" Multiplicity="0..1" />
@@ -797,6 +818,7 @@
           <NavigationProperty Name="Pedido" Relationship="VentasAppBDModel.FK_Presentacion_Pedido_Pedido" FromRole="Presentacion_Pedido" ToRole="Pedido" />
           <NavigationProperty Name="Presentacion" Relationship="VentasAppBDModel.FK_Presentacion_Pedido_Presentacion" FromRole="Presentacion_Pedido" ToRole="Presentacion" />
           <Property Type="Int32" Name="IdCampania" />
+          <NavigationProperty Name="Campania" Relationship="VentasAppBDModel.FK_Presentacion_Pedido_Campania" FromRole="Presentacion_Pedido" ToRole="Campania" />
         </EntityType>
         <Association Name="FK_Pedido_Estado">
           <End Type="VentasAppBDModel.Estado" Role="Estado" Multiplicity="0..1" />
@@ -879,6 +901,18 @@
             </Principal>
             <Dependent Role="Presentacion_Pedido">
               <PropertyRef Name="IdPresentacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Presentacion_Pedido_Campania">
+          <End Type="VentasAppBDModel.Campania" Role="Campania" Multiplicity="0..1" />
+          <End Type="VentasAppBDModel.Presentacion_Pedido" Role="Presentacion_Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campania">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Presentacion_Pedido">
+              <PropertyRef Name="IdCampania" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

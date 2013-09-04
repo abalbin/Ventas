@@ -22,5 +22,6 @@ namespace VentasApp.Models
     
         public virtual Pedido Pedido { get; set; }
         public virtual Presentacion Presentacion { get; set; }
+        public virtual Campania Campania { get; set; }
     }
 }

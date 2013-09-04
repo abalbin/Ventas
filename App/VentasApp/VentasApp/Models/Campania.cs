@@ -14,6 +14,11 @@ namespace VentasApp.Models
     
     public partial class Campania
     {
+        public Campania()
+        {
+            this.Presentacion_Pedido = new HashSet<Presentacion_Pedido>();
+        }
+    
         public int Id { get; set; }
         public string Nombre { get; set; }
         public Nullable<int> IdPresentacion { get; set; }
@@ -21,5 +26,6 @@ namespace VentasApp.Models
         public Nullable<bool> Vigente { get; set; }
     
         public virtual Presentacion Presentacion { get; set; }
+        public virtual ICollection<Presentacion_Pedido> Presentacion_Pedido { get; set; }
     }
 }
