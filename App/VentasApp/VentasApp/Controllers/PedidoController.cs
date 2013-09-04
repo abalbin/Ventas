@@ -75,6 +75,43 @@ namespace VentasApp.Controllers
             return View();
         }
 
+        public ActionResult SelectCampaniaPartial(int id = 0)
+        {
+            if (id > 0)
+            {
+                List<Campania> lista = db.Campania.Where(c => c.IdPresentacion == id && c.Vigente.Value).ToList();
+                return PartialView(lista);
+            }
+            return HttpNotFound();
+        }
+
+        public ActionResult AddCampaniaToPresentacion(int idCampania = 0, int idPresentacion = 0)
+        {
+            List<Presentacion_Pedido> lista = Session["Presentaciones"] as List<Presentacion_Pedido>;
+            var item = lista.Find(p => p.IdPresentacion == idPresentacion);
+            if (item != null)
+            {
+                item.IdCampania = idCampania;
+                var camp = db.Campania.Find(idCampania);
+                item.Campania = new Campania() { Nombre = camp.Nombre };
+                return PartialView("PresentacionesPartial", Session["Presentaciones"]);
+            }
+            return HttpNotFound();
+        }
+
+        public ActionResult RemoveCampaniaOffPresentacion(int id = 0)
+        {
+            List<Presentacion_Pedido> lista = Session["Presentaciones"] as List<Presentacion_Pedido>;
+            var item = lista.Find(p => p.IdPresentacion == id);
+            if (item != null)
+            {
+                item.IdCampania = null;
+                item.Campania = null;
+                return PartialView("PresentacionesPartial", Session["Presentaciones"]);
+            }
+            return HttpNotFound();
+        }
+
         public ActionResult AddPresentacion(int idPresentacion = 0, int cantidad = 0)
         {
             List<Presentacion_Pedido> lista = Session["Presentaciones"] as List<Presentacion_Pedido>;
@@ -113,9 +150,16 @@ namespace VentasApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                pedido.Presentacion_Pedido = Session["Presentaciones"] as List<Presentacion_Pedido>;
+                
                 db.Pedido.Add(pedido);
                 db.SaveChanges();
+                var listaPrestPedido = Session["Presentaciones"] as List<Presentacion_Pedido>;
+                foreach (var item in listaPrestPedido)
+                {
+                    db.Presentacion_Pedido.Add(new Presentacion_Pedido() { IdPresentacion = item.IdPresentacion, IdPedido = pedido.Id, IdCampania = item.IdCampania, Cantidad = item.Cantidad });
+                }
+                db.SaveChanges();
+                pedido.Presentacion_Pedido = listaPrestPedido;
                 var prov = db.Proveedor.Find(pedido.IdProveedor);
                 //var pres = db.Presentacion.Find(pedido.IdPresentacion);
                 pedido.Proveedor = prov;
@@ -168,7 +212,7 @@ namespace VentasApp.Controllers
             var listaSession = new List<Presentacion_Pedido>();
             foreach (var item in listPresentaciones)
             {
-                var pres = new Presentacion_Pedido() { Presentacion = item.Presentacion, Cantidad = item.Cantidad };
+                var pres = new Presentacion_Pedido() { IdPresentacion = item.IdPresentacion, Presentacion = item.Presentacion, Cantidad = item.Cantidad, IdCampania = item.IdCampania, Campania = new Campania() { Id = item.Campania.Id, Nombre = item.Campania.Nombre } };
                 listaSession.Add(pres);
             }
             Session["Presentaciones"] = listaSession;
@@ -195,8 +239,11 @@ namespace VentasApp.Controllers
                 }
                 db.SaveChanges();
                 db.Entry(pedido).State = EntityState.Modified;
-                pedido.Presentacion_Pedido = Session["Presentaciones"] as List<Presentacion_Pedido>;
-                
+                var listaPrestPedido = Session["Presentaciones"] as List<Presentacion_Pedido>;
+                foreach (var item in listaPrestPedido)
+                {
+                    db.Presentacion_Pedido.Add(new Presentacion_Pedido() { IdPresentacion = item.IdPresentacion, IdPedido = pedido.Id, IdCampania = item.IdCampania, Cantidad = item.Cantidad });
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

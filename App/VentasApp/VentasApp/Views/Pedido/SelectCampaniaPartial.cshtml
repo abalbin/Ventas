@@ -1,0 +1,71 @@
+﻿@model IEnumerable<VentasApp.Models.Campania>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Seleccionar Campaña</h3>
+</div>
+<div class="modal-body" id="body-modalSelCampania">
+    <div class="row-fluid">
+        <div class="span12">
+            <table class="table table-striped data-table-selcampania">
+                <thead>
+                    <tr>
+                        <th>Nombre
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {        
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Ajax.ActionLink("Agregar", "AddCampaniaToPresentacion", "Pedido", new { idCampania = item.Id, idPresentacion = item.IdPresentacion }, new AjaxOptions() { HttpMethod = "Get", OnSuccess = "hideModalSelectCampania", UpdateTargetId = "divPresentaciones" }, new { @title = "Seleccionar", @class = "btn btn-small" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+</div>
+
+<script type="text/javascript">
+    $('.data-table-selcampania').dataTable({
+        "aoColumns": [
+                       { "sTitle": "Nombre", "bSortable": true },
+                       { "sTitle": null, "bSortable": false }
+        ],
+        "oLanguage": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "No existen campañas vigentes",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        "bJQueryUI": true,
+        "sPaginationType": "full_numbers",
+        "sDom": 't'
+    });
+</script>

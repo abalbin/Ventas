@@ -126,8 +126,18 @@
     </div>
 }
 
+<div id="modal-selCampania" class="modal hide fade">
+    @Html.Partial("SelectCampaniaPartial", new List<VentasApp.Models.Campania>())
+</div>
+
 @section Scripts{
     <script type="text/javascript">
+        function showModalSelectCampania() {
+            $('#modal-selCampania').modal('show');
+        }
+        function hideModalSelectCampania() {
+            $('#modal-selCampania').modal('hide');
+        }
         $(function () {
             $("#ddlFarmacia").change(
             function () {
