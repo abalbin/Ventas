@@ -10,16 +10,16 @@
             </th>
             <th>Precio
             </th>
-            <th>
-                Dscto.
+            <th>Dscto.
             </th>
             <th>Cantidad</th>
+            <th>S. Total</th>
             <th></th>
         </tr>
     </thead>
     @foreach (var item in Model)
     {
-        total += (item.Presentacion.Precio.Value * item.Cantidad.Value);
+        total += (item.Presentacion.Precio.Value * item.Cantidad.Value * (100 - item.Presentacion.Descuento.Value) / 100);
         <tr>
             <td>
                 @string.Format("{0} - {1}", item.Presentacion.Producto.Nombre, item.Presentacion.Nombre)
@@ -34,6 +34,9 @@
                 @item.Cantidad
             </td>
             <td>
+                @(decimal.Round(Convert.ToDecimal(item.Cantidad * item.Presentacion.Precio * (100 - item.Presentacion.Descuento) / 100), 2))
+            </td>
+            <td>
                 @Ajax.ActionLink("Eliminar", "RemovePresentacion", new { id = item.IdPresentacion }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "divPresentaciones" })
             </td>
         </tr>
@@ -42,7 +45,7 @@
 </table>
 
 <span>
-    <strong>Monto Total:</strong> @total
+    <strong>Monto Total:</strong> @decimal.Round((decimal)total, 2)
 </span>
 @Html.Hidden("PrecioTotal", total)
 
@@ -53,7 +56,8 @@
                            { "sTitle": "Nombre", "bSortable": true },
                            { "sTitle": "Precio", "bSortable": false },
                            { "sTitle": "Dscto.", "bSortable": false },
-                           { "sTitle": "Cantidad", "bSortable": false },
+                           { "sTitle": "Cant.", "bSortable": false },
+                           { "sTitle": "S. Total", "bSortable": false },
                            { "sTitle": null, "bSortable": false }
             ],
             "oLanguage": {
