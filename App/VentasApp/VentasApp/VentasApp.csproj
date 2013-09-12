@@ -643,6 +643,7 @@
     <Content Include="Views\Pedido\SelectCampaniaPartial.cshtml" />
     <None Include="Web.ReleaseUnimed.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

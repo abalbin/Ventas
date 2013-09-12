@@ -164,7 +164,7 @@ namespace VentasApp.Controllers
                 //var pres = db.Presentacion.Find(pedido.IdPresentacion);
                 pedido.Proveedor = prov;
                 //pedido.Presentacion = pres;
-                EnviarAlertaPedido(pedido);
+                //EnviarAlertaPedido(pedido);
                 return RedirectToAction("Index");
             }
 
@@ -212,7 +212,7 @@ namespace VentasApp.Controllers
             var listaSession = new List<Presentacion_Pedido>();
             foreach (var item in listPresentaciones)
             {
-                var pres = new Presentacion_Pedido() { IdPresentacion = item.IdPresentacion, Presentacion = item.Presentacion, Cantidad = item.Cantidad, IdCampania = item.IdCampania, Campania = new Campania() { Id = item.Campania.Id, Nombre = item.Campania.Nombre } };
+                var pres = new Presentacion_Pedido() { IdPresentacion = item.IdPresentacion, Presentacion = item.Presentacion, Cantidad = item.Cantidad, IdCampania = item.IdCampania, Campania = item.Campania == null ? null : new Campania() { Id = item.Campania.Id, Nombre = item.Campania.Nombre } };
                 listaSession.Add(pres);
             }
             Session["Presentaciones"] = listaSession;
