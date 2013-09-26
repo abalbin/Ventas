@@ -42,19 +42,60 @@
                                                 <table width="100%" cellspacing="0" cellpadding="0" border="0" style="BORDER-LEFT: #cccccc 1px solid; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 12px; BORDER-TOP: #cccccc 1px solid; BORDER-RIGHT: #cccccc 1px solid">
                                                     <tbody>
                                                         <tr>
-                                                            <td width="155" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>PRODUCTO</strong></td>
-                                                            <td width="45" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>PRESENTACIÓN</strong></td>
-                                                            <td width="102" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>CANTIDAD</strong></td>
-
+                                                            <td width="155" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>NOMBRE</strong></td>
+                                                            <td width="45" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>PRECIO</strong></td>
+                                                            <td width="102" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>DSCTO.</strong></td>
+                                                            <td width="102" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>CANT.</strong></td>
+                                                            <td width="102" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>S. TOTAL</strong></td>
+                                                            <td width="102" valign="top" bgcolor="#ebebeb" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px"><strong>CAMPAÑA</strong></td>
                                                         </tr>
                                                         @foreach (var item in Model.Presentacion_Pedido)
-                                                        { 
+                                                        {
+                                                            var textoCampania = (item.IdCampania == null || item.IdCampania == 0) ? "---" : item.Campania.Nombre;
                                                             <tr>
-                                                                <td width="155" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@item.Presentacion.Producto.Nombre</td>
-                                                                <td width="45" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@item.Presentacion.Nombre</td>
+                                                                <td width="155" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@string.Format("{0} - {1}", item.Presentacion.Producto.Nombre, item.Presentacion.Nombre)</td>
+                                                                <td width="45" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@item.Presentacion.Precio</td>
+                                                                <td width="102" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@string.Format("{0}%", item.Presentacion.Descuento)</td>
                                                                 <td width="102" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@item.Cantidad</td>
+                                                                <td width="102" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@(decimal.Round(Convert.ToDecimal(item.Cantidad * item.Presentacion.Precio * (100 - item.Presentacion.Descuento) / 100), 2))</td>
+                                                                <td width="102" valign="top" bgcolor="#f8f8f8" style="BORDER-BOTTOM: #cccccc 1px solid; PADDING-BOTTOM: 8px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 10px">@textoCampania</td>
                                                             </tr>
                                                         }
+                                                    </tbody>
+                                                </table>
+                                                <br />
+                                                <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="100" align="left">
+                                                                <p style="PADDING-TOP: 20px; PADDING-BOTTOM: 6px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 16px; PADDING-TOP: 0px"><strong>Farmacia:</strong></p>
+                                                            </td>
+                                                            <td>
+                                                                <p style="PADDING-TOP: 20px; PADDING-BOTTOM: 6px; MARGIN: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 16px; PADDING-TOP: 0px">
+                                                                    @string.Format("{0} (RUC: {1})", Model.Farmacia.RazonSocial, Model.Farmacia.Ruc)
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="100" align="left">
+                                                                <p style="PADDING-TOP: 20px; PADDING-BOTTOM: 6px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 16px; PADDING-TOP: 0px"><strong>Observaciones:</strong></p>
+                                                            </td>
+                                                            <td>
+                                                                <p style="PADDING-TOP: 20px; PADDING-BOTTOM: 6px; MARGIN: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 16px; PADDING-TOP: 0px">
+                                                                    @Model.Comentario
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="100" align="left">
+                                                                <p style="PADDING-TOP: 20px; PADDING-BOTTOM: 6px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 16px; PADDING-TOP: 0px"><strong>Forma de Pago:</strong></p>
+                                                            </td>
+                                                            <td>
+                                                                <p style="PADDING-TOP: 20px; PADDING-BOTTOM: 6px; MARGIN: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; FONT-FAMILY: Arial, Helvetica, sans-serif; COLOR: #333333; FONT-SIZE: 16px; PADDING-TOP: 0px">
+                                                                    @Model.FormaPago.Nombre
+                                                                </p>
+                                                            </td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                                 <br>
