@@ -651,7 +651,7 @@ namespace VentasApp.Controllers
                         FarmaciaCell.Value = listaLlamadas[i - 3].Farmacia == null ? "No registrada" : listaLlamadas[i - 3].Farmacia.RazonComercial == null ? "No registrada" : listaLlamadas[i - 3].Farmacia.RazonComercial.Trim();
                         // Observaciones
                         var ObservacionesCell = ws.Cells[i, colNObservaciones];
-                        ObservacionesCell.Value = listaLlamadas[i - 3].Observaciones.Trim();
+                        ObservacionesCell.Value = listaLlamadas[i - 3].Observaciones != null ? listaLlamadas[i - 3].Observaciones.Trim() : string.Empty;
                         // Fecha
                         var FechaCell = ws.Cells[i, colFecha];
                         FechaCell.Value = listaLlamadas[i - 3].Fecha.Value.ToString("dd-MM-yyyy");
@@ -690,34 +690,40 @@ namespace VentasApp.Controllers
                     int cursor = 1;
                     int colCodigo = 2;
                     int colProducto = 3;
-                    int colPresentacion = 4;
-                    int colCantidad = 5;
-                    int colPrecio = 6;
-                    int colSubtotal = 7;
+                    int colPresentacion = 4;                    
+                    int colPrecio = 5;
+                    int colDescuento = 6;
+                    int colCantidad = 7;
+                    int colSubtotal = 8;
+                    int colCampania = 9;
 
                     foreach (var item in listaPedidos)
                     {
                         cursor++;
-                        ws.Cells[string.Format("B{0}:G{0}", cursor)].Merge = true;
+                        ws.Cells[string.Format("B{0}:I{0}", cursor)].Merge = true;
                         ws.Cells[cursor, 2].Value = string.Format("Pedido {0} - Farmacia: {1} (RUC: {2})", item.Fecha.Value.ToString("dd/MM/yyyy"), item.Farmacia.RazonSocial, item.Farmacia.Ruc);
 
                         cursor++;
-                        StyleSimpleHeaderReport(ws, 2, cursor, 6);
+                        StyleSimpleHeaderReport(ws, 2, cursor, 8);
                         var hdrCodigo = ws.Cells[cursor, colCodigo];
                         var hdrProducto = ws.Cells[cursor, colProducto];
                         var hdrPresentacion = ws.Cells[cursor, colPresentacion];
                         var hdrCantidad = ws.Cells[cursor, colCantidad];
                         var hdrPrecio = ws.Cells[cursor, colPrecio];
+                        var hdrDescuento = ws.Cells[cursor, colDescuento];
                         var hdrSubtotal = ws.Cells[cursor, colSubtotal];
+                        var hdrCampania = ws.Cells[cursor, colCampania];
                         SetRichText(hdrCodigo, "Código");
                         SetRichText(hdrProducto, "Producto");
                         SetRichText(hdrPresentacion, "Presentación");
                         SetRichText(hdrCantidad, "Cantidad");
                         SetRichText(hdrPrecio, "Precio");
+                        SetRichText(hdrDescuento, "Descuento");
                         SetRichText(hdrSubtotal, "Subtotal");
+                        SetRichText(hdrCampania, "Campaña");
 
                         cursor++;
-                        StyleSimpleDataReport(ws, 2, cursor, 6, item.Presentacion_Pedido.Count);
+                        StyleSimpleDataReport(ws, 2, cursor, 8, item.Presentacion_Pedido.Count);
                         foreach (var pres in item.Presentacion_Pedido)
                         {
                             var itemCodigoCell = ws.Cells[cursor, colCodigo];
@@ -730,14 +736,18 @@ namespace VentasApp.Controllers
                             itemCantidadCell.Value = pres.Cantidad;
                             var itemPrecioCell = ws.Cells[cursor, colPrecio];
                             itemPrecioCell.Value = pres.Presentacion.Precio;
+                            var itemDescuentoCell = ws.Cells[cursor, colDescuento];
+                            itemDescuentoCell.Value = string.Format("{0}%", pres.Presentacion.Descuento);
                             var itemSubtotalCell = ws.Cells[cursor, colSubtotal];
-                            itemSubtotalCell.Value = pres.Presentacion.Precio * pres.Cantidad;
+                            itemSubtotalCell.Value = decimal.Round(Convert.ToDecimal(pres.Cantidad * pres.Presentacion.Precio * (100 - pres.Presentacion.Descuento) / 100), 2);
+                            var itemCampaniaCell = ws.Cells[cursor, colCampania];
+                            itemCampaniaCell.Value = (pres.IdCampania == null || pres.IdCampania == 0) ? string.Empty : pres.Campania.Nombre;
                             cursor++;
                         }
-                        StyleSimpleFooterReport(ws, colPrecio, cursor, 2);
-                        var titleTotalCell = ws.Cells[cursor, colPrecio];
+                        StyleSimpleFooterReport(ws, colSubtotal, cursor, 2);
+                        var titleTotalCell = ws.Cells[cursor, colSubtotal];
                         titleTotalCell.Value = "TOTAL";
-                        var totalCell = ws.Cells[cursor, colSubtotal];
+                        var totalCell = ws.Cells[cursor, colCampania];
                         totalCell.Value = item.PrecioTotal;
 
                         cursor += 2;
@@ -745,7 +755,7 @@ namespace VentasApp.Controllers
                     //--------------
 
                     //Autosize columns
-                    for (int i = 2; i <= 8; i++)
+                    for (int i = 2; i <= 10; i++)
                         ws.Column(i).AutoFit();
                     //----------------
                     return File(xlPackage.GetAsByteArray(), "application/excel", filename);

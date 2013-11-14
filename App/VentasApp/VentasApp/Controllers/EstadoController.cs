@@ -1,11 +1,13 @@
 ﻿using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using VentasApp.Filters;
 using VentasApp.Models;
 
 namespace VentasApp.Controllers
 {
+    [InitializeSimpleMembership]
+    [Authorize]
     public class EstadoController : Controller
     {
         private Entities db = new Entities();

@@ -9,12 +9,12 @@ using VentasApp.Models.ViewModels;
 
 namespace VentasApp.Controllers
 {
+    [InitializeSimpleMembership]
+    [Authorize]
     public class HomeController : Controller
     {
         private Entities db = new Entities();
 
-        [Authorize]
-        [InitializeSimpleMembership]
         public ActionResult Index()
         {
             var model = new HomeViewModel();
